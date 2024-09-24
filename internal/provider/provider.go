@@ -16,6 +16,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/experimental/nullable"
 	"github.com/hashicorp/terraform-provider-aws/internal/service/autoscaling"
+	"github.com/hashicorp/terraform-provider-aws/internal/service/backup"
 	"github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 	"github.com/hashicorp/terraform-provider-aws/internal/service/eks"
 	"github.com/hashicorp/terraform-provider-aws/internal/service/elbv2"
@@ -288,11 +289,11 @@ func Provider() *schema.Provider {
 			// "aws_autoscaling_groups": autoscaling.DataSourceGroups(),
 			// "aws_launch_configuration": autoscaling.DataSourceLaunchConfiguration(),
 
-			// "aws_backup_framework":   backup.DataSourceFramework(),
-			// "aws_backup_plan":        backup.DataSourcePlan(),
-			// "aws_backup_report_plan": backup.DataSourceReportPlan(),
-			// "aws_backup_selection":   backup.DataSourceSelection(),
-			// "aws_backup_vault":       backup.DataSourceVault(),
+			//"aws_backup_framework":   backup.DataSourceFramework(),
+			"aws_backup_plan": backup.DataSourcePlan(),
+			//"aws_backup_report_plan": backup.DataSourceReportPlan(),
+			"aws_backup_selection": backup.DataSourceSelection(),
+			"aws_backup_vault":     backup.DataSourceVault(),
 			//
 			// "aws_batch_compute_environment": batch.DataSourceComputeEnvironment(),
 			// "aws_batch_job_queue":           batch.DataSourceJobQueue(),
@@ -835,16 +836,17 @@ func Provider() *schema.Provider {
 
 			// "aws_autoscalingplans_scaling_plan": autoscalingplans.ResourceScalingPlan(),
 			//
-			// "aws_backup_framework":                backup.ResourceFramework(),
-			// "aws_backup_global_settings":          backup.ResourceGlobalSettings(),
-			// "aws_backup_plan":                     backup.ResourcePlan(),
-			// "aws_backup_region_settings":          backup.ResourceRegionSettings(),
-			// "aws_backup_report_plan":              backup.ResourceReportPlan(),
-			// "aws_backup_selection":                backup.ResourceSelection(),
-			// "aws_backup_vault":                    backup.ResourceVault(),
-			// "aws_backup_vault_lock_configuration": backup.ResourceVaultLockConfiguration(),
-			// "aws_backup_vault_notifications":      backup.ResourceVaultNotifications(),
-			// "aws_backup_vault_policy":             backup.ResourceVaultPolicy(),
+			//"aws_backup_framework":                backup.ResourceFramework(),
+			//"aws_backup_global_settings":          backup.ResourceGlobalSettings(),
+			"aws_backup_plan": backup.ResourcePlan(),
+			//"aws_backup_region_settings":          backup.ResourceRegionSettings(),
+			//"aws_backup_report_plan":              backup.ResourceReportPlan(),
+			"aws_backup_selection":     backup.ResourceSelection(),
+			"aws_backup_vault_default": backup.ResourceDefaultVault(),
+			//"aws_backup_vault":     backup.ResourceVault(),
+			//"aws_backup_vault_lock_configuration": backup.ResourceVaultLockConfiguration(),
+			//"aws_backup_vault_notifications":      backup.ResourceVaultNotifications(),
+			//"aws_backup_vault_policy":             backup.ResourceVaultPolicy(),
 			//
 			// "aws_batch_compute_environment": batch.ResourceComputeEnvironment(),
 			// "aws_batch_job_definition":      batch.ResourceJobDefinition(),
