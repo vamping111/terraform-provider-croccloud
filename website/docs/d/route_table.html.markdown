@@ -1,7 +1,7 @@
 ---
 subcategory: "VPC (Virtual Private Cloud)"
 layout: "aws"
-page_title: "AWS: aws_route_table"
+page_title: "aws_route_table"
 description: |-
     Provides details about a specific Route Table
 ---
@@ -62,9 +62,9 @@ In addition to the arguments above, the following attributes are exported:
 * `routes` - List of routes with attributes detailed below.
 
 ->  **Unsupported attributes**
-These attributes are currently unsupported by CROC Cloud:
+These attributes are currently unsupported:
 
-* `owner_id` - ID of the CROC Cloud account that owns the route table. Always `""`.
+* `owner_id` - The ID of the project that owns the route table. Always `""`.
 
 ### routes
 
@@ -75,7 +75,7 @@ For destinations:
 * `cidr_block` - CIDR block of the route.
 
 ->  **Unsupported attributes**
-These attributes are currently unsupported by CROC Cloud:
+These attributes are currently unsupported:
 
 * `destination_prefix_list_id` - ID of a managed prefix list destination of the route. Always `""`.
 * `ipv6_cidr_block` - The IPv6 CIDR block of the route. Always `""`.
@@ -85,16 +85,16 @@ For targets:
 * `gateway_id` - ID of the Internet Gateway or Virtual Private Gateway.
 * `instance_id` - ID of the EC2 instance.
 * `network_interface_id` - ID of the EC2 network interface.
+* `transit_gateway_id` - The ID of the transit gateway.
 
 ->  **Unsupported attributes**
-These attributes are currently unsupported by CROC Cloud:
+These attributes are currently unsupported:
 
 * `carrier_gateway_id` - ID of the Carrier Gateway. Always `""`.
 * `core_network_arn` - ARN of the core network. Always `""`.
 * `egress_only_gateway_id` - ID of the Egress Only Internet Gateway. Always `""`.
 * `local_gateway_id` - Local Gateway ID. Always `""`.
 * `nat_gateway_id` - NAT Gateway ID. Always `""`.
-* `transit_gateway_id` - EC2 Transit Gateway ID. Always `""`.
 * `vpc_endpoint_id` - VPC Endpoint ID. Always `""`.
 * `vpc_peering_connection_id` - VPC Peering ID. Always `""`.
 

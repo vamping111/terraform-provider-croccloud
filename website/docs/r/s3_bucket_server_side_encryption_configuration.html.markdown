@@ -1,12 +1,15 @@
 ---
 subcategory: "S3 (Simple Storage)"
 layout: "aws"
-page_title: "AWS: aws_s3_bucket_server_side_encryption_configuration"
+page_title: "aws_s3_bucket_server_side_encryption_configuration"
 description: |-
   Provides a S3 bucket server-side encryption configuration resource.
 ---
 
 # Resource: aws_s3_bucket_server_side_encryption_configuration
+
+->  **Unsupported resource**
+This resource is currently unsupported.
 
 Provides a S3 bucket server-side encryption configuration resource.
 
@@ -20,6 +23,10 @@ resource "aws_kms_key" "mykey" {
 
 resource "aws_s3_bucket" "mybucket" {
   bucket = "mybucket"
+
+  # Use the predefined provider configuration to connect to object storage
+  # https://docs.cloud.croc.ru/en/api/tools/terraform.html#providers-tf
+  provider = aws.noregion
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "example" {

@@ -1,4 +1,4 @@
-name: Run tests
+name: Release of the provider
 
 on:
     push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
     tests:
-        runs-on: ubuntu
+        runs-on: ubuntu-22.04
         steps:
         - uses: actions/checkout@v3
 
@@ -25,4 +25,3 @@ jobs:
             env:
               GITHUB_TOKEN: ${{ secrets.AUTOMATION_PAT }}
               GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
-

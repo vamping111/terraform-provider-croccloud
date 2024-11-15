@@ -1,7 +1,7 @@
 ---
 subcategory: "VPC (Virtual Private Cloud)"
 layout: "aws"
-page_title: "AWS: aws_route"
+page_title: "aws_route"
 description: |-
     Provides details about a specific Route
 ---
@@ -47,9 +47,10 @@ The following arguments are optional:
 * `gateway_id` - (Optional) Gateway ID of the Route belonging to the Route Table.
 * `instance_id` - (Optional) Instance ID of the Route belonging to the Route Table.
 * `network_interface_id` - (Optional) Network Interface ID of the Route belonging to the Route Table.
+* `transit_gateway_id` - (Optional) The ID of the transit gateway.
 
 ->  **Unsupported arguments**
-These arguments are currently unsupported by CROC Cloud:
+These arguments are currently unsupported:
 
 * `carrier_gateway_id` - ID of a carrier gateway. Always `""`.
 * `core_network_arn` - ARN of a core network. Always `""`.
@@ -58,7 +59,6 @@ These arguments are currently unsupported by CROC Cloud:
 * `egress_only_gateway_id` - ID of a VPC Egress Only Internet Gateway. Always `""`.
 * `local_gateway_id` - ID of an Outpost local gateway. Always `""`.
 * `nat_gateway_id` - ID of a VPC NAT gateway. Always `""`.
-* `transit_gateway_id` - ID of an EC2 Transit Gateway. Always `""`.
 * `vpc_endpoint_id` - ID of a VPC Endpoint. Always `""`.
 * `vpc_peering_connection_id` - ID of a VPC peering connection. Always `""`.
 

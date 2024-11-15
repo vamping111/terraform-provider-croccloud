@@ -1,7 +1,7 @@
 ---
 subcategory: "VPN (Site-to-Site)"
 layout: "aws"
-page_title: "AWS: aws_customer_gateway"
+page_title: "aws_customer_gateway"
 description: |-
   Provides a customer gateway inside a VPC. These objects can be
   connected to VPN gateways via VPN connections, and allow you to
@@ -32,7 +32,7 @@ The following arguments are supported:
 
 * `bgp_asn` - (Required) The gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
 * `ip_address` - (Required) The IP address of the gateway's Internet-routable external interface.
-* `type` - (Required) The type of customer gateway. Possible values: `ipsec.1`, `ipsec.legacy`.
+* `type` - (Required) The type of customer gateway. Valid values are `ipsec.1`, `ipsec.legacy`.
 * `tags` - (Optional) Tags to apply to the gateway. If configured with a provider [`default_tags` configuration block][default-tags] present, tags with matching keys will overwrite those defined at the provider-level.
 
 ## Attributes Reference
@@ -44,7 +44,7 @@ In addition to all arguments above, the following attributes are exported:
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
 ->  **Unsupported attributes**
-These exported attributes are currently unsupported by CROC Cloud:
+These exported attributes are currently unsupported:
 
 * `certificate_arn` - The Amazon Resource Name (ARN) for the customer gateway certificate. Always `""`.
 * `device_name` - A name for the customer gateway device. Always `""`.
