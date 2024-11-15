@@ -1,7 +1,7 @@
 ---
 subcategory: "VPC (Virtual Private Cloud)"
 layout: "aws"
-page_title: "AWS: aws_subnet"
+page_title: "aws_subnet"
 description: |-
   Provides an VPC subnet resource.
 ---
@@ -37,8 +37,9 @@ The following arguments are supported:
 
 * `availability_zone` - (Optional) AZ for the subnet.
 * `cidr_block` - (Required) The IPv4 CIDR block for the subnet.
-* `vpc_id` - (Required) The VPC ID.
+* `map_public_ip_on_launch` - (Optional) Indicates whether public IP addresses will be associated with instances created in this subnet. Addresses are associated only if there are available allocated Elastic IP addresses. Default is `false`.
 * `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block][default-tags] present, tags with matching keys will overwrite those defined at the provider-level.
+* `vpc_id` - (Required) The VPC ID.
 
 ## Attributes Reference
 
@@ -48,7 +49,7 @@ In addition to all arguments above, the following attributes are exported:
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
 ->  **Unsupported attributes**
-These exported attributes are currently unsupported by CROC Cloud:
+These exported attributes are currently unsupported:
 
 * `arn` - ARN of the subnet. Always `""`.
 * `assign_ipv6_address_on_creation` - Whether an IPv6 address is assigned on creation. Always `false`.
@@ -60,9 +61,8 @@ These exported attributes are currently unsupported by CROC Cloud:
 * `ipv6_cidr_block_association_id` - Association ID of the IPv6 CIDR block. Always `""`.
 * `ipv6_native` - Indicates whether this is an IPv6-only subnet. Always `false`.
 * `map_customer_owned_ip_on_launch` - Whether customer owned IP addresses are assigned on network interface creation. Always `false`.
-* `map_public_ip_on_launch` - Whether public IP addresses are assigned on instance launch. Always `false`.
 * `outpost_arn` - ARN of the Outpost. Always `""`.
-* `owner_id` - ID of the CROC Cloud account that owns the subnet. Always `""`.
+* `owner_id` - The ID of the project that owns the subnet. Always `""`.
 * `private_dns_hostname_type_on_launch` - The type of hostnames assigned to instances in the subnet at launch. Always `""`.
 
 ## Timeouts
