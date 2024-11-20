@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>How We Prioritize - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/contributing/prioritization.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#how-we-prioritize" class="nav-link">How We Prioritize</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#intro" class="nav-link">Intro</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#prioritization" class="nav-link">Prioritization</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="how-we-prioritize">How We Prioritize<a class="headerlink" href="#how-we-prioritize" title="Permanent link">#</a></h1>
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">#</a></h2>
+<h3 id="what-this-document-is">What this document is<a class="headerlink" href="#what-this-document-is" title="Permanent link">#</a></h3>
+<p>This document describes how we handle prioritization of work from a variety of input sources. Our focus is always to deliver tangible value to the practitioner on a predictable and frequent schedule, and we feel it is important to be transparent in how we weigh input in order to deliver on this goal.</p>
+<h3 id="what-this-document-is-not">What this document is not<a class="headerlink" href="#what-this-document-is-not" title="Permanent link">#</a></h3>
+<p>Due to the variety of input sources, the scale of the provider, and resource constraints, it is impossible to give a hard number on how each of the factors outlined in this document are weighted. Instead, the goal of the document is to give a transparent, but generalized assessment of each of the sources of input so that the community has a better idea of why things are prioritized the way they are. Additional information may be found in the <a href="https://github.com/hashicorp/terraform-provider-aws/blob/main/docs/contributing/faq.md#how-do-you-decide-what-gets-merged-for-each-release">FAQ</a>.</p>
+<h2 id="prioritization">Prioritization<a class="headerlink" href="#prioritization" title="Permanent link">#</a></h2>
+<p>We prioritze work based on a number of factors, including community feedback, issue/PR reactions, as well as the source of the request. While community feedback is heavily weighted, there are times where other factors take precedence. By their nature, some factors are less visible to the community, and so are outlined here as a way to be as transparent as possible. Each of the sources of input are detailed below.</p>
+<h3 id="community">Community<a class="headerlink" href="#community" title="Permanent link">#</a></h3>
+<p>Our large community of practitioners are vocal and immensely productive in contributing to the provider codebase. Unfortunately our current team capacity means that we are unable to give every issue or pull request the same level of attention. This means we need to prioritize the issues that provide the most value to the greatest number of practitioners.</p>
+<p>We will always focus on the issues which have the most attention. The main rubric we have for assessing community wants is GitHub reactions. In addition to reactions, we look at comments, reactions to comments, and links to additional issues and PRs to help get a more holistic view of where the community stands. We try to ensure that for the issues where we have the most community support, we are responsive to that support and attempt to give timelines where-ever possible.</p>
+<h3 id="customer">Customer<a class="headerlink" href="#customer" title="Permanent link">#</a></h3>
+<p>Another source of work that must be weighted are escalations around particular feature requests and bugs from HashiCorp and AWS customers. Escalations typically come via several routes:</p>
+<ul>
+<li>Customer Support</li>
+<li>Sales Engineering</li>
+<li>AWS Solutions Architects contacting us on behalf of their clients.</li>
+</ul>
+<p>These reports flow into an internal board and are triaged on a weekly basis to determine whether the escalation request should be prioritized for an upcoming release or added to the backlog to monitor for additional community support. During triage, we verify whether a GitHub issue or PR exists for the request and will create one if it does not exist. In this way, these requests are visible to the community to some degree. An escalation coming from a customer does not necessarily guarantee that it will be prioritized over requests made by the community. Instead, we assess them based on the following rubric:</p>
+<ul>
+<li>Does the issue have considerable community support?</li>
+<li>Does the issue pertain to one of our <a href="https://github.com/hashicorp/terraform-provider-aws/blob/main/docs/contributing/core-services.md">Core Services</a>?</li>
+</ul>
+<p>By weighing these factors, we can make a call to determine whether, and how it is to be prioritized.</p>
+<h3 id="partner">Partner<a class="headerlink" href="#partner" title="Permanent link">#</a></h3>
+<p>AWS Service Teams and Partner representatives regularly contact us to discuss upcoming features or new services. This work is often done under an NDA, so usually needs to be done in private. Often the ask is to enable Terraform support or an upcoming feature or service.</p>
+<p>As with customer escalations, a request from a partner does not necessarily mean that it will be prioritized over other efforts; capacity restraints require us to prioritize major releases or prefer offerings in line with our <a href="https://github.com/hashicorp/terraform-provider-aws/blob/main/docs/contributing/core-services.md">core services</a>.</p>
+<h3 id="internal">Internal<a class="headerlink" href="#internal" title="Permanent link">#</a></h3>
+<h3 id="sdkcore-updates">SDK/Core Updates<a class="headerlink" href="#sdkcore-updates" title="Permanent link">#</a></h3>
+<p>We endeavor to keep in step with all minor SDK releases, so these are automatically pulled in by our GitHub automation. Major releases normally include breaking changes and usually require us to bump the provider itself to a major version. We plan to make one major version change a year and try to avoid any more than that.</p>
+<h3 id="technical-debt">Technical Debt<a class="headerlink" href="#technical-debt" title="Permanent link">#</a></h3>
+<p>We always include capacity for technical debt work in every iteration, but engineers are free to include minor tech debt work on their own recognizance. For larger items, these are discussed and prioritized in an internal meeting aimed at reviewing technical debt.</p>
+<h3 id="adverse-user-experience-or-security-vulnerabilities">Adverse User Experience or Security Vulnerabilities<a class="headerlink" href="#adverse-user-experience-or-security-vulnerabilities" title="Permanent link">#</a></h3>
+<p>Issues with the provider that provide a poor user experience (bugs, crashes), or involve a threat to security are always prioritized for inclusion. The severity of these will determine how soon they are included for release.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Roadmap: February 2022 - April 2022 - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/roadmaps/2022_February_to_April.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#roadmap-february-2022-april-2022" class="nav-link">Roadmap: February 2022 - April 2022</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#new-services" class="nav-link">New Services</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#enhancements-to-existing-services" class="nav-link">Enhancements to Existing Services</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#research-topics" class="nav-link">Research Topics</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#disclosures" class="nav-link">Disclosures</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="roadmap-february-2022-april-2022">Roadmap:  February 2022 - April 2022<a class="headerlink" href="#roadmap-february-2022-april-2022" title="Permanent link">#</a></h1>
+<p>Every few months, the team will highlight areas of focus for our work and upcoming research.</p>
+<p>We select items for inclusion in the roadmap from the Top Community Issues, <a href="../../contributing/core-services/">Core Services</a>, and internal priorities. Where community sourced contributions exist we will work with the authors to review and merge their work. Where this does not exist or the original contributors are not available we will create the resources and implementation ourselves.</p>
+<p>Each weekly release will include necessary tasks that lead to the completion of the stated goals as well as community pull requests, enhancements, and features that are not highlighted in the roadmap. To view all the items we've prioritized for this quarter, please see the <a href="https://github.com/hashicorp/terraform-provider-aws/milestone/138">Roadmap milestone</a>.</p>
+<p>This roadmap does not describe all the work that will be included within this timeframe, but it does describe our focus. We will include other work as events occur.</p>
+<p>In the period spanning November 2021 to Janury 2022, 668 Pull Requests were opened in the provider and 730 were closed/merged, adding support for:</p>
+<ul>
+<li>Managing Amazon CloudSearch Domains</li>
+<li>ECS Task Sets</li>
+<li>S3 Intelligent Tiering Archive Configuration</li>
+<li>IoT Thing Group</li>
+<li>Lambda Access Points for S3</li>
+<li>ECR Public Repositories</li>
+</ul>
+<p>From February ‘22 - April ‘22, we will be prioritizing the following areas of work:</p>
+<h2 id="new-services">New Services<a class="headerlink" href="#new-services" title="Permanent link">#</a></h2>
+<h3 id="aws-appflow">AWS AppFlow<a class="headerlink" href="#aws-appflow" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/16253">#16253</a></p>
+<p><em><a href="https://aws.amazon.com/appflow/">Amazon AppFlow</a> is a fully managed integration service that enables you to securely transfer data between Software-as-a-Service (SaaS) applications</em></p>
+<p>Support for Amazon AppFlow will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li><code>aws_appflow_flow</code></li>
+<li><code>aws_appflow_connector_profile</code></li>
+</ul>
+<h3 id="amazon-global-networks">Amazon Global Networks<a class="headerlink" href="#amazon-global-networks" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/11132">#11132</a></p>
+<p><em>A <a href="https://docs.aws.amazon.com/vpc/latest/tgwnm/global-networks.html">Global Network</a> is a container for your network objects. After you create it, you can register your transit gateways and define your on-premises networks in the global network.</em></p>
+<p>Support for Global Networks will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li><code>aws_networkmanager_global_network</code></li>
+<li><code>aws_networkmanager_site</code></li>
+<li><code>aws_networkmanager_link</code></li>
+<li><code>aws_networkmanager_device</code></li>
+<li><code>aws_networkmanager_transit_gateway_registration</code></li>
+</ul>
+<h3 id="amazon-opensearch-service">Amazon OpenSearch Service<a class="headerlink" href="#amazon-opensearch-service" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/20853">#20853</a></p>
+<p><em><a href="https://aws.amazon.com/opensearch-service/">Amazon OpenSearch Service</a> is a distributed, open-source search and analytics suite used for a broad set of use cases like real-time application monitoring, log analytics, and website search</em></p>
+<p>Affected Resource(s):</p>
+<ul>
+<li><code>aws_elasticsearch_domain</code></li>
+</ul>
+<h3 id="amazon-managed-grafana">Amazon Managed Grafana<a class="headerlink" href="#amazon-managed-grafana" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/16789">#16789</a></p>
+<p><em><a href="https://aws.amazon.com/grafana">Amazon Managed Grafana</a> is a fully managed service for open source Grafana that enables you to query, visualize, alert on and understand your metrics.</em></p>
+<p>Support for Amazon Managed Grafana will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li><code>aws_grafana_workspace</code></li>
+<li><code>aws_grafana_license_association</code></li>
+</ul>
+<h2 id="enhancements-to-existing-services">Enhancements to Existing Services<a class="headerlink" href="#enhancements-to-existing-services" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/507">changing identifier in RDS (aws_db_instance) will destroy/create the db</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/5278">Terraform fails to destroy autoscaling group if scale in protection is enabled</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/11456">Implement support for time based retention policies in DLM</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/13593">Cannot destroy attached security groups</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/18311">default_tags always shows an update</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/17948">AWS Synthetics Canary Missing support for Environment Variables</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/10715">Add retry handling when a request's connection is reset by peer</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/16708">resource/aws_db_instance: Should support enabling cross-region automated backups</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/88">Feature Request: Support Route53 Domains</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/6193">import aws_s3_bucket does not store important attributes like acl</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/20328">Add user_group argument to aws_elasticache_replication_group</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/7761">aws_lb_listener_certificate not destroyed upon "force new resource"</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/9338">AWS ACM Expected certificate to be issued but was in state PENDING_VALIDATION</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/10429">Feature Request: Dynamic Security Group Association for VPC Endpoint Interface</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/11787">Inconsistency in AWS Terraform provider with aws_lambda_function</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/21546">aws_wafv2_web_acl: managed-rule-group-statement is missing Version option</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/11120">Transit Gateway multicast support</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/12146">S3 bucket slow to delete when destroyed during an apply</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/5557">aws_elasticsearch_domain cognito_options cause Cycle Error</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/7283">data source for aws_iam_saml_provider</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/20956">Amazon MSK multiple authentication modes and updates to TLS encryption settings</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/19593">Support cold storage option for aws_elasticsearch_domain config</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/7782">aws_sns_topic_subscription doesn't support unconfirmed endpoints</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/12639">Add Radius support for aws_directory_service_directory</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/20942">New resource <code>aws_kafkaconnect_connector</code></a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/pull/22097">aws_rds_cluster_activity_stream</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/16717">Amazon EMR on Amazon EKS</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/16347">Add destination metrics for Replication rule</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/3851">add domain validation options parameter to aws_acm_certificate</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/2083">Support Starting AWS Database Migration Service Replication Task</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/13933">Feature Request: DynamoDB CloudWatch Contributor Insights</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/2727">Feature request: Support Api Gateway Canary release</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/2236">DMS task modification lifecycle</a></li>
+</ul>
+<h2 id="research-topics">Research Topics<a class="headerlink" href="#research-topics" title="Permanent link">#</a></h2>
+<p>Research topics include features, architectural changes, and ideas that we are pursuing in the longer term that may significantly impact the core user experience of the AWS provider. Research topics are discovery only and are not guaranteed to be included in a future release.</p>
+<h3 id="scaffolding-for-new-resources-datasources-and-associated-tests">Scaffolding for new resources, datasources and associated tests<a class="headerlink" href="#scaffolding-for-new-resources-datasources-and-associated-tests" title="Permanent link">#</a></h3>
+<p>Adding resources, datasources and test files to the provider is a repetitive task which should be automated to ensure consistency and speed up contributor and maintainer workflow. A simple cli tool should be able to generate these files in place, and ensure that any code reference additions required (ie adding to <code>provider.go</code>) are performed as part of the process.</p>
+<h2 id="disclosures">Disclosures<a class="headerlink" href="#disclosures" title="Permanent link">#</a></h2>
+<p>The product-development initiatives in this document reflect HashiCorp's current plans and are subject to change and/or cancellation in HashiCorp's sole discretion.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

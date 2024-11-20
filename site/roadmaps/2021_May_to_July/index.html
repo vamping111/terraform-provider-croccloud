@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Roadmap: May 2021 - July 2021 - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/roadmaps/2021_May_to_July.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#roadmap-may-2021-july-2021" class="nav-link">Roadmap: May 2021 - July 2021</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#new-services" class="nav-link">New Services</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#enhancements-to-existing-services" class="nav-link">Enhancements to Existing Services</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#core-service-reliability" class="nav-link">Core Service Reliability</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#research-topics" class="nav-link">Research Topics</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#disclosures" class="nav-link">Disclosures</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="roadmap-may-2021-july-2021">Roadmap:  May 2021 - July 2021<a class="headerlink" href="#roadmap-may-2021-july-2021" title="Permanent link">#</a></h1>
+<p>Every few months, the team will highlight areas of focus for our work and upcoming research.</p>
+<p>We select items for inclusion in the roadmap from the Top 10 Community Issues, <a href="../../contributing/core-services/">Core Services</a>, and internal priorities. Where community sourced contributions exist we will work with the authors to review and merge their work. Where this does not exist or the original contributors are not available we will create the resources and implementation ourselves.</p>
+<p>Each weekly release will include necessary tasks that lead to the completion of the stated goals as well as community pull requests, enhancements, and features that are not highlighted in the roadmap. To view all the items we've prioritized for this quarter, please see the <a href="https://github.com/hashicorp/terraform-provider-aws/milestone/138">Roadmap milestone</a>.</p>
+<p>This roadmap does not describe all the work that will be included within this timeframe, but it does describe our focus. We will include other work as events occur .</p>
+<p>In the period spanning February to April 2021 846 Pull Requests were opened in the provider and 947 were merged, adding support for:</p>
+<ul>
+<li>Default Tags</li>
+<li>CloudFront Origin Request and Cache Policies</li>
+<li>Cloudwatch Synthetics</li>
+<li>SecurityHub</li>
+<li>Elasticache Global Replication Group</li>
+<li>ACM Private Certificate Authorities</li>
+<li>Managed Workflows for Apache Airflow</li>
+<li>Managed Add Ons for EKS</li>
+<li>ECR Cross Region Replication</li>
+<li>SNS FIFO Topics</li>
+<li>EC2 Autoscaling Warm Pools</li>
+</ul>
+<p>Among many other enhancements, bug fixes and resolutions to technical debt items.</p>
+<p>From May-July ‘21, we will be prioritizing the following areas of work:</p>
+<h2 id="new-services">New Services<a class="headerlink" href="#new-services" title="Permanent link">#</a></h2>
+<h3 id="aws-amplify">AWS Amplify<a class="headerlink" href="#aws-amplify" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/6917">#6917</a></p>
+<p><em>AWS Amplify is a set of tools and services that can be used together or on their own, to help front-end web and mobile developers build scalable full stack applications, powered by AWS. With Amplify, you can configure app backends and connect your app in minutes, deploy static web apps in a few clicks, and easily manage app content outside the AWS console.</em>
+Support for AWS Amplify will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li>aws_amplify_app</li>
+<li>aws_amplify_backend_environment</li>
+<li>aws_amplify_branch</li>
+<li>aws_amplify_domain_association</li>
+<li>aws_amplify_webhook</li>
+</ul>
+<h3 id="amazon-timestream">Amazon Timestream<a class="headerlink" href="#amazon-timestream" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/15421">#15421</a></p>
+<p><em>Amazon Timestream is a fast, scalable, and serverless time series database service for IoT and operational applications that makes it easy to store and analyze trillions of events per day up to 1,000 times faster and at as little as 1/10th the cost of relational databases. Amazon Timestream saves you time and cost in managing the lifecycle of time series data, and its purpose-built query engine lets you access and analyze recent and historical data together with a single query. Amazon Timestream has built-in time series analytics functions, helping you identify trends and patterns in near real-time. Amazon Timestream is serverless and automatically scales up or down to adjust capacity and performance, so you don’t need to manage the underlying infrastructure, freeing you to focus on building your applications.</em></p>
+<p>Support for Amazon Timestream will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li>aws_timestreamwrite_database</li>
+</ul>
+<h3 id="aws-appconfig">AWS AppConfig<a class="headerlink" href="#aws-appconfig" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/11973">#11973</a></p>
+<p><em>Use AWS AppConfig, a capability of AWS Systems Manager, to create, manage, and quickly deploy application configurations. You can use AWS AppConfig with applications hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS Lambda, containers, mobile applications, or IoT devices.</em></p>
+<p>Support for AWS AppConfig will include:</p>
+<p>New Resource(s)</p>
+<ul>
+<li>aws_appconfig_application</li>
+<li>aws_appconfig_configuration_profile</li>
+<li>aws_appconfig_deployment_strategy</li>
+<li>aws_appconfig_environment</li>
+<li>aws_appconfig_deployment</li>
+</ul>
+<h2 id="enhancements-to-existing-services">Enhancements to Existing Services<a class="headerlink" href="#enhancements-to-existing-services" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/15788">AWS Transfer Server: Attach VPC security groups at creation</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/4264">EC2 Launch Templates</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/16259">AWS Elasticsearch Native SAML for Kibana</a></li>
+</ul>
+<h2 id="core-service-reliability">Core Service Reliability<a class="headerlink" href="#core-service-reliability" title="Permanent link">#</a></h2>
+<p>Core Services are areas of high usage or strategic importance for our users. We strive to offer rock solid reliability in these areas. This quarter we will have a focus on S3. We will be preparing a wholesale re-design of the <code>aws_s3_bucket</code> resource that we are planning to introduce in our major version release (v4.0) this year. Our focus will be on understanding how we can better break up the currently monolithic S3 bucket resource.</p>
+<h2 id="research-topics">Research Topics<a class="headerlink" href="#research-topics" title="Permanent link">#</a></h2>
+<p>Research topics include features, architectural changes, and ideas that we are pursuing in the longer term that may significantly impact the core user experience of the AWS provider. Research topics are discovery only and are not guaranteed to be included in a future release.</p>
+<p>We are interested in your thoughts and feedback about the proposals below and encourage you to comment on the linked issues or schedule time with @maryelizbeth via the link on her GitHub profile to discuss.</p>
+<ul>
+<li>Major Version Planning (v4.0) including wholesale redesign of the aws_s3_bucket resource to break it up into more manageable resources.</li>
+<li>AWS Go SDK v2 Adoption</li>
+<li>Test Discovery - Enable the automation of running the correct subset of acceptance tests for a given PR.</li>
+</ul>
+<h2 id="disclosures">Disclosures<a class="headerlink" href="#disclosures" title="Permanent link">#</a></h2>
+<p>The product-development initiatives in this document reflect HashiCorp's current plans and are subject to change and/or cancellation in HashiCorp's sole discretion.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

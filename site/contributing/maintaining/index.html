@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Maintaining the Terraform AWS Provider - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/contributing/maintaining.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#maintaining-the-terraform-aws-provider" class="nav-link">Maintaining the Terraform AWS Provider</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#community-maintainers" class="nav-link">Community Maintainers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#triage" class="nav-link">Triage</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#pull-requests" class="nav-link">Pull Requests</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#breaking-changes" class="nav-link">Breaking Changes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#branch-dictionary" class="nav-link">Branch Dictionary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#environment-variable-dictionary" class="nav-link">Environment Variable Dictionary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#label-dictionary" class="nav-link">Label Dictionary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#release-process" class="nav-link">Release Process</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="maintaining-the-terraform-aws-provider">Maintaining the Terraform AWS Provider<a class="headerlink" href="#maintaining-the-terraform-aws-provider" title="Permanent link">#</a></h1>
+<!-- TOC depthFrom:2 -->
+
+<ul>
+<li><a href="#pull-requests">Pull Requests</a><ul>
+<li><a href="#pull-request-review-process">Pull Request Review Process</a><ul>
+<li><a href="#dependency-updates">Dependency Updates</a><ul>
+<li><a href="#go-default-version-update">Go Default Version Update</a></li>
+<li><a href="#aws-go-sdk-updates">AWS Go SDK Updates</a></li>
+<li><a href="#golangci-lint-updates">golangci-lint Updates</a></li>
+<li><a href="#terraform-plugin-sdk-updates">Terraform Plugin SDK Updates</a></li>
+<li><a href="#tfproviderdocs-updates">tfproviderdocs Updates</a></li>
+<li><a href="#tfproviderlint-updates">tfproviderlint Updates</a></li>
+<li><a href="#yamlv2-updates">yaml.v2 Updates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#pull-request-merge-process">Pull Request Merge Process</a></li>
+</ul>
+</li>
+<li><a href="#breaking-changes">Breaking Changes</a></li>
+<li><a href="#branch-dictionary">Branch Dictionary</a></li>
+<li><a href="#environment-variable-dictionary">Environment Variable Dictionary</a></li>
+<li><a href="#label-dictionary">Label Dictionary</a></li>
+<li><a href="#release-process">Release Process</a></li>
+</ul>
+<!-- /TOC -->
+
+<h2 id="community-maintainers">Community Maintainers<a class="headerlink" href="#community-maintainers" title="Permanent link">#</a></h2>
+<p>Members of the community who participate in any aspects of maintaining the provider must adhere to the HashiCorp <a href="https://www.hashicorp.com/community-guidelines">Community Guidelines</a>.</p>
+<h2 id="triage">Triage<a class="headerlink" href="#triage" title="Permanent link">#</a></h2>
+<p>Incoming issues are classified using labels. These are assigned either by automation, or manually during the triage process. We follow a two-label system where we classify by type and by the area of the provider they affect. A full listing of the labels and how they are used can be found in the <a href="#label-dictionary">Label Dictionary</a>.</p>
+<h2 id="pull-requests">Pull Requests<a class="headerlink" href="#pull-requests" title="Permanent link">#</a></h2>
+<h3 id="pull-request-review-process">Pull Request Review Process<a class="headerlink" href="#pull-request-review-process" title="Permanent link">#</a></h3>
+<p>Throughout the review process our first priority is to interact with contributors with kindness, empathy and in accordance with the <a href="https://www.hashicorp.com/community-guidelines">Guidelines</a> and <a href="https://www.hashicorp.com/our-principles/">Principles</a> of Hashicorp.</p>
+<p>Our contributors are often working within the provider as a hobby, or not in their main line of work so we need to give adequate time for response. By default this is a week, but it is worth considering taking on the work to complete the PR ourselves if the administrative effort of waiting for a response is greater than just resolving the issues ourselves (Don't wait the week, or add a context shift for yourself and the contributor to fix a typo). As long as we use their commits, contributions will be recorded by Github and as always ensure to thank the contributor for their work. Roadmap items are another area where we would consider taking on the work ourselves more quickly in order to meet the commitments made to our users.</p>
+<p>Notes for each type of pull request are (or will be) available in subsections below.</p>
+<ul>
+<li>If you plan to be responsible for the pull request through the merge/closure process, assign it to yourself</li>
+<li>Add <code>bug</code>, <code>enhancement</code>, <code>new-data-source</code>, <code>new-resource</code>, or <code>technical-debt</code> labels to match expectations from change</li>
+<li>Perform a quick scan of open issues and ensure they are referenced in the pull request description (e.g., <code>Closes #1234</code>, <code>Relates #5678</code>). Edit the description yourself and mention this to the author:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>This pull request appears to be related to/solve <span class="ni">#1234</span>, so I have edited the pull request description to denote the issue reference.
+</code></pre></div>
+<ul>
+<li>Review the contents of the pull request and ensure the change follows the relevant section of the <a href="../contribution-checklists/">Contributing Guide</a></li>
+<li>If the change is not acceptable, leave a long form comment about the reasoning and close the pull request</li>
+<li>If the change is acceptable with modifications, leave a pull request review marked using the <code>Request Changes</code> option (for maintainer pull requests with minor modification requests, giving feedback with the <code>Approve</code> option is recommended so they do not need to wait for another round of review)</li>
+<li>If the author is unresponsive for changes (by default we give two weeks), determine importance and level of effort to finish the pull request yourself including their commits or close the pull request</li>
+<li>Run relevant acceptance testing (<a href="../running-and-writing-acceptance-tests/">locally</a> or in TeamCity) against AWS Commercial and AWS GovCloud (US) to ensure no new failures are being introduced</li>
+<li>Approve the pull request with a comment outlining what steps you took that ensure the change is acceptable, e.g., acceptance testing output</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Looks good, thanks <span class="ni">@username</span>! :rocket:
+
+Output from acceptance testing in AWS Commercial:
+
+<span class="sb">```</span>
+<span class="sb">--- PASS: TestAcc...</span>
+<span class="sb">--- PASS: TestAcc...</span>
+<span class="sb">```</span>
+
+Output from acceptance testing in AWS GovCloud (US):
+
+<span class="sb">```</span>
+<span class="sb">--- PASS: TestAcc...</span>
+<span class="sb">--- PASS: TestAcc...</span>
+<span class="sb">```</span>
+</code></pre></div>
+<h4 id="dependency-updates">Dependency Updates<a class="headerlink" href="#dependency-updates" title="Permanent link">#</a></h4>
+<h5 id="go-default-version-update">Go Default Version Update<a class="headerlink" href="#go-default-version-update" title="Permanent link">#</a></h5>
+<p>This project typically upgrades its Go version for development and testing shortly after release to get the latest and greatest Go functionality. Before beginning the update process, ensure that you review the new version release notes to look for any areas of possible friction when updating.</p>
+<p>Create an issue to cover the update noting down any areas of particular interest or friction.</p>
+<p>Ensure that the following steps are tracked within the issue and completed within the resulting pull request.</p>
+<ul>
+<li>Update go version in <code>go.mod</code></li>
+<li>Verify <code>make test lint</code> works as expected</li>
+<li>Verify <code>goreleaser build --snapshot</code> succeeds for all currently supported architectures</li>
+<li>Verify <code>goenv</code> support for the new version</li>
+<li>Update <code>development-environment.md</code></li>
+<li>Update <code>.go-version</code></li>
+<li>Update <code>CHANGELOG.md</code> detailing the update and mention any notes practitioners need to be aware of.</li>
+</ul>
+<p>See <a href="https://github.com/hashicorp/terraform-provider-aws/issues/9992">#9992</a> / <a href="https://github.com/hashicorp/terraform-provider-aws/pull/10206">#10206</a>  for a recent example.</p>
+<h5 id="aws-go-sdk-updates">AWS Go SDK Updates<a class="headerlink" href="#aws-go-sdk-updates" title="Permanent link">#</a></h5>
+<p>Almost exclusively, <code>github.com/aws/aws-sdk-go</code> updates are additive in nature. It is generally safe to only scan through them before approving and merging. If you have any concerns about any of the service client updates such as suspicious code removals in the update, or deprecations introduced, run the acceptance testing for potentially affected resources before merging.</p>
+<p>Authentication changes:</p>
+<p>Occasionally, there will be changes listed in the authentication pieces of the AWS Go SDK codebase, e.g., changes to <code>aws/session</code>. The AWS Go SDK <code>CHANGELOG</code> should include a relevant description of these changes under a heading such as <code>SDK Enhancements</code> or <code>SDK Bug Fixes</code>. If they seem worthy of a callout in the Terraform AWS Provider <code>CHANGELOG</code>, then upon merging we should include a similar message prefixed with the <code>provider</code> subsystem, e.g., <code>* provider: ...</code>.</p>
+<p>Additionally, if a <code>CHANGELOG</code> addition seemed appropriate, this dependency and version should also be updated in the Terraform S3 Backend, which currently lives in Terraform Core. An example of this can be found with https://github.com/hashicorp/terraform-provider-aws/pull/9305 and https://github.com/hashicorp/terraform/pull/22055.</p>
+<p>CloudFront changes:</p>
+<p>CloudFront service client updates have previously caused an issue when a new field introduced in the SDK was not included with Terraform and caused all requests to error (https://github.com/hashicorp/terraform-provider-aws/issues/4091). As a precaution, if you see CloudFront updates, run all the CloudFront resource acceptance testing before merging (<code>TestAccCloudFront</code>).</p>
+<p>New Regions:</p>
+<p>These are added to the AWS Go SDK <code>aws/endpoints/defaults.go</code> file and generally noted in the AWS Go SDK <code>CHANGELOG</code> as <code>aws/endpoints: Updated Regions</code>. Since April 2019, new regions added to AWS now require being explicitly enabled before they can be used. Examples of this can be found when <code>me-south-1</code> was announced:</p>
+<ul>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/9545">Terraform AWS Provider issue</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/pull/9538">Terraform AWS Provider AWS Go SDK update pull request</a></li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/pull/9547">Terraform AWS Provider data source update pull request</a></li>
+<li><a href="https://github.com/hashicorp/terraform/issues/22254">Terraform S3 Backend issue</a></li>
+<li><a href="https://github.com/hashicorp/terraform/pull/22253">Terraform S3 Backend pull request</a></li>
+</ul>
+<p>Typically our process for new regions is as follows:</p>
+<ul>
+<li>Create new (if not existing) Terraform AWS Provider issue: Support Automatic Region Validation for <code>XX-XXXXX-#</code> (Location)</li>
+<li>Create new (if not existing) Terraform S3 Backend issue: backend/s3: Support Automatic Region Validation for <code>XX-XXXXX-#</code> (Location)</li>
+<li><a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable">Enable the new region in an AWS testing account</a> and verify AWS Go SDK update works with the new region with <code>export AWS_DEFAULT_REGION=XX-XXXXX-#</code> with the new region and run the <code>TestAccDataSourceAwsRegion_</code> acceptance testing or by building the provider and testing a configuration like the following:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kr">provider</span><span class="w"> </span><span class="nv">&quot;aws&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;me-south-1&quot;</span>
+<span class="p">}</span>
+
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_region&quot;</span><span class="w"> </span><span class="nv">&quot;current&quot;</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kr">output</span><span class="w"> </span><span class="nv">&quot;region&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data.aws_region.current.name</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Merge AWS Go SDK update in Terraform AWS Provider and close issue with the following information:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Support for automatic validation of this new region has been merged and will release with version &lt;x.y.z&gt; of the Terraform AWS Provider, later this week.
+
+---
+
+Please note that this new region requires [<span class="nt">a manual process to enable</span>](<span class="na">https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable</span>). Once enabled in the console, it takes a few minutes for everything to work properly.
+
+If the region is not enabled properly, or the enablement process is still in progress, you can receive errors like these:
+
+<span class="sb">```console</span>
+<span class="gp">$ </span>terraform<span class="w"> </span>apply
+
+<span class="go">Error: error validating provider credentials: error calling sts:GetCallerIdentity: InvalidClientTokenId: The security token included in the request is invalid.</span>
+<span class="go">    status code: 403, request id: 142f947b-b2c3-11e9-9959-c11ab17bcc63</span>
+
+<span class="go">  on main.tf line 1, in provider &quot;aws&quot;:</span>
+<span class="go">   1: provider &quot;aws&quot; {</span>
+<span class="sb">```</span>
+
+---
+
+To use this new region before support has been added to Terraform AWS Provider version in use, you must disable the provider&#39;s automatic region validation via:
+
+<span class="sb">```hcl</span>
+<span class="kr">provider</span><span class="w"> </span><span class="nv">&quot;aws&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  # ... potentially other configuration ...</span>
+
+<span class="w">  </span><span class="na">region</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;me-south-1&quot;</span>
+<span class="w">  </span><span class="na">skip_region_validation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="p">}</span>
+<span class="sb">```</span>
+</code></pre></div>
+<ul>
+<li>Update the Terraform AWS Provider <code>CHANGELOG</code> with the following:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>NOTES:
+
+<span class="k">*</span><span class="w"> </span>provider: Region validation now automatically supports the new <span class="sb">`XX-XXXXX-#`</span> (Location) region. For AWS operations to work in the new region, the region must be explicitly enabled as outlined in the [<span class="nt">AWS Documentation</span>](<span class="na">https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable</span>). When the region is not enabled, the Terraform AWS Provider will return errors during credential validation (e.g., <span class="sb">`error validating provider credentials: error calling sts:GetCallerIdentity: InvalidClientTokenId: The security token included in the request is invalid`</span>) or AWS operations will throw their own errors (e.g., <span class="sb">`data.aws_availability_zones.available: Error fetching Availability Zones: AuthFailure: AWS was not able to validate the provided access credentials`</span>). [GH-####]
+
+ENHANCEMENTS:
+
+<span class="k">*</span><span class="w"> </span>provider: Support automatic region validation for <span class="sb">`XX-XXXXX-#`</span> [GH-####]
+</code></pre></div>
+<ul>
+<li>Follow the <a href="../contribution-checklists/#new-region">Contributing Guide</a> to submit updates for various data sources to support the new region</li>
+<li>Submit the dependency update to the Terraform S3 Backend by running the following:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>go<span class="w"> </span>get<span class="w"> </span>github.com/aws/aws-sdk-go@v#.#.#
+go<span class="w"> </span>mod<span class="w"> </span>tidy
+</code></pre></div>
+<ul>
+<li>Create a S3 Bucket in the new region and verify AWS Go SDK update works with new region by building the Terraform S3 Backend and testing a configuration like the following:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">backend</span><span class="w"> </span><span class="nv">&quot;s3&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;XXX&quot;</span>
+<span class="w">    </span><span class="na">key</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;test&quot;</span>
+<span class="w">    </span><span class="na">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;me-south-1&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">output</span><span class="w"> </span><span class="nv">&quot;test&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">timestamp</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>After approval, merge AWS Go SDK update in Terraform S3 Backend and close issue with the following information:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Support for automatic validation of this new region has been merged and will release with the next version of the Terraform.
+
+This was verified on a build of Terraform with the update:
+
+<span class="sb">```hcl</span>
+<span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">backend</span><span class="w"> </span><span class="nv">&quot;s3&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;XXX&quot;</span>
+<span class="w">    </span><span class="na">key</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;test&quot;</span>
+<span class="w">    </span><span class="na">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;me-south-1&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">output</span><span class="w"> </span><span class="nv">&quot;test&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">timestamp</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="sb">```</span>
+
+Outputs:
+
+<span class="sb">```console</span>
+<span class="gp">$ </span>terraform<span class="w"> </span>init
+<span class="go">...</span>
+<span class="go">Terraform has been successfully initialized!</span>
+<span class="sb">```</span>
+
+---
+
+Please note that this new region requires [<span class="nt">a manual process to enable</span>](<span class="na">https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable</span>). Once enabled in the console, it takes a few minutes for everything to work properly.
+
+If the region is not enabled properly, or the enablement process is still in progress, you can receive errors like these:
+
+<span class="sb">```console</span>
+<span class="gp">$ </span>terraform<span class="w"> </span>init
+
+<span class="go">Initializing the backend...</span>
+
+<span class="go">Error: error validating provider credentials: error calling sts:GetCallerIdentity: InvalidClientTokenId: The security token included in the request is invalid.</span>
+<span class="sb">```</span>
+
+---
+
+To use this new region before this update is released, you must disable the Terraform S3 Backend&#39;s automatic region validation via:
+
+<span class="sb">```hcl</span>
+<span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  # ... potentially other configuration ...</span>
+
+<span class="w">  </span><span class="kr">backend</span><span class="w"> </span><span class="nv">&quot;s3&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">    # ... other configuration ...</span>
+
+<span class="w">    </span><span class="na">region</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;me-south-1&quot;</span>
+<span class="w">    </span><span class="na">skip_region_validation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="sb">```</span>
+</code></pre></div>
+<ul>
+<li>Update the Terraform S3 Backend <code>CHANGELOG</code> with the following:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>NOTES:
+
+<span class="k">*</span><span class="w"> </span>backend/s3: Region validation now automatically supports the new <span class="sb">`XX-XXXXX-#`</span> (Location) region. For AWS operations to work in the new region, the region must be explicitly enabled as outlined in the [<span class="nt">AWS Documentation</span>](<span class="na">https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable</span>). When the region is not enabled, the Terraform S3 Backend will return errors during credential validation (e.g., <span class="sb">`error validating provider credentials: error calling sts:GetCallerIdentity: InvalidClientTokenId: The security token included in the request is invalid`</span>). [GH-####]
+
+ENHANCEMENTS:
+
+<span class="k">*</span><span class="w"> </span>backend/s3: Support automatic region validation for <span class="sb">`XX-XXXXX-#`</span> [GH-####]
+</code></pre></div>
+<h5 id="golangci-lint-updates">golangci-lint Updates<a class="headerlink" href="#golangci-lint-updates" title="Permanent link">#</a></h5>
+<p>Merge if CI passes.</p>
+<h5 id="terraform-plugin-sdk-updates">Terraform Plugin SDK Updates<a class="headerlink" href="#terraform-plugin-sdk-updates" title="Permanent link">#</a></h5>
+<p>Except for trivial changes, run the full acceptance testing suite against the pull request and verify there are no new or unexpected failures.</p>
+<h5 id="tfproviderdocs-updates">tfproviderdocs Updates<a class="headerlink" href="#tfproviderdocs-updates" title="Permanent link">#</a></h5>
+<p>Merge if CI passes.</p>
+<h5 id="tfproviderlint-updates">tfproviderlint Updates<a class="headerlink" href="#tfproviderlint-updates" title="Permanent link">#</a></h5>
+<p>Merge if CI passes.</p>
+<h5 id="yamlv2-updates">yaml.v2 Updates<a class="headerlink" href="#yamlv2-updates" title="Permanent link">#</a></h5>
+<p>Run the acceptance testing pattern, <code>TestAccCloudFormationStack(_dataSource)?_yaml</code>, and merge if passing.</p>
+<h3 id="pull-request-merge-process">Pull Request Merge Process<a class="headerlink" href="#pull-request-merge-process" title="Permanent link">#</a></h3>
+<ul>
+<li>Add this pull request to the upcoming release milestone</li>
+<li>Add any linked issues that will be closed by the pull request to the same upcoming release milestone</li>
+<li>Merge the pull request</li>
+<li>Delete the branch (if the branch is on this repository)</li>
+<li>Determine if the pull request should have a CHANGELOG entry by reviewing the <a href="../pullrequest-submission-and-lifecycle/#pull-request-types-to-changelog">Pull Request Types to CHANGELOG section</a>, and follow the CHANGELOG specification <a href="../pullrequest-submission-and-lifecycle/#changelog-process">here</a></li>
+<li>Leave a comment on any issues closed by the pull request noting that it has been merged and when to expect the release containing it, e.g.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>The fix for this has been merged and will release with version X.Y.Z of the Terraform AWS Provider, expected in the XXX timeframe.
+</code></pre></div>
+<h2 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">#</a></h2>
+<p>When breaking changes to the provider are necessary we release them in a major version. If an issue or PR necessitates a breaking change, then the following procedure should be observed:</p>
+<ul>
+<li>Add the <code>breaking-change</code> label.</li>
+<li>Add the issue/PR to the next major version milestone.</li>
+<li>Leave a comment why this is a breaking change or otherwise only being considered for a major version update. If possible, detail any changes that might be made for the contributor to accomplish the task without a breaking change.</li>
+</ul>
+<h2 id="branch-dictionary">Branch Dictionary<a class="headerlink" href="#branch-dictionary" title="Permanent link">#</a></h2>
+<p>The following branch conventions are used:</p>
+<table>
+<thead>
+<tr>
+<th>Branch</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>main</code></td>
+<td><code>main</code></td>
+<td>Main, unreleased code branch.</td>
+</tr>
+<tr>
+<td><code>release/*</code></td>
+<td><code>release/2.x</code></td>
+<td>Backport branches for previous major releases.</td>
+</tr>
+</tbody>
+</table>
+<p>Additional branch naming recommendations can be found in the <a href="../pullrequest-submission-and-lifecycle/#branch-prefixes">Pull Request Submission and Lifecycle documentation</a>.</p>
+<h2 id="environment-variable-dictionary">Environment Variable Dictionary<a class="headerlink" href="#environment-variable-dictionary" title="Permanent link">#</a></h2>
+<p>Environment variables (beyond standard AWS Go SDK ones) used by acceptance testing. See also the <code>internal/acctest</code> package.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ACM_CERTIFICATE_ROOT_DOMAIN</code></td>
+<td>Root domain name to use with ACM Certificate testing.</td>
+</tr>
+<tr>
+<td><code>ACM_CERTIFICATE_MULTIPLE_ISSUED_DOMAIN</code></td>
+<td>Domain name of ACM Certificate with a multiple issued certificates. <strong>DEPRECATED:</strong> Should be replaced with <code>aws_acm_certficate</code> resource usage in tests.</td>
+</tr>
+<tr>
+<td><code>ACM_CERTIFICATE_MULTIPLE_ISSUED_MOST_RECENT_ARN</code></td>
+<td>Amazon Resource Name of most recent ACM Certificate with a multiple issued certificates. <strong>DEPRECATED:</strong> Should be replaced with <code>aws_acm_certficate</code> resource usage in tests.</td>
+</tr>
+<tr>
+<td><code>ACM_CERTIFICATE_SINGLE_ISSUED_DOMAIN</code></td>
+<td>Domain name of ACM Certificate with a single issued certificate. <strong>DEPRECATED:</strong> Should be replaced with <code>aws_acm_certficate</code> resource usage in tests.</td>
+</tr>
+<tr>
+<td><code>ACM_CERTIFICATE_SINGLE_ISSUED_MOST_RECENT_ARN</code></td>
+<td>Amazon Resource Name of most recent ACM Certificate with a single issued certificate. <strong>DEPRECATED:</strong> Should be replaced with <code>aws_acm_certficate</code> resource usage in tests.</td>
+</tr>
+<tr>
+<td><code>ADM_CLIENT_ID</code></td>
+<td>Identifier for Amazon Device Manager Client in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>AMPLIFY_DOMAIN_NAME</code></td>
+<td>Domain name to use for Amplify domain association testing.</td>
+</tr>
+<tr>
+<td><code>AMPLIFY_GITHUB_ACCESS_TOKEN</code></td>
+<td>GitHub access token used for AWS Amplify testing.</td>
+</tr>
+<tr>
+<td><code>AMPLIFY_GITHUB_REPOSITORY</code></td>
+<td>GitHub repository used for AWS Amplify testing.</td>
+</tr>
+<tr>
+<td><code>ADM_CLIENT_SECRET</code></td>
+<td>Secret for Amazon Device Manager Client in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_BUNDLE_ID</code></td>
+<td>Identifier for Apple Push Notification Service Bundle in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_CERTIFICATE</code></td>
+<td>Certificate (PEM format) for Apple Push Notification Service in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_CERTIFICATE_PRIVATE_KEY</code></td>
+<td>Private key for Apple Push Notification Service in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_BUNDLE_ID</code></td>
+<td>Identifier for Sandbox Apple Push Notification Service Bundle in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_CERTIFICATE</code></td>
+<td>Certificate (PEM format) for Sandbox Apple Push Notification Service in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_CERTIFICATE_PRIVATE_KEY</code></td>
+<td>Private key for Sandbox Apple Push Notification Service in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_CREDENTIAL</code></td>
+<td>Credential contents for Sandbox Apple Push Notification Service in SNS Application Platform testing. Conflicts with <code>APNS_SANDBOX_CREDENTIAL_PATH</code>.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_CREDENTIAL_PATH</code></td>
+<td>Path to credential for Sandbox Apple Push Notification Service in SNS Application Platform testing. Conflicts with <code>APNS_SANDBOX_CREDENTIAL</code>.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_PRINCIPAL</code></td>
+<td>Principal contents for Sandbox Apple Push Notification Service in SNS Application Platform testing. Conflicts with <code>APNS_SANDBOX_PRINCIPAL_PATH</code>.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_PRINCIPAL_PATH</code></td>
+<td>Path to principal for Sandbox Apple Push Notification Service in SNS Application Platform testing. Conflicts with <code>APNS_SANDBOX_PRINCIPAL</code>.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_TEAM_ID</code></td>
+<td>Identifier for Sandbox Apple Push Notification Service Team in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_TOKEN_KEY</code></td>
+<td>Token key file content (.p8 format) for Sandbox Apple Push Notification Service in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_SANDBOX_TOKEN_KEY_ID</code></td>
+<td>Identifier for Sandbox Apple Push Notification Service Token Key in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_TEAM_ID</code></td>
+<td>Identifier for Apple Push Notification Service Team in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_TOKEN_KEY</code></td>
+<td>Token key file content (.p8 format) for Apple Push Notification Service in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_TOKEN_KEY_ID</code></td>
+<td>Identifier for Apple Push Notification Service Token Key in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_VOIP_BUNDLE_ID</code></td>
+<td>Identifier for VOIP Apple Push Notification Service Bundle in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_VOIP_CERTIFICATE</code></td>
+<td>Certificate (PEM format) for VOIP Apple Push Notification Service in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_VOIP_CERTIFICATE_PRIVATE_KEY</code></td>
+<td>Private key for VOIP Apple Push Notification Service in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_VOIP_TEAM_ID</code></td>
+<td>Identifier for VOIP Apple Push Notification Service Team in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_VOIP_TOKEN_KEY</code></td>
+<td>Token key file content (.p8 format) for VOIP Apple Push Notification Service in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APNS_VOIP_TOKEN_KEY_ID</code></td>
+<td>Identifier for VOIP Apple Push Notification Service Token Key in Pinpoint testing.</td>
+</tr>
+<tr>
+<td><code>APPRUNNER_CUSTOM_DOMAIN</code></td>
+<td>A custom domain endpoint (root domain, subdomain, or wildcard) for AppRunner Custom Domain Association testing.</td>
+</tr>
+<tr>
+<td><code>AWS_ALTERNATE_ACCESS_KEY_ID</code></td>
+<td>AWS access key ID with access to a secondary AWS account for tests requiring multiple accounts. Requires <code>AWS_ALTERNATE_SECRET_ACCESS_KEY</code>. Conflicts with <code>AWS_ALTERNATE_PROFILE</code>.</td>
+</tr>
+<tr>
+<td><code>AWS_ALTERNATE_SECRET_ACCESS_KEY</code></td>
+<td>AWS secret access key with access to a secondary AWS account for tests requiring multiple accounts. Requires <code>AWS_ALTERNATE_ACCESS_KEY_ID</code>. Conflicts with <code>AWS_ALTERNATE_PROFILE</code>.</td>
+</tr>
+<tr>
+<td><code>AWS_ALTERNATE_PROFILE</code></td>
+<td>AWS profile with access to a secondary AWS account for tests requiring multiple accounts. Conflicts with <code>AWS_ALTERNATE_ACCESS_KEY_ID</code> and <code>AWS_ALTERNATE_SECRET_ACCESS_KEY</code>.</td>
+</tr>
+<tr>
+<td><code>AWS_ALTERNATE_REGION</code></td>
+<td>Secondary AWS region for tests requiring multiple regions. Defaults to <code>us-east-1</code>.</td>
+</tr>
+<tr>
+<td><code>AWS_API_GATEWAY_DOMAIN_NAME_CERTIFICATE_BODY</code></td>
+<td>Certificate body of publicly trusted certificate for API Gateway Domain Name testing.</td>
+</tr>
+<tr>
+<td><code>AWS_API_GATEWAY_DOMAIN_NAME_CERTIFICATE_CHAIN</code></td>
+<td>Certificate chain of publicly trusted certificate for API Gateway Domain Name testing.</td>
+</tr>
+<tr>
+<td><code>AWS_API_GATEWAY_DOMAIN_NAME_CERTIFICATE_PRIVATE_KEY</code></td>
+<td>Private key of publicly trusted certificate for API Gateway Domain Name testing.</td>
+</tr>
+<tr>
+<td><code>AWS_API_GATEWAY_DOMAIN_NAME_REGIONAL_CERTIFICATE_NAME_ENABLED</code></td>
+<td>Flag to enable API Gateway Domain Name regional certificate upload testing.</td>
+</tr>
+<tr>
+<td><code>AWS_CODEBUILD_BITBUCKET_SOURCE_LOCATION</code></td>
+<td>BitBucket source URL for CodeBuild testing. CodeBuild must have access to this repository via OAuth or Source Credentials. Defaults to <code>https://terraform@bitbucket.org/terraform/aws-test.git</code>.</td>
+</tr>
+<tr>
+<td><code>AWS_CODEBUILD_GITHUB_SOURCE_LOCATION</code></td>
+<td>GitHub source URL for CodeBuild testing. CodeBuild must have access to this repository via OAuth or Source Credentials. Defaults to <code>https://github.com/hashibot-test/aws-test.git</code>.</td>
+</tr>
+<tr>
+<td><code>AWS_DEFAULT_REGION</code></td>
+<td>Primary AWS region for tests. Defaults to <code>us-west-2</code>.</td>
+</tr>
+<tr>
+<td><code>AWS_DETECTIVE_MEMBER_EMAIL</code></td>
+<td>Email address for Detective Member testing. A valid email address associated with an AWS root account is required for tests to pass.</td>
+</tr>
+<tr>
+<td><code>AWS_EC2_CLASSIC_REGION</code></td>
+<td>AWS region for EC2-Classic testing. Defaults to <code>us-east-1</code> in AWS Commercial and <code>AWS_DEFAULT_REGION</code> otherwise.</td>
+</tr>
+<tr>
+<td><code>AWS_EC2_CLIENT_VPN_LIMIT</code></td>
+<td>Concurrency limit for Client VPN acceptance tests. <a href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/limits.html">Default is 5</a> if not specified.</td>
+</tr>
+<tr>
+<td><code>AWS_EC2_EIP_PUBLIC_IPV4_POOL</code></td>
+<td>Identifier for EC2 Public IPv4 Pool for EC2 EIP testing.</td>
+</tr>
+<tr>
+<td><code>AWS_GUARDDUTY_MEMBER_ACCOUNT_ID</code></td>
+<td>Identifier of AWS Account for GuardDuty Member testing. <strong>DEPRECATED:</strong> Should be replaced with standard alternate account handling for tests.</td>
+</tr>
+<tr>
+<td><code>AWS_GUARDDUTY_MEMBER_EMAIL</code></td>
+<td>Email address for GuardDuty Member testing. <strong>DEPRECATED:</strong> It may be possible to use a placeholder email address instead.</td>
+</tr>
+<tr>
+<td><code>AWS_LAMBDA_IMAGE_LATEST_ID</code></td>
+<td>ECR repository image URI (tagged as <code>latest</code>) for Lambda container image acceptance tests.</td>
+</tr>
+<tr>
+<td><code>AWS_LAMBDA_IMAGE_V1_ID</code></td>
+<td>ECR repository image URI (tagged as <code>v1</code>) for Lambda container image acceptance tests.</td>
+</tr>
+<tr>
+<td><code>AWS_LAMBDA_IMAGE_V2_ID</code></td>
+<td>ECR repository image URI (tagged as <code>v2</code>) for Lambda container image acceptance tests.</td>
+</tr>
+<tr>
+<td><code>DX_CONNECTION_ID</code></td>
+<td>Identifier for Direct Connect Connection testing.</td>
+</tr>
+<tr>
+<td><code>DX_VIRTUAL_INTERFACE_ID</code></td>
+<td>Identifier for Direct Connect Virtual Interface testing.</td>
+</tr>
+<tr>
+<td><code>EC2_SECURITY_GROUP_RULES_PER_GROUP_LIMIT</code></td>
+<td>EC2 Quota for Rules per Security Group. Defaults to 50. <strong>DEPRECATED:</strong> Can be augmented or replaced with Service Quotas lookup.</td>
+</tr>
+<tr>
+<td><code>EVENT_BRIDGE_PARTNER_EVENT_BUS_NAME</code></td>
+<td>Amazon EventBridge partner event bus name.</td>
+</tr>
+<tr>
+<td><code>EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME</code></td>
+<td>Amazon EventBridge partner event source name.</td>
+</tr>
+<tr>
+<td><code>GCM_API_KEY</code></td>
+<td>API Key for Google Cloud Messaging in Pinpoint and SNS Platform Application testing.</td>
+</tr>
+<tr>
+<td><code>GITHUB_TOKEN</code></td>
+<td>GitHub token for CodePipeline testing.</td>
+</tr>
+<tr>
+<td><code>GRAFANA_SSO_GROUP_ID</code></td>
+<td>AWS SSO group ID for Grafana testing.</td>
+</tr>
+<tr>
+<td><code>GRAFANA_SSO_USER_ID</code></td>
+<td>AWS SSO user ID for Grafana testing.</td>
+</tr>
+<tr>
+<td><code>MACIE_MEMBER_ACCOUNT_ID</code></td>
+<td>Identifier of AWS Account for Macie Member testing. <strong>DEPRECATED:</strong> Should be replaced with standard alternate account handling for tests.</td>
+</tr>
+<tr>
+<td><code>QUICKSIGHT_NAMESPACE</code></td>
+<td>QuickSight namespace name for testing.</td>
+</tr>
+<tr>
+<td><code>ROUTE53DOMAINS_DOMAIN_NAME</code></td>
+<td>Registered domain for Route 53 Domains testing.</td>
+</tr>
+<tr>
+<td><code>SAGEMAKER_IMAGE_VERSION_BASE_IMAGE</code></td>
+<td>SageMaker base image to use for tests.</td>
+</tr>
+<tr>
+<td><code>SERVICEQUOTAS_INCREASE_ON_CREATE_QUOTA_CODE</code></td>
+<td>Quota Code for Service Quotas testing (submits support case).</td>
+</tr>
+<tr>
+<td><code>SERVICEQUOTAS_INCREASE_ON_CREATE_SERVICE_CODE</code></td>
+<td>Service Code for Service Quotas testing (submits support case).</td>
+</tr>
+<tr>
+<td><code>SERVICEQUOTAS_INCREASE_ON_CREATE_VALUE</code></td>
+<td>Value of quota increase for Service Quotas testing (submits support case).</td>
+</tr>
+<tr>
+<td><code>SES_DOMAIN_IDENTITY_ROOT_DOMAIN</code></td>
+<td>Root domain name of publicly accessible and Route 53 configurable domain for SES Domain Identity testing.</td>
+</tr>
+<tr>
+<td><code>SWF_DOMAIN_TESTING_ENABLED</code></td>
+<td>Enables SWF Domain testing (API does not support deletions).</td>
+</tr>
+<tr>
+<td><code>TEST_AWS_ORGANIZATION_ACCOUNT_EMAIL_DOMAIN</code></td>
+<td>Email address for Organizations Account testing.</td>
+</tr>
+<tr>
+<td><code>TEST_AWS_SES_VERIFIED_EMAIL_ARN</code></td>
+<td>Verified SES Email Identity for use in Cognito User Pool testing.</td>
+</tr>
+<tr>
+<td><code>TF_ACC</code></td>
+<td>Enables Go tests containing <code>resource.Test()</code> and <code>resource.ParallelTest()</code>.</td>
+</tr>
+<tr>
+<td><code>TF_ACC_ASSUME_ROLE_ARN</code></td>
+<td>Amazon Resource Name of existing IAM Role to use for limited permissions acceptance testing.</td>
+</tr>
+<tr>
+<td><code>TF_TEST_CLOUDFRONT_RETAIN</code></td>
+<td>Flag to disable but dangle CloudFront Distributions during testing to reduce feedback time (must be manually destroyed afterwards)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="label-dictionary">Label Dictionary<a class="headerlink" href="#label-dictionary" title="Permanent link">#</a></h2>
+<!-- non breaking spaces are to ensure that the badges are consistent. -->
+
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+<th>Automation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/breaking-change"><img alt="breaking-change" src="https://img.shields.io/badge/breaking--change-d93f0b" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>Introduces a breaking change in current functionality; breaking changes are usually deferred to the next major release.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/bug"><img alt="bug" src="https://img.shields.io/badge/bug-f7c6c7" /></a></td>
+<td>Addresses a defect in current functionality.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/crash"><img alt="crash" src="https://img.shields.io/badge/crash-e11d21" /></a></td>
+<td>Results from or addresses a Terraform crash or kernel panic.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/dependencies"><img alt="dependencies" src="https://img.shields.io/badge/dependencies-fad8c7" /></a></td>
+<td>Used to indicate dependency changes.</td>
+<td>Added by Hashibot.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/documentation"><img alt="documentation" src="https://img.shields.io/badge/documentation-fef2c0" /></a></td>
+<td>Introduces or discusses updates to documentation.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/enhancement"><img alt="enhancement" src="https://img.shields.io/badge/enhancement-d4c5f9" /></a></td>
+<td>Requests to existing resources that expand the functionality or scope.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/examples"><img alt="examples" src="https://img.shields.io/badge/examples-fef2c0" /></a></td>
+<td>Introduces or discusses updates to examples.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/good%20first%20issue"><img alt="good first issue" src="https://img.shields.io/badge/good%20first%20issue-128A0C" /></a></td>
+<td>Call to action for new contributors looking for a place to start. Smaller or straightforward issues.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/hacktoberfest"><img alt="hacktoberfest" src="https://img.shields.io/badge/hacktoberfest-2c0fad" /></a></td>
+<td>Call to action for Hacktoberfest (OSS Initiative).</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/hashibot-ignore"><img alt="hashibot ignore" src="https://img.shields.io/badge/hashibot%2Fignore-2c0fad" /></a></td>
+<td>Issues or PRs labelled with this are ignored by Hashibot.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/help-wanted"><img alt="help wanted" src="https://img.shields.io/badge/help%20wanted-128A0C" /></a></td>
+<td>Call to action for contributors. Indicates an area of the codebase we’d like to expand/work on but don’t have the bandwidth inside the team.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/needs-triage"><img alt="needs-triage" src="https://img.shields.io/badge/needs--triage-e236d7" /></a></td>
+<td>Waiting for first response or review from a maintainer.</td>
+<td>Added to all new issues or PRs by GitHub action in <code>.github/workflows/issues.yml</code> or PRs by Hashibot in <code>.hashibot.hcl</code> unless they were submitted by a maintainer.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/new-data-source"><img alt="new-data-source" src="https://img.shields.io/badge/new--data--source-d4c5f9" /></a></td>
+<td>Introduces a new data source.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/new-resource"><img alt="new-resource" src="https://img.shields.io/badge/new--resource-d4c5f9" /></a></td>
+<td>Introduces a new resrouce.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/proposal"><img alt="proposal" src="https://img.shields.io/badge/proposal-fbca04" /></a></td>
+<td>Proposes new design or functionality.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/provider"><img alt="provider" src="https://img.shields.io/badge/provider-bfd4f2" /></a></td>
+<td>Pertains to the provider itself, rather than any interaction with AWS.</td>
+<td>Added by Hashibot when the code change is in an area configured in <code>.hashibot.hcl</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/question"><img alt="question" src="https://img.shields.io/badge/question-d4c5f9" /></a></td>
+<td>Includes a question about existing functionality; most questions will be re-routed to discuss.hashicorp.com.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/regression"><img alt="regression" src="https://img.shields.io/badge/regression-e11d21" /></a></td>
+<td>Pertains to a degraded workflow resulting from an upstream patch or internal enhancement; usually categorized as a bug.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/reinvent"><img alt="reinvent" src="https://img.shields.io/badge/reinvent-c5def5" /></a></td>
+<td>Pertains to a service or feature announced at reinvent.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><img alt="service &lt;*&gt;" src="https://img.shields.io/badge/service%2F&lt;*&gt;-bfd4f2" /></td>
+<td>Indicates the service that is covered or introduced (i.e. service/s3)</td>
+<td>Added by Hashibot when the code change matches a service definition in <code>.hashibot.hcl</code>.</td>
+</tr>
+<tr>
+<td><img alt="size%2F&lt;*&gt;" src="https://img.shields.io/badge/size%2F&lt;*&gt;-ffffff" /></td>
+<td>Managed by automation to categorize the size of a PR</td>
+<td>Added by Hashibot to indicate the size of the PR.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/stale"><img alt="stale" src="https://img.shields.io/badge/stale-e11d21" /></a></td>
+<td>Old or inactive issues managed by automation, if no further action taken these will get closed.</td>
+<td>Added by a Github Action, configuration is found: <code>.github/workflows/stale.yml</code>.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/technical-debt"><img alt="technical-debt" src="https://img.shields.io/badge/technical--debt-1d76db" /></a></td>
+<td>Addresses areas of the codebase that need refactoring or redesign.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/tests"><img alt="tests" src="https://img.shields.io/badge/tests-DDDDDD" /></a></td>
+<td>On a PR this indicates expanded test coverage. On an Issue this proposes expanded coverage or enhancement to test infrastructure.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/thinking"><img alt="thinking" src="https://img.shields.io/badge/thinking-bfd4f2" /></a></td>
+<td>Requires additional research by the maintainers.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/upstream-terraform"><img alt="upstream-terraform" src="https://img.shields.io/badge/upstream--terraform-CCCCCC" /></a></td>
+<td>Addresses functionality related to the Terraform core binary.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/upstream"><img alt="upstream" src="https://img.shields.io/badge/upstream-fad8c7" /></a></td>
+<td>Addresses functionality related to the cloud provider.</td>
+<td>None</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/labels/waiting-response"><img alt="waiting-response" src="https://img.shields.io/badge/waiting--response-5319e7" /></a></td>
+<td>Maintainers are waiting on response from community or contributor.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">#</a></h2>
+<ul>
+<li>Create a milestone for the next release after this release (generally, the next milestone will be a minor version increase unless previously decided for a major or patch version)</li>
+<li>Check the existing release milestone for open items and either work through them or move them to the next milestone</li>
+<li>Run the HashiCorp (non-OSS) TeamCity release job either via:<ul>
+<li>Slack command: <code>/tcrelease aws #.#.#</code> (no <code>v</code> prefix)</li>
+<li>Web interface: With the <code>DEPLOYMENT_TARGET_VERSION</code> matching the expected release milestone and <code>DEPLOYMENT_NEXT_VERSION</code> matching the next release milestone</li>
+</ul>
+</li>
+<li>Wait for the TeamCity release job to complete either by watching the build logs or Slack notifications</li>
+<li>Close the release milestone</li>
+<li>Create a new GitHub release with the release title exactly matching the tag and milestone (e.g., <code>v2.22.0</code>) and copy the entries from the CHANGELOG to the release notes.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Terraform Rockit Cloud Provider - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/c2/README.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#terraform-rockit-cloud-provider" class="nav-link">Terraform Rockit Cloud Provider</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">Требования</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">Общая информация</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">Начало работы</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#aws-sdk-go" class="nav-link">aws-sdk-go</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_5" class="nav-link">Тесты</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_6" class="nav-link">Документация</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_8" class="nav-link">Выпуск релиза</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#terraform-registry" class="nav-link">Публикация провайдера в официальном terraform registry</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#private-terraform-registry" class="nav-link">Публикация провайдера в private terraform registry</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_14" class="nav-link">Использование провайдера</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#todo" class="nav-link">TODO</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="terraform-rockit-cloud-provider">Terraform Rockit Cloud Provider<a class="headerlink" href="#terraform-rockit-cloud-provider" title="Permanent link">#</a></h1>
+<p>Адаптация <a href="https://github.com/hashicorp/terraform-provider-aws">Terraform AWS Provider</a> от <strong>HashiCorp</strong>
+под <strong>Rockit Cloud</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Upstream Name</th>
+<th>Upstream Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws">Terraform AWS Provider</a></td>
+<td><a href="https://github.com/hashicorp/terraform-provider-aws/tree/v4.14.0">4.14.0</a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="#требования">Требования</a></li>
+<li><a href="#общая-информация">Общая информация</a></li>
+<li><a href="#начало-работы">Начало работы</a><ul>
+<li><a href="#установка-и-запуск-линтеров">Установка и запуск линтеров</a></li>
+</ul>
+</li>
+<li><a href="#aws-sdk-go">aws-sdk-go</a><ul>
+<li><a href="#изменение-версии-aws-sdk-go">Изменение версии aws-sdk-go</a></li>
+</ul>
+</li>
+<li><a href="#тесты">Тесты</a><ul>
+<li><a href="#unit">Unit</a></li>
+<li><a href="#acceptance">Acceptance</a></li>
+</ul>
+</li>
+<li><a href="#документация">Документация</a><ul>
+<li><a href="#запуск-линтеров">Запуск линтеров</a></li>
+<li><a href="#директория-website_unsupported">Директория website_unsupported</a></li>
+</ul>
+</li>
+<li><a href="#выпуск-релиза">Выпуск релиза</a><ul>
+<li><a href="#настройка-окружения">Настройка окружения</a></li>
+<li><a href="#версионирование">Версионирование</a></li>
+<li><a href="#релиз">Релиз</a></li>
+</ul>
+</li>
+<li><a href="#публикация-провайдера-в-официальном-terraform-registry">Публикация провайдера в официальном terraform registry</a></li>
+<li><a href="#публикация-провайдера-в-private-terraform-registry">Публикация провайдера в private terraform registry</a><ul>
+<li><a href="#структура-s3-бакета">Структура s3 бакета</a></li>
+<li><a href="#загрузка-новой-версии">Загрузка новой версии</a><ul>
+<li><a href="#использование-скрипта">Использование скрипта</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#использование-провайдера">Использование провайдера</a><ul>
+<li><a href="#локальная-сборка">Локальная сборка</a></li>
+</ul>
+</li>
+<li><a href="#todo">TODO</a></li>
+</ul>
+<h2 id="_1">Требования<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="https://www.terraform.io/downloads.html">Terraform</a> 0.13+ (запуск приемочных тестов)</li>
+<li><a href="https://golang.org/doc/install">Go</a> 1.21 (сборка провайдера)</li>
+<li><a href="https://docs.docker.com/get-docker/">Docker</a> (запуск линтеров для документации)</li>
+</ul>
+<h2 id="_2">Общая информация<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p><strong>Провайдер</strong> - это плагин для <a href="https://www.terraform.io/">Terraform</a>, который реализует возможность управления
+ресурсами некоего сервиса (например, облака или БД) через его API. Для каждого ресурса в провайдер добавляется
+схема и CRUD операции. Информация об API предоставляется в виде отдельного модуля.</p>
+<p><strong>Terraform Rockit Cloud Provider</strong> реализуется на базе <strong>Terraform AWS Provider</strong>.
+Также создан форк модуля с AWS API: <a href="https://github.com/C2Devel/aws-sdk-go">C2Devel/aws-sdk-go</a>.</p>
+<p>Для публикации провайдера в официальном <a href="https://registry.terraform.io/">terraform registry</a> под новым именем
+(ранее - <em>aws</em>) форк переименован в<br />
+<em>terraform-provider-rockitcloud</em>.</p>
+<p>Опубликованный провайдер: https://registry.terraform.io/providers/C2Devel/rockitcloud</p>
+<h2 id="_3">Начало работы<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>Для работы с провайдером требуется установка <a href="https://golang.org/doc/install">go</a> (см. <a href="#требования">требования</a>).</p>
+<p>Клонирование репозитория и сборка провайдера:</p>
+<div class="highlight"><pre><span></span><code>$ git clone git@github.com:C2Devel/terraform-provider-rockitcloud.git &amp;&amp; cd terraform-provider-rockitcloud
+...
+$ make build
+</code></pre></div>
+<p>После сборки артефакт <code>terraform-provider-aws</code> будет доступен в директории <code>$GOPATH/bin</code>.</p>
+<p>Установка переменной окружения <code>$GOPATH</code>:</p>
+<div class="highlight"><pre><span></span><code>$ export GOPATH=$(go env GOPATH)
+$ ls $GOPATH/bin/terraform-provider-aws
+...
+</code></pre></div>
+<p><strong>Важно!</strong> <code>make build</code> использует команду <code>go install</code>, которая не позволяет изменить
+имя артефакта - <code>terraform-provider-aws</code>. Используется только для dev сборок.</p>
+<p>Для сборки проекта также можно использовать команду:</p>
+<div class="highlight"><pre><span></span><code>$ go build -o terraform-provider-rockitcloud
+</code></pre></div>
+<p>Артефакт <code>terraform-provider-rockitcloud</code> будет создан в директории запуска.</p>
+<h3 id="_4">Установка и запуск линтеров<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<p><strong>Опционально.</strong> Установка дополнительных библиотек (линтеры, форматтеры и т.д.): <code>make tools</code></p>
+<p>Артефакты также будут находиться в <code>$GOPATH/bin</code>.</p>
+<p><strong>Важно!</strong> Для запуска связанных <code>make</code> таргетов требуется добавить путь <code>$GOPATH/bin</code> в <code>$PATH</code>.</p>
+<p>Таргеты для запуска линтеров для кода:</p>
+<div class="highlight"><pre><span></span><code>$ make lint
+$ make semgrep
+</code></pre></div>
+<p><strong>Важно!</strong> <code>make lint</code> может выполняться очень долго, тк линтеры анализируют директорию <code>internal/service</code> целиком.
+Можно запускать линтеры по отдельности и на конкретной директории:</p>
+<div class="highlight"><pre><span></span><code>$ golangci-lint run -v ./internal/service/paas/... 
+
+# в команде нужно будет укзаать все игнорируемые проверки
+$ providerlint -c 1 -XS001=false ./internal/service/paas/...
+
+$ make importlint
+</code></pre></div>
+<h2 id="aws-sdk-go">aws-sdk-go<a class="headerlink" href="#aws-sdk-go" title="Permanent link">#</a></h2>
+<p>Обращения к модулю <strong>aws-sdk-go</strong> (AWS API) перенаправлены на <a href="https://github.com/C2Devel/aws-sdk-go">форк</a>
+с помощью директивы <code>replace</code> в <code>go.mod</code>.</p>
+<p>Для локальной разработки можно указать в правой части директивы путь к директории с исходным кодом модуля.</p>
+<div class="highlight"><pre><span></span><code># go.mod
+...
+replace github.com/aws/aws-sdk-go =&gt; &lt;path-to-aws-sdk-go&gt;
+</code></pre></div>
+<p><strong>Важно!</strong> Можно тэггировать изменения модуля и обновлять в <code>go.mod</code> тэг, но его нельзя будет повторно использовать,
+т.к. go не позволяет изменять версии после их публикации.</p>
+<p><strong>Важно!</strong> Форк <strong>aws-sdk-go</strong> нельзя вытянуть через <code>go get github.com/C2Devel/aws-sdk-go@1.44.10</code>.</p>
+<h3 id="aws-sdk-go_1">Изменение версии aws-sdk-go<a class="headerlink" href="#aws-sdk-go_1" title="Permanent link">#</a></h3>
+<ol>
+<li>Обновление тега <code>github.com/C2Devel/aws-sdk-go</code>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code># go.mod
+...
+replace github.com/aws/aws-sdk-go =&gt; github.com/C2Devel/aws-sdk-go v1.44.10-new
+</code></pre></div>
+<ol>
+<li><strong>Опционально.</strong> Если изменилась upstream версия: обновление тега <code>github.com/aws/aws-sdk-go</code> в блоке <code>require</code>.<br />
+   Не влияет на сборку.</li>
+<li>Обновление зависимостей: <code>go mod tidy</code></li>
+</ol>
+<p><strong>Важно!</strong> <code>go mod tidy</code> актуализирует все зависимости в <code>go.mod</code>, т.е. итоговые изменения могут касаться
+не только <strong>aws-sdk-go</strong>.</p>
+<h2 id="_5">Тесты<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<p>В проекте есть два типа тестов: <strong>unit</strong> и <strong>acceptance</strong>. Они лежат рядом с функционалом (файлы: *_test.go).</p>
+<p>Тесты написаны с помощью <a href="https://go.dev/doc/code#Testing">go testing</a>, для приемочных дополнительно используется
+пакет <a href="../../internal/acctest/acctest.go">acctest</a>.</p>
+<h3 id="unit">Unit<a class="headerlink" href="#unit" title="Permanent link">#</a></h3>
+<p>Запуск unit тестов: <code>make test</code></p>
+<h3 id="acceptance">Acceptance<a class="headerlink" href="#acceptance" title="Permanent link">#</a></h3>
+<p>Для запуска приемочных тестов требуется установка <a href="https://golang.org/doc/install">Terraform</a>
+(см. <a href="#требования">требования</a>).</p>
+<p><strong>Важно!</strong> Тесты используют реальные облачные ресурсы. <strong>Требуется доработка тестов для запуска на C2.</strong></p>
+<p>По запуску и написанию приемочных тестов есть
+<a href="../../docs/contributing/running-and-writing-acceptance-tests.md">документация</a>.</p>
+<p>Команды:</p>
+<ul>
+<li>запуск всех тестов: <code>make testacc</code></li>
+<li>запуск конкретного теста: <code>make testacc TESTS=TestAccEC2EBSVolume_basic PKG=ec2</code></li>
+</ul>
+<h2 id="_6">Документация<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<p>Информация о провайдере расположена в директориях:</p>
+<ul>
+<li><code>docs/</code> - инструкции для разработки, roadmap;</li>
+<li><code>website/</code> - документация к провайдеру, которая публикуется в официальном terraform registry
+  (<a href="https://www.terraform.io/registry/providers/docs">инструкция</a> по документированию от <strong>Terraform</strong>).</li>
+</ul>
+<p>Структура директории website:</p>
+<div class="highlight"><pre><span></span><code>website/
+|-- docs/ 
+|    |-- d/                          # набор описаний для terraform data sources
+|    |-- guides/
+|    |-- r/                          # набор описаний для terraform resources
+|    |    |-- &lt;resource&gt;.html.markdown
+|    |    |-- ...
+|    |
+|    |-- index.html.markdown         # стартовая страница
+|-- allowed-subcategories.txt        # разделы документации
+</code></pre></div>
+<p><strong>Важно!</strong> <code>allowed-subcategories.txt</code> генерируется при запуске таргета <code>make gen</code>
+и содержит информацию обо всех доступных разделах документации. После публикации отображаться будут только непустые разделы.</p>
+<p>Опубликованная документация: https://registry.terraform.io/providers/C2Devel/rockitcloud/latest/docs</p>
+<h3 id="_7">Запуск линтеров<a class="headerlink" href="#_7" title="Permanent link">#</a></h3>
+<p>Для запуска линтеров требуется установка <a href="https://golang.org/doc/install">Docker</a> и собственно линтеров
+(см. <a href="#установка-и-запуск-линтеров">установка линтеров</a>).</p>
+<p><code>docs/</code>: проверяется форматирование markdown файлов и ошибки в тексте (English).</p>
+<div class="highlight"><pre><span></span><code>$ make docs-lint
+</code></pre></div>
+<p><code>website/</code>: проверяется форматирование markdown файлов, ошибки в тексте (English)
+и соответствие документации спецификации terraform registry.</p>
+<div class="highlight"><pre><span></span><code>$ make website-lint
+$ make docscheck
+</code></pre></div>
+<h3 id="website_unsupported">Директория website_unsupported<a class="headerlink" href="#website_unsupported" title="Permanent link">#</a></h3>
+<p>В <code>website_unsupported/</code> перенесены гайды и документация для ресурсов, которые не поддерживаются Rockit Cloud API.
+Для публикации требуется перенести нужную страницу в соответствующую директорию в <code>website/</code>.</p>
+<h2 id="_8">Выпуск релиза<a class="headerlink" href="#_8" title="Permanent link">#</a></h2>
+<p>Релиз провайдера формируется в соответствии с требованиями к публикации в terraform registry.</p>
+<p>Подготовка релизных артефактов (сборка под разные архитектуры и ОС, подпись, архивация и т.д.) описана
+в <code>.goreleaser.yml</code></p>
+<p>Дополнительная информация:
+<a href="https://www.terraform.io/registry/providers/publishing#creating-a-github-release">инструкция</a>
+по созданию релиза провайдера на github от <strong>Terraform</strong>.</p>
+<h3 id="_9">Настройка окружения<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
+<ol>
+<li>Установка <a href="https://goreleaser.com/install/">goreleaser</a></li>
+<li><strong>Важно!</strong> Для корректной работы утилиты goreleaser должен быть установлен Git как минимум 2.3 версии</li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ go install github.com/goreleaser/goreleaser@latest
+...
+$ export GOBIN=$(go env GOPATH)/bin
+$ $GOBIN/goreleaser -v
+...
+</code></pre></div>
+<ol>
+<li>Создание <strong>GPG</strong> ключа
+   (<a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key">инструкция от github</a>)<ul>
+<li><strong>Важно!</strong> Ключ должен быть без пароля</li>
+<li><strong>Опционально.</strong> Привязка ключа к github аккаунту</li>
+</ul>
+</li>
+<li>Установка переменной <code>GPG_FINGERPRINT</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ gpg --list-secret-keys --keyid-format LONG
+...
+sec   rsa4096/&lt;id&gt; 2022-04-19 [SC]
+...
+$ gpg --list-secret-keys --with-colons --fingerprint &lt;id&gt; | grep fpr | cut -f 10 -d :
+&lt;fingerprint&gt;
+
+$ export GPG_FINGERPRINT=&lt;fingerprint&gt;
+</code></pre></div>
+<ol>
+<li>Создание <strong>Personal Access Token</strong> с разрешением <strong>public_repo</strong>
+   (<a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">инструкция от github</a>)<ul>
+<li><strong>Важно!</strong> Скопировать сгенерированный токен можно только сразу после создания</li>
+</ul>
+</li>
+<li>Установка переменной <code>GITHUB_TOKEN</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ export GITHUB_TOKEN=&lt;generated token by github&gt;
+</code></pre></div>
+<h3 id="_10">Версионирование<a class="headerlink" href="#_10" title="Permanent link">#</a></h3>
+<p>Версии провайдера должны соответствовать спецификации <a href="https://semver.org/">Semantic Version</a> и начинаться с <strong>v</strong>
+(например, <strong>v1.2.3</strong> или <strong>v1.2.3-pre</strong>). Версия провайдера фиксируется только в виде тэга.</p>
+<p><strong>Важно!</strong> Не допускается обновление уже выпущенных версий, т.к. могут возникнуть проблемы со скачиванием провайдера
+из terraform registry.</p>
+<p>Стартовая версия: <strong>v24.1.0</strong></p>
+<h3 id="_11">Релиз<a class="headerlink" href="#_11" title="Permanent link">#</a></h3>
+<p><strong>Важно!</strong> Релизы провайдера выпускаются с ветки <strong>develop</strong> (установлена дефолтной).
+Ветка <strong>main</strong> используется для получения обновлений с upstream.</p>
+<ol>
+<li>Создание релизного PR'а в ветку <strong>develop</strong>
+(пример: <a href="https://github.com/C2Devel/terraform-provider-rockitcloud/pull/49">v24.1.0</a>)</li>
+<li><strong>Опционально.</strong> Обновление версии <strong>aws-sdk-go</strong>, если требуется
+     (см. <a href="#изменение-версии-aws-sdk-go">изменение версии aws-sdk-go</a>)</li>
+<li>Обновление <a href="../../CHANGELOG.md">CHANGELOG.md</a></li>
+<li>Локальный запуск линтеров и unit тестов на ветке <strong>develop</strong> + релизный PR</li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ make lint
+$ make docs-lint
+$ make website-lint
+$ make test
+</code></pre></div>
+<ol>
+<li>Мердж релизного PR'а</li>
+<li><strong>Опционально.</strong> Включение автопубликации релиза в github (флаг <code>release.draft</code> в <code>.goreleaser.yml</code>)</li>
+</ol>
+<div class="highlight"><pre><span></span><code># .goreleaser.yml
+...
+release:
+  draft: false
+</code></pre></div>
+<p>По умолчанию релиз будет опубликован в origin.</p>
+<ol>
+<li>Подготовка репозитория: на релизной ветке не должно быть незакоммиченных изменений, untracked файлов</li>
+<li>Установка релизного тега с версией (см. <a href="#версионирование">версионирование</a>) и его публикация</li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ git tag v1.2.3
+$ git push &lt;remote&gt; v1.2.3
+</code></pre></div>
+<ol>
+<li>Сборка и подпись релизных артефактов. Артефакты будут размещены в директории <code>dist/</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ $GOBIN/goreleaser release --clean --timeout 180m    # Для версий goreleaser выше v1.15.0
+
+$ $GOBIN/goreleaser release --rm-dist --timeout 180m  # Для версий goreleaser ниже v1.15.0
+</code></pre></div>
+<ol>
+<li><strong>Опционально.</strong> Если на шаге 2 <strong>не</strong> была включена автопубликация (<code>release.draft: true</code>):
+   создание релиза на github и загрузка артефактов:<ul>
+<li><code>dist/terraform-provider-rockitcloud_{VERSION}_{OS}_{ARCH}.zip</code><ul>
+<li>Для всех архитектур и ОС.</li>
+</ul>
+</li>
+<li><code>dist/terraform-provider-rockitcloud_{VERSION}_SHA256SUMS</code></li>
+<li><code>dist/terraform-provider-rockitcloud_{VERSION}_SHA256SUMS.sig</code></li>
+<li><code>terraform-provider-rockitcloud_{VERSION}_manifest.json</code><ul>
+<li>Файл создается вручную:</li>
+<li><code>cp terraform-registry-manifest.json terraform-provider-rockitcloud_{VERSION}_manifest.json</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>В описание дублируется запись из CHANGELOG.md.</p>
+<h2 id="terraform-registry">Публикация провайдера в официальном terraform registry<a class="headerlink" href="#terraform-registry" title="Permanent link">#</a></h2>
+<p>Дополнительная информация:
+<a href="https://www.terraform.io/registry/providers/publishing#publishing-to-the-registry">инструкция</a>
+по публикации от <strong>Terraform</strong>.</p>
+<p><strong>Важно!</strong> Для публикации провайдера в terraform registry требуется хотя бы одна выпущенная версия.</p>
+<p>Порядок публикации:</p>
+<ol>
+<li>Регистрация в <a href="https://registry.terraform.io/">terraform registry</a> с помощью github аккаунта</li>
+<li>Добавление <strong>GPG</strong> ключа, который использовался для подписи релиза
+    (см. <a href="#настройка-окружения">настройка окружения</a>, шаг 2) в <a href="https://registry.terraform.io/settings/gpg-keys">настройках профиля</a></li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ gpg --list-secret-keys --keyid-format LONG
+...
+sec   rsa4096/&lt;id&gt; 2022-04-19 [SC]
+...
+$ gpg --armor --export &lt;id&gt;
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+...
+</code></pre></div>
+<ol>
+<li>Выбор провайдера в меню <a href="https://registry.terraform.io/publish/provider">Publish -&gt; Provider</a> и публикация</li>
+</ol>
+<p>После публикации провайдера для репозитория будет создан webhook на события из группы <code>Releases</code>.
+Новые релизы будут автоматически подтянуты в registry.</p>
+<p><strong>Важно!</strong> Terraform не позволяет самостоятельно удалять опубликованный провайдер или одну из его версий.
+Не допускается обновление уже выпущенных версий.</p>
+<p>Опубликованный провайдер: https://registry.terraform.io/providers/C2Devel/rockitcloud</p>
+<h2 id="private-terraform-registry">Публикация провайдера в private terraform registry<a class="headerlink" href="#private-terraform-registry" title="Permanent link">#</a></h2>
+<p>Terraform registry может быть организован в виде s3 бакета.</p>
+<p><strong>Важно!</strong> У бакета должен быть настроен доступ по https
+(<a href="https://docs.cloud.croc.ru/en/services/object_storage/instructions.html#filestorage-https-for-website-buckets">инструкция</a>).
+При включении web-доступа в качестве индексной страницы требуется указать <code>index.json</code>.</p>
+<p>Согласно <a href="https://www.terraform.io/internals/provider-registry-protocol">описанию</a> протокола,
+terraform registry содержит в себе файлы с версиями провайдеров и метаинформацией для каждой сборки,
+в которой указаны ссылки на конкретные артефакты.</p>
+<h3 id="s3">Структура s3 бакета<a class="headerlink" href="#s3" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>.well-known/
+|-- terraform.json                                 # служебный файл
+
+providers/
+|-- c2devel/                                       # разработчик
+     |-- rockitcloud/                                # имя провайдера
+          |-- 1.0.0/
+          |    |-- download/
+          |         |-- linux/
+          |         |    |-- amd64/
+          |         |    |    |-- index.json       # метаинформация для сборки 1.0.0_linux_amd64
+          |         |    |-- ...
+          |         |-- ...
+          |    
+          |-- versions/         
+               |-- index.json                      # версии провайдера
+</code></pre></div>
+<p><code>.well-known/terraform.json</code> используется при первом обращении к registry для проверки доступности.
+Также в нем указывается базовый url для всех провайдеров.</p>
+<div class="highlight"><pre><span></span><code># .well-known/terraform.json
+
+{
+  &quot;providers.v1&quot;: &quot;/providers/&quot;
+}
+</code></pre></div>
+<p>Исходный вид файла с версиями провайдера:</p>
+<div class="highlight"><pre><span></span><code># providers/c2devel/rockitcloud/versions/index.json
+
+{
+    &quot;id&quot;: &quot;c2devel/rockitcloud&quot;,
+    &quot;versions&quot;: [],
+    &quot;warnings&quot;: null
+}
+</code></pre></div>
+<h3 id="_12">Загрузка новой версии<a class="headerlink" href="#_12" title="Permanent link">#</a></h3>
+<p>После релиза новой версии провайдера (см. <a href="#релиз">релиз</a>) артефакты будут доступны в директории <code>dist/</code>.</p>
+<p>Для загрузки версии в s3 бакет требуется сформировать файлы с версиями и метаинформацией.
+Их можно получить из официального terraform registry, если провайдер уже опубликован,
+или сделать самостоятельно в соответствии с <a href="https://www.terraform.io/internals/provider-registry-protocol">протоколом</a>.</p>
+<p>Если требуется создание s3 бакета и директорий, см. <a href="#структура-s3-бакета">структура s3 бакета</a>.</p>
+<p>Порядок загрузки:</p>
+<ol>
+<li>Получение версий провайдера. В файле должна присутствовать загружаемая версия</li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ curl https://registry.terraform.io/v1/providers/c2devel/rockitcloud/versions --output versions.json
+</code></pre></div>
+<p>В блоке <code>versions.&lt;version&gt;.platforms</code> указаны архитектуры и ОС, под которые версия собиралась.
+2. Получение метаинформации для выбранных сборок провайдера</p>
+<div class="highlight"><pre><span></span><code>$ curl https://registry.terraform.io/v1/providers/c2devel/rockitcloud/&lt;version&gt;/download/&lt;os&gt;/&lt;arch&gt; --output &lt;version&gt;_&lt;os&gt;_&lt;arch&gt;.json
+</code></pre></div>
+<ol>
+<li><strong>Опционально.</strong> Сохранение артефактов в собственное хранилище.
+   Артефакты можно скачать по ссылкам в метаинформации или скопировать из директории <code>dist/</code>:</li>
+<li><code>dist/terraform-provider-rockitcloud_{VERSION}_{OS}_{ARCH}.zip</code><ul>
+<li>Для всех архитектур и ОС.</li>
+</ul>
+</li>
+<li><code>dist/terraform-provider-rockitcloud_{VERSION}_SHA256SUMS</code></li>
+<li>
+<p><code>dist/terraform-provider-rockitcloud_{VERSION}_SHA256SUMS.sig</code></p>
+</li>
+<li>
+<p><strong>Опционально.</strong> Если был выполнен шаг 3: обновление ссылок в метаинформации</p>
+</li>
+<li>Обновление s3 бакета:</li>
+<li>обновление файла с версиями: <code>version.json</code> -&gt; <code>providers/c2devel/rockitcloud/versions/index.json</code></li>
+<li>загрузка метаинформации для сборок версии:<br />
+<code>&lt;version&gt;_&lt;os&gt;_&lt;arch&gt;.json</code> -&gt; <code>providers/c2devel/rockitcloud/&lt;version&gt;/download/&lt;os&gt;/&lt;arch&gt;/index.json</code>
+   <strong>Важно!</strong> Файлы должны быть загружены с mime-типом "application/json". Для файлов должен быть
+   открыт доступ на чтение без аутентификации.</li>
+</ol>
+<h4 id="_13">Использование скрипта<a class="headerlink" href="#_13" title="Permanent link">#</a></h4>
+<p>Для автоматизации процесса загрузки новых версий в s3 бакет из официального terraform registry
+можно использовать <a href="../../scripts/update-s3-registry.sh">bash скрипт</a>.</p>
+<p>Скрипт анализирует файлы с версиями провайдера в s3 бакете и в официальном registry
+и для всех версий, которые отсутствуют в бакете, загружает из официального registry файлы с
+метаинформацией для сборок.</p>
+<p><strong>Важно!</strong> Файл с версиями в s3 бакете будет приведен к виду официального registry.</p>
+<p>Для запуска скрипта требуется установка и настройка утилиты <a href="https://s3tools.org/s3cmd">s3cmd</a>
+(<a href="https://docs.cloud.croc.ru/ru/api/tools/s3cmd.html?highlight=s3cmd">инструкция</a>)
+и созданный s3 бакет (см. <a href="#структура-s3-бакета">структура s3 бакета</a>).</p>
+<p>Переменные окружения скрипта:</p>
+<ul>
+<li><code>TF_REGISTRY_URL</code> - url terraform registry, по умолчанию: <code>"https://registry.terraform.io/"</code></li>
+<li><code>S3_REGISTRY_URL</code> - url s3 registry, обязательно</li>
+<li><code>S3_BUCKET_NAME</code> - имя бакета, обязательно</li>
+<li><code>PROVIDER_NAME</code> - имя провайдера, по умолчанию: <code>"c2devel/rockitcloud"</code></li>
+<li><code>S3_BACKUP_DIR</code> - директория для бэкапа бакета, опционально. Если директория не указана,
+   бэкап сделан не будет</li>
+</ul>
+<p>Запуск скрипта:</p>
+<div class="highlight"><pre><span></span><code>$ cd scripts
+$ ./update-s3-registry.sh
+...
+</code></pre></div>
+<h2 id="_14">Использование провайдера<a class="headerlink" href="#_14" title="Permanent link">#</a></h2>
+<p>Провайдер в terraform registry: https://registry.terraform.io/providers/C2Devel/rockitcloud</p>
+<p>Примеры использования <strong>Terraform</strong> для C2: <a href="https://github.com/C2Devel/terraform-examples">C2Devel/terraform-examples</a></p>
+<p>Конфигурация провайдера <strong>C2Devel/rockitcloud</strong> после его публикации в официальном terraform registry:</p>
+<div class="highlight"><pre><span></span><code># provider.tf
+
+terraform {
+  required_providers {
+    aws = {
+      # case-insensistive
+      source = &quot;c2devel/rockitcloud&quot;
+      version = &quot;24.1.0&quot;
+    }
+  }
+}
+
+provider &quot;aws&quot; {
+  # Configuration options
+}
+</code></pre></div>
+<p><strong>Важно!</strong> В конфигурации в качестве имени провадйера используется <code>aws</code>, т.к. сохранена схема
+именования terraform ресурсов: <strong>aws_</strong><em>. Если используется другое имя (например, <code>rockitcloud</code>),
+</em><em>Terraform</em><em> автоматически попытается загрузить провайдер </em><em>hashicorp/aws</em>*.</p>
+<p>Если провайдер опубликован в s3 бакете, в поле <code>source</code> добавляется url бакета без схемы. Например,<br />
+<code>tf-registry.rockitcloud.ru/c2devel/rockitcloud</code>.</p>
+<h3 id="_15">Локальная сборка<a class="headerlink" href="#_15" title="Permanent link">#</a></h3>
+<p>Также можно локально собрать артефакт, выполнив команду <code>go build -o terraform-provider-&lt;name&gt;</code>, и настроить <strong>Terraform (v0.14+)</strong>
+на его использование.</p>
+<p>По умолчанию конфигурация <strong>Terraform</strong> находится в файле <code>~/.terraformrc</code>.
+Для разработки можно создать отдельную конфигурацию.</p>
+<p>Пример dev конфигурации <code>dev.tfrc</code>, в которой обращение к провайдеру <code>c2devel/&lt;name&gt;</code> перенаправлено в директорию,
+в которой находится артефакт <code>terraform-provider-&lt;name&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code># dev.tfrc
+
+provider_installation {
+  dev_overrides {
+    &quot;c2devel/&lt;name&gt;&quot; = &quot;&lt;absolute-path-to-artifact-dir&gt;&quot;
+  }
+  direct {}
+}
+</code></pre></div>
+<p>Установка <code>dev.tfrc</code> в качестве <strong>Terraform</strong> конфигурации:</p>
+<div class="highlight"><pre><span></span><code>$ export TF_CLI_CONFIG_FILE=&lt;path-to-dev.tfrc&gt;
+</code></pre></div>
+<p><strong>Важно!</strong> Сначала для проекта должен быть выполнен <code>terraform init</code> (установлены провайдеры, сформирован lock файл),
+а потом уже добавлено перенаправление на свой артефакт. Повторно запускать <code>terraform init</code> не требуется и
+не рекомендуется, т.к. <strong>Terraform</strong> будет пытаться установить все провайдеры из официального registry, в том числе и
+переопределенный. Это может привести к ошибкам.</p>
+<h2 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">#</a></h2>
+<ol>
+<li>Настройка github actions: прогон тестов, прогон линтеров, сообщения в PR</li>
+<li>Доработка acceptance тестов для запуска на C2</li>
+<li>Использовать в <code>make build</code> команду <code>go build</code> вместо <code>go install</code> для того,
+   чтобы иметь возможность задать имя артефакта</li>
+<li>Обновить схему именования ресурсов: <strong>aws_</strong><em> -&gt; </em><em>rockitcloud_</em>**,
+   чтобы иметь возможность использовать в конфигурации в качестве имени провайдера <code>rockitcloud</code>.
+   Потребуется проверка совместимости с aws конфигурациями</li>
+</ol></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

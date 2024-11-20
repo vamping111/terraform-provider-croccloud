@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Roadmap: August - October 2020 - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/roadmaps/2020_August_to_October.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#roadmap-august-october-2020" class="nav-link">Roadmap: August - October 2020</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#new-services" class="nav-link">New Services</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#issues-and-enhancements" class="nav-link">Issues and Enhancements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#united-states-federal-focus" class="nav-link">United States Federal Focus</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#technical-debt-theme" class="nav-link">Technical Debt Theme</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#research-topics" class="nav-link">Research Topics</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#disclosures" class="nav-link">Disclosures</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="roadmap-august-october-2020">Roadmap: August - October 2020<a class="headerlink" href="#roadmap-august-october-2020" title="Permanent link">#</a></h1>
+<p>Every few months, the team will highlight areas of focus for our work and upcoming research.</p>
+<p>We select items for inclusion in the roadmap from the Top 10 Community Issues, <a href="../../contributing/core-services/">core services</a>, and internal priorities. When community pull requests exist for a given item, we will prioritize working with the original authors to include their contributions. If the author can no longer take on the implementation, HashiCorp will complete any additional work needed.</p>
+<p>Each weekly release will include necessary tasks that lead to the completion of the stated goals as well as community pull requests, enhancements, and features that are not highlighted in the roadmap. To view all the items we've prioritized for this quarter, please see the <a href="https://github.com/hashicorp/terraform-provider-aws/milestone/138">Roadmap milestone</a>.</p>
+<p>Where community sourced contributions exist we will work with the authors to review and merge their work. Where this does not exist we will create the resources and implementation ourselves.</p>
+<p>From <a href="../2020_May_to_July/">May through July</a>, we committed to adding support for WAFv2 and Lex. We are happy to report that WAFv2 support is now complete and we will be finishing support for Lex immediately following the release of v3.0.0. Additionally, we planned to refactor ACM and will include the redesigned resource as part of the 3.0.0 package. Lastly, we spent some time researching Default Tags and want to extend a thank you to all the folks that volunteered to assist. We’ve written a proposal for the feature that is being reviewed internally and we hope to include the functionality in the product in the future.</p>
+<p>From August-October ‘20, we will be prioritizing the following areas of work:</p>
+<h2 id="new-services">New Services<a class="headerlink" href="#new-services" title="Permanent link">#</a></h2>
+<h3 id="eventbridge">EventBridge<a class="headerlink" href="#eventbridge" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/9330">#9330</a></p>
+<p><em><a href="https://aws.amazon.com/eventbridge/">Amazon EventBridge</a> is a serverless event bus that makes it easy to connect applications together using data from your own applications, integrated Software-as-a-Service (SaaS) applications, and AWS services. EventBridge delivers a stream of real-time data from event sources, such as Zendesk, Datadog, or Pagerduty, and routes that data to targets like AWS Lambda. You can set up routing rules to determine where to send your data to build application architectures that react in real time to all of your data sources.</em></p>
+<p>As EventBridge exists as an addition to existing CloudWatch APIs we will perform a research phase to determine whether Terraform support should exist as separate resources, additions to existing ones, or a combination of the two.</p>
+<h3 id="ec2-image-builder">EC2 Image Builder<a class="headerlink" href="#ec2-image-builder" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/11084">#11084</a></p>
+<p><em><a href="https://aws.amazon.com/image-builder/">EC2 Image Builder</a> simplifies the creation, maintenance, validation, sharing, and deployment of Linux or Windows Server images for use with Amazon EC2 and on-premises.</em></p>
+<p>Support for EC2 Image Builder will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li>aws_imagebuilder_component</li>
+<li>aws_imagebuilder_distribution_configuration</li>
+<li>aws_imagebuilder_image</li>
+<li>aws_imagebuilder_image_pipeline</li>
+<li>aws_imagebuilder_image_recipe</li>
+<li>aws_imagebuilder_infrastructure_configuration</li>
+</ul>
+<p>New Data Source(s):</p>
+<ul>
+<li>aws_imagebuilder_image</li>
+</ul>
+<h3 id="aws-lake-formation">AWS Lake Formation<a class="headerlink" href="#aws-lake-formation" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/9700">#9700</a></p>
+<p><em><a href="https://aws.amazon.com/lake-formation">AWS Lake Formation</a> is a service that makes it easy to set up a secure data lake in days. A data lake is a centralized, curated, and secured repository that stores all your data, both in its original form and prepared for analysis. A data lake enables you to break down data silos and combine different types of analytics to gain insights and guide better business decisions.</em></p>
+<p>Support for AWS Lake Formation will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li>aws_lakeformation_resource</li>
+<li>aws_lakeformation_data_lake_settings</li>
+<li>aws_lakeformation_permissions</li>
+</ul>
+<h3 id="aws-serverless-application-repository">AWS Serverless Application Repository<a class="headerlink" href="#aws-serverless-application-repository" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/3981">#3981</a></p>
+<p><em>The <a href="https://aws.amazon.com/serverless/serverlessrepo/">AWS Serverless Application Repository</a> is a managed repository for serverless applications. It enables teams, organizations, and individual developers to store and share reusable applications, and easily assemble and deploy serverless architectures in powerful new ways. Using the Serverless Application Repository, you don't need to clone, build, package, or publish source code to AWS before deploying it. Instead, you can use pre-built applications from the Serverless Application Repository in your serverless architectures, helping you and your teams reduce duplicated work, ensure organizational best practices, and get to market faster. Integration with AWS Identity and Access Management (IAM) provides resource-level control of each application, enabling you to publicly share applications with everyone or privately share them with specific AWS accounts.</em></p>
+<p>Support for AWS Serverless Application Repository will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li>aws_serverlessapplicationrepository_cloudformation_stack</li>
+</ul>
+<p>New Data Source(s):</p>
+<ul>
+<li>aws_serverlessapplicationrepository_application</li>
+</ul>
+<h2 id="issues-and-enhancements">Issues and Enhancements<a class="headerlink" href="#issues-and-enhancements" title="Permanent link">#</a></h2>
+<p>The issues below have gained substantial support via our community. As a result, we want to highlight our commitment to addressing them.</p>
+<ul>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/12690">#12690</a> RDS Proxy Support</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/11281">#11281</a> Home Directory Mappings Support for AWS Transfer User</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/384">#384</a> Add support for CreateVPCAssociationAuthorization AWS API</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/6562">#6562</a> Auto Scaling Plans (Dynamic/Predictive Auto Scaling Groups)</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/5549">#5549</a> Terraform constantly updates resource policy on API Gateway</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/11569">#11569</a> aws_transfer_server: support Elastic IPs</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/5286">#5286</a> Point in time restore support for AWS RDS instances</li>
+</ul>
+<h2 id="united-states-federal-focus">United States Federal Focus<a class="headerlink" href="#united-states-federal-focus" title="Permanent link">#</a></h2>
+<p>We have added extra engineering and product capacity to enable us to provide the same compatibility and coverage assurances in the GovCloud, C2S, and SC2S regions as we currently do for Commercial AWS regions. Our attention on C2S/SC2S environments should result in better outcomes in other similar air gapped environments. Initially, we will be focusing on GovCloud and users should expect improved experiences within that region in the coming months.</p>
+<h2 id="technical-debt-theme">Technical Debt Theme<a class="headerlink" href="#technical-debt-theme" title="Permanent link">#</a></h2>
+<p>Each quarter we identify a technical debt theme for the team to focus on alongside new service additions, issue resolutions and enhancements. This quarter we are looking at spending time improving the reliability of our acceptance test framework. We have a number of flaky tests which add friction to the development cycle. Making these more consistent should improve the development experience for both contributors and maintainers.</p>
+<h2 id="research-topics">Research Topics<a class="headerlink" href="#research-topics" title="Permanent link">#</a></h2>
+<p>Research topics include features, architectural changes, and ideas that we are pursuing in the longer term that may significantly impact the core user experience of the AWS provider. Research topics are discovery only and are not guaranteed to be included in a future release.</p>
+<p>We are interested in your thoughts and feedback about the proposals below and encourage you to comment on the linked issues or schedule time with @maryelizbeth via the link on her GitHub profile to discuss.</p>
+<h3 id="api-callsiam-actions-per-terraform-resource-minimum-iam">API Calls/IAM Actions Per Terraform Resource (Minimum IAM)<a class="headerlink" href="#api-callsiam-actions-per-terraform-resource-minimum-iam" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/9154">#9154</a></p>
+<p>To address security concerns and best practices we are considering how Terraform could surface minimally viable IAM policies for taking actions on resources or executing a TF plan. This is in the early stages of research and we are particularly interested in whether or not this would be useful and the resources or services areas for which it is most valuable.</p>
+<h3 id="lifecycle-retain-add-retain-attribute-to-the-terraform-lifecycle-meta-parameter">Lifecycle: Retain [Add 'retain' attribute to the Terraform lifecycle meta-parameter]<a class="headerlink" href="#lifecycle-retain-add-retain-attribute-to-the-terraform-lifecycle-meta-parameter" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/902">#902</a></p>
+<p>Some resources (e.g. log groups) are intended to be created but never destroyed. Terraform currently does not have a lifecycle attribute for retaining such resources. We are curious as to whether or not retaining resources is a workflow that meets the needs of our community and if so, how and where we might make use of that in the AWS Provider.</p>
+<h2 id="disclosures">Disclosures<a class="headerlink" href="#disclosures" title="Permanent link">#</a></h2>
+<p>The product-development initiatives in this document reflect HashiCorp's current plans and are subject to change and/or cancellation in HashiCorp's sole discretion.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

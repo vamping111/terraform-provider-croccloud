@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Contribution Types and Checklists - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/contributing/contribution-checklists.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#contribution-types-and-checklists" class="nav-link">Contribution Types and Checklists</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#documentation-update" class="nav-link">Documentation Update</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#enhancementbugfix-to-a-resource" class="nav-link">Enhancement/Bugfix to a Resource</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#adding-resource-import-support" class="nav-link">Adding Resource Import Support</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#adding-resource-name-generation-support" class="nav-link">Adding Resource Name Generation Support</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#adding-resource-policy-support" class="nav-link">Adding Resource Policy Support</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#adding-resource-tagging-support" class="nav-link">Adding Resource Tagging Support</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#adding-resource-filtering-support" class="nav-link">Adding Resource Filtering Support</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#new-resource" class="nav-link">New Resource</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#new-service" class="nav-link">New Service</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#new-region" class="nav-link">New Region</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="contribution-types-and-checklists">Contribution Types and Checklists<a class="headerlink" href="#contribution-types-and-checklists" title="Permanent link">#</a></h1>
+<p>There are several different kinds of contribution, each of which has its own
+standards for a speedy review. The following sections describe guidelines for
+each type of contribution.</p>
+<ul>
+<li><a href="#documentation-update">Documentation Update</a></li>
+<li><a href="#enhancementbugfix-to-a-resource">Enhancement/Bugfix to a Resource</a></li>
+<li><a href="#adding-resource-import-support">Adding Resource Import Support</a></li>
+<li><a href="#adding-resource-name-generation-support">Adding Resource Name Generation Support</a><ul>
+<li><a href="#resource-name-generation-code-implementation">Resource Name Generation Code Implementation</a></li>
+<li><a href="#resource-name-generation-testing-implementation">Resource Name Generation Testing Implementation</a></li>
+<li><a href="#resource-name-generation-documentation-implementation">Resource Name Generation Documentation Implementation</a></li>
+<li><a href="#resource-name-generation-with-suffix">Resource Name Generation With Suffix</a></li>
+</ul>
+</li>
+<li><a href="#adding-resource-policy-support">Adding Resource Policy Support</a></li>
+<li><a href="#adding-resource-tagging-support">Adding Resource Tagging Support</a><ul>
+<li><a href="#generating-tag-code-for-a-service">Generating Tag Code for a Service</a></li>
+<li><a href="#resource-tagging-code-implementation">Resource Tagging Code Implementation</a></li>
+<li><a href="#resource-tagging-acceptance-testing-implementation">Resource Tagging Acceptance Testing Implementation</a></li>
+<li><a href="#resource-tagging-documentation-implementation">Resource Tagging Documentation Implementation</a></li>
+</ul>
+</li>
+<li><a href="#adding-resource-filtering-support">Adding Resource Filtering Support</a><ul>
+<li><a href="#adding-service-to-filter-generating-code">Adding Service to Filter Generating Code</a></li>
+<li><a href="#resource-filtering-code-implementation">Resource Filtering Code Implementation</a></li>
+<li><a href="#resource-filtering-documentation-implementation">Resource Filtering Documentation Implementation</a></li>
+</ul>
+</li>
+<li><a href="#new-resource">New Resource</a><ul>
+<li><a href="#new-tag-resource">New Tag Resource</a></li>
+</ul>
+</li>
+<li><a href="#new-service">New Service</a></li>
+<li><a href="#new-region">New Region</a></li>
+</ul>
+<h2 id="documentation-update">Documentation Update<a class="headerlink" href="#documentation-update" title="Permanent link">#</a></h2>
+<p>The <a href="../../website">Terraform AWS Provider's website source</a> is in this repository
+along with the code and tests. Below are some common items that will get
+flagged during documentation reviews:</p>
+<ul>
+<li>[ ] <strong>Reasoning for Change</strong>: Documentation updates should include an explanation for why the update is needed.</li>
+<li>[ ] <strong>Prefer AWS Documentation</strong>: Documentation about AWS service features and valid argument values that are likely to update over time should link to AWS service user guides and API references where possible.</li>
+<li>[ ] <strong>Large Example Configurations</strong>: Example Terraform configuration that includes multiple resource definitions should be added to the repository <code>examples</code> directory instead of an individual resource documentation page. Each directory under <code>examples</code> should be self-contained to call <code>terraform apply</code> without special configuration.</li>
+<li>[ ] <strong>Terraform Configuration Language Features</strong>: Individual resource documentation pages and examples should refrain from highlighting particular Terraform configuration language syntax workarounds or features such as <code>variable</code>, <code>local</code>, <code>count</code>, and built-in functions.</li>
+</ul>
+<h2 id="enhancementbugfix-to-a-resource">Enhancement/Bugfix to a Resource<a class="headerlink" href="#enhancementbugfix-to-a-resource" title="Permanent link">#</a></h2>
+<p>Working on existing resources is a great way to get started as a Terraform
+contributor because you can work within existing code and tests to get a feel
+for what to do.</p>
+<p>In addition to the below checklist, please see the <a href="../pullrequest-submission-and-lifecycle/#common-review-items">Common Review
+Items</a> sections for more specific coding and testing
+guidelines.</p>
+<ul>
+<li>[ ] <strong>Acceptance test coverage of new behavior</strong>: Existing resources each
+   have a set of [acceptance tests][acctests] covering their functionality.
+   These tests should exercise all the behavior of the resource. Whether you are
+   adding something or fixing a bug, the idea is to have an acceptance test that
+   fails if your code were to be removed. Sometimes it is sufficient to
+   "enhance" an existing test by adding an assertion or tweaking the config
+   that is used, but it's often better to add a new test. You can copy/paste an
+   existing test and follow the conventions you see there, modifying the test
+   to exercise the behavior of your code.</li>
+<li>[ ] <strong>Documentation updates</strong>: If your code makes any changes that need to
+   be documented, you should include those doc updates in the same PR. This
+   includes things like new resource attributes or changes in default values.</li>
+<li>[ ] <strong>Well-formed Code</strong>: Do your best to follow existing conventions you
+   see in the codebase, and ensure your code is formatted with <code>go fmt</code>.
+   The PR reviewers can help out on this front, and may provide comments with
+   suggestions on how to improve the code.</li>
+<li>[ ] <strong>Dependency updates</strong>: Create a separate PR if you are updating dependencies.
+   This is to avoid conflicts as version updates tend to be fast-
+   moving targets. We will plan to merge the PR with this change first.</li>
+</ul>
+<h2 id="adding-resource-import-support">Adding Resource Import Support<a class="headerlink" href="#adding-resource-import-support" title="Permanent link">#</a></h2>
+<p>Adding import support for Terraform resources will allow existing infrastructure to be managed within Terraform. This type of enhancement generally requires a small to moderate amount of code changes.</p>
+<p>Comprehensive code examples and information about resource import support can be found in the <a href="https://www.terraform.io/docs/extend/resources/import.html">Extending Terraform documentation</a>.</p>
+<p>In addition to the below checklist and the items noted in the Extending Terraform documentation, please see the <a href="../pullrequest-submission-and-lifecycle/#common-review-items">Common Review Items</a> sections for more specific coding and testing guidelines.</p>
+<ul>
+<li>[ ] <em>Resource Code Implementation</em>: In the resource code (e.g., <code>internal/service/{service}/{thing}.go</code>), implementation of <code>Importer</code> <code>State</code> function</li>
+<li>[ ] <em>Resource Acceptance Testing Implementation</em>: In the resource acceptance testing (e.g., <code>internal/service/{service}/{thing}_test.go</code>), implementation of <code>TestStep</code>s with <code>ImportState: true</code></li>
+<li>[ ] <em>Resource Documentation Implementation</em>: In the resource documentation (e.g., <code>website/docs/r/service_thing.html.markdown</code>), addition of <code>Import</code> documentation section at the bottom of the page</li>
+</ul>
+<h2 id="adding-resource-name-generation-support">Adding Resource Name Generation Support<a class="headerlink" href="#adding-resource-name-generation-support" title="Permanent link">#</a></h2>
+<p>Terraform AWS Provider resources can use shared logic to support and test name generation, where the operator can choose between an expected naming value, a generated naming value with a prefix, or a fully generated name.</p>
+<p>Implementing name generation support for Terraform AWS Provider resources requires the following, each with its own section below:</p>
+<ul>
+<li>[ ] <em>Resource Name Generation Code Implementation</em>: In the resource code (e.g., <code>internal/service/{service}/{thing}.go</code>), implementation of <code>name_prefix</code> attribute, along with handling in <code>Create</code> function.</li>
+<li>[ ] <em>Resource Name Generation Testing Implementation</em>: In the resource acceptance testing (e.g., <code>internal/service/{service}/{thing}_test.go</code>), implementation of new acceptance test functions and configurations to exercise new naming logic.</li>
+<li>[ ] <em>Resource Name Generation Documentation Implementation</em>: In the resource documentation (e.g., <code>website/docs/r/service_thing.html.markdown</code>), addition of <code>name_prefix</code> argument and update of <code>name</code> argument description.</li>
+</ul>
+<h3 id="resource-name-generation-code-implementation">Resource Name Generation Code Implementation<a class="headerlink" href="#resource-name-generation-code-implementation" title="Permanent link">#</a></h3>
+<ul>
+<li>In the resource Go file (e.g., <code>internal/service/{service}/{thing}.go</code>), add the following Go import: <code>"github.com/hashicorp/terraform-provider-aws/internal/create"</code></li>
+<li>In the resource schema, add the new <code>name_prefix</code> attribute and adjust the <code>name</code> attribute to be <code>Optional</code>, <code>Computed</code>, and <code>ConflictsWith</code> the <code>name_prefix</code> attribute. Ensure to keep any existing schema fields on <code>name</code> such as <code>ValidateFunc</code>. E.g.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">Type</span><span class="p">:</span><span class="w">          </span><span class="nx">schema</span><span class="p">.</span><span class="nx">TypeString</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">Optional</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">Computed</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">ForceNew</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">ConflictsWith</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;name_prefix&quot;</span><span class="p">},</span>
+<span class="p">},</span>
+<span class="s">&quot;name_prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">Type</span><span class="p">:</span><span class="w">          </span><span class="nx">schema</span><span class="p">.</span><span class="nx">TypeString</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">Optional</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">Computed</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">ForceNew</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">ConflictsWith</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;name&quot;</span><span class="p">},</span>
+<span class="p">},</span>
+</code></pre></div>
+<ul>
+<li>In the resource <code>Create</code> function, switch any calls from <code>d.Get("name").(string)</code> to instead use the <code>create.Name()</code> function, e.g.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">create</span><span class="p">.</span><span class="nx">Name</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">).(</span><span class="kt">string</span><span class="p">),</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;name_prefix&quot;</span><span class="p">).(</span><span class="kt">string</span><span class="p">))</span>
+
+<span class="c1">// ... in AWS Go SDK Input types, etc. use aws.String(name)</span>
+</code></pre></div>
+<ul>
+<li>If the resource supports import, in the resource <code>Read</code> function add a call to <code>d.Set("name_prefix", ...)</code>, e.g.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">d</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;name_prefix&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">create</span><span class="p">.</span><span class="nx">NamePrefixFromName</span><span class="p">(</span><span class="nx">aws</span><span class="p">.</span><span class="nx">StringValue</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Name</span><span class="p">)))</span>
+</code></pre></div>
+<h3 id="resource-name-generation-testing-implementation">Resource Name Generation Testing Implementation<a class="headerlink" href="#resource-name-generation-testing-implementation" title="Permanent link">#</a></h3>
+<ul>
+<li>In the resource testing (e.g., <code>internal/service/{service}/{thing}_test.go</code>), add the following Go import: <code>"github.com/hashicorp/terraform-provider-aws/internal/create"</code></li>
+<li>In the resource testing, implement two new tests named <code>_Name_Generated</code> and <code>_NamePrefix</code> with associated configurations, that verifies creating the resource without <code>name</code> and <code>name_prefix</code> arguments (for the former) and with only the <code>name_prefix</code> argument (for the latter). E.g.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">TestAccServiceThing_nameGenerated</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">thing</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">ServiceThing</span>
+<span class="w">  </span><span class="nx">resourceName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;aws_service_thing.test&quot;</span>
+
+<span class="w">  </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ParallelTest</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">PreCheck</span><span class="p">:</span><span class="w">          </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">PreCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">ErrorCheck</span><span class="p">:</span><span class="w">        </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ErrorCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">EndpointsID</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">ProviderFactories</span><span class="p">:</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ProviderFactories</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">CheckDestroy</span><span class="p">:</span><span class="w">      </span><span class="nx">testAccCheckThingDestroy</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">Steps</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestStep</span><span class="p">{</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Config</span><span class="p">:</span><span class="w"> </span><span class="nx">testAccThingNameGeneratedConfig</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">Check</span><span class="p">:</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ComposeTestCheckFunc</span><span class="p">(</span>
+<span class="w">          </span><span class="nx">testAccCheckThingExists</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">thing</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">create</span><span class="p">.</span><span class="nx">TestCheckResourceAttrNameGenerated</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;name_prefix&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">UniqueIdPrefix</span><span class="p">),</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="c1">// If the resource supports import:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">ResourceName</span><span class="p">:</span><span class="w">      </span><span class="nx">resourceName</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ImportState</span><span class="p">:</span><span class="w">       </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ImportStateVerify</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestAccServiceThing_namePrefix</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">thing</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">ServiceThing</span>
+<span class="w">  </span><span class="nx">resourceName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;aws_service_thing.test&quot;</span>
+
+<span class="w">  </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ParallelTest</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">PreCheck</span><span class="p">:</span><span class="w">          </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">PreCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">ErrorCheck</span><span class="p">:</span><span class="w">        </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ErrorCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">EndpointsID</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">ProviderFactories</span><span class="p">:</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ProviderFactories</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">CheckDestroy</span><span class="p">:</span><span class="w">      </span><span class="nx">testAccCheckThingDestroy</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">Steps</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestStep</span><span class="p">{</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Config</span><span class="p">:</span><span class="w"> </span><span class="nx">testAccThingNamePrefixConfig</span><span class="p">(</span><span class="s">&quot;tf-acc-test-prefix-&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">Check</span><span class="p">:</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ComposeTestCheckFunc</span><span class="p">(</span>
+<span class="w">          </span><span class="nx">testAccCheckThingExists</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">thing</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">create</span><span class="p">.</span><span class="nx">TestCheckResourceAttrNameFromPrefix</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tf-acc-test-prefix-&quot;</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;name_prefix&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tf-acc-test-prefix-&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="c1">// If the resource supports import:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">ResourceName</span><span class="p">:</span><span class="w">      </span><span class="nx">resourceName</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ImportState</span><span class="p">:</span><span class="w">       </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ImportStateVerify</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">testAccThingNameGeneratedConfig</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">`</span>
+<span class="s">resource &quot;aws_service_thing&quot; &quot;test&quot; {</span>
+<span class="s">  # ... other configuration ...</span>
+<span class="s">}</span>
+<span class="s">`</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">testAccThingNamePrefixConfig</span><span class="p">(</span><span class="nx">namePrefix</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">`</span>
+<span class="s">resource &quot;aws_service_thing&quot; &quot;test&quot; {</span>
+<span class="s">  # ... other configuration ...</span>
+
+<span class="s">  name_prefix = %[1]q</span>
+<span class="s">}</span>
+<span class="s">`</span><span class="p">,</span><span class="w"> </span><span class="nx">namePrefix</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="resource-name-generation-documentation-implementation">Resource Name Generation Documentation Implementation<a class="headerlink" href="#resource-name-generation-documentation-implementation" title="Permanent link">#</a></h3>
+<ul>
+<li>In the resource documentation (e.g., <code>website/docs/r/service_thing.html.markdown</code>), add the following to the arguments reference:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">*</span><span class="w"> </span><span class="sb">`name_prefix`</span> - (Optional) Creates a unique name beginning with the specified prefix. Conflicts with <span class="sb">`name`</span>.
+</code></pre></div>
+<ul>
+<li>Adjust the existing <code>name</code> argument reference to ensure its denoted as <code>Optional</code>, includes a mention that it can be generated, and that it conflicts with <code>name_prefix</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">*</span><span class="w"> </span><span class="sb">`name`</span> - (Optional) Name of the thing. If omitted, Terraform will assign a random, unique name. Conflicts with <span class="sb">`name_prefix`</span>.
+</code></pre></div>
+<h3 id="resource-name-generation-with-suffix">Resource Name Generation With Suffix<a class="headerlink" href="#resource-name-generation-with-suffix" title="Permanent link">#</a></h3>
+<p>Some generated resource names require a fixed suffix (for example Amazon SNS FIFO topic names must end in <code>.fifo</code>).
+In these cases use <code>create.NameWithSuffix()</code> in the resource <code>Create</code> function and <code>create.NamePrefixFromNameWithSuffix()</code> in the resource <code>Read</code> function, e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">create</span><span class="p">.</span><span class="nx">NameWithSuffix</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">).(</span><span class="kt">string</span><span class="p">),</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;name_prefix&quot;</span><span class="p">).(</span><span class="kt">string</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;.fifo&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>and</p>
+<div class="highlight"><pre><span></span><code><span class="nx">d</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;name_prefix&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">create</span><span class="p">.</span><span class="nx">NamePrefixFromNameWithSuffix</span><span class="p">(</span><span class="nx">aws</span><span class="p">.</span><span class="nx">StringValue</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Name</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;.fifo&quot;</span><span class="p">))</span>
+</code></pre></div>
+<p>There are also functions <code>create.TestCheckResourceAttrNameWithSuffixGenerated</code> and <code>create.TestCheckResourceAttrNameWithSuffixFromPrefix</code> for use in tests.</p>
+<h2 id="adding-resource-policy-support">Adding Resource Policy Support<a class="headerlink" href="#adding-resource-policy-support" title="Permanent link">#</a></h2>
+<p>Some AWS components support <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html">resource-based IAM policies</a> to control permissions. When implementing this support in the Terraform AWS Provider, we typically prefer creating a separate resource, <code>aws_{SERVICE}_{THING}_policy</code> (e.g., <code>aws_s3_bucket_policy</code>). See the <a href="#new-resource">New Resource section</a> for more information about implementing the separate resource and the <a href="../provider-design/">Provider Design page</a> for rationale.</p>
+<h2 id="adding-resource-tagging-support">Adding Resource Tagging Support<a class="headerlink" href="#adding-resource-tagging-support" title="Permanent link">#</a></h2>
+<p>AWS provides key-value metadata across many services and resources, which can be used for a variety of use cases including billing, ownership, and more. See the <a href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging Strategy page</a> for more information about tagging at a high level.</p>
+<p>As of version 3.38.0 of the Terraform AWS Provider, resources that previously implemented tagging support via the argument <code>tags</code>, now support provider-wide default tagging.</p>
+<p>Thus, for in-flight and future contributions, implementing tagging support for Terraform AWS Provider resources requires the following, each with its own section below:</p>
+<ul>
+<li>[ ] <em>Generated Service Tagging Code</em>: Each service has a <code>generate.go</code> file where generator directives live. Through these directives and their flags, you can customize code generation for the service. You can find the code that the tagging generator generates in a <code>tags_gen.go</code> file in a service, such as <code>internal/service/ec2/tags_gen.go</code>. Unlike previously, you should generally <em>not</em> need to edit the generator code (i.e., in <code>internal/generate/tags</code>).</li>
+<li>[ ] <em>Resource Tagging Code Implementation</em>: In the resource code (e.g., <code>internal/service/{service}/{thing}.go</code>), implementation of <code>tags</code> and <code>tags_all</code> schema attributes, along with implementation of <code>CustomizeDiff</code> in the resource definition and handling in <code>Create</code>, <code>Read</code>, and <code>Update</code> functions.</li>
+<li>[ ] <em>Resource Tagging Acceptance Testing Implementation</em>: In the resource acceptance testing (e.g., <code>internal/service/{service}/{thing}_test.go</code>), implementation of new acceptance test function and configurations to exercise new tagging logic.</li>
+<li>[ ] <em>Resource Tagging Documentation Implementation</em>: In the resource documentation (e.g., <code>website/docs/r/service_thing.html.markdown</code>), addition of <code>tags</code> argument and <code>tags_all</code> attribute.</li>
+</ul>
+<h3 id="generating-tag-code-for-a-service">Generating Tag Code for a Service<a class="headerlink" href="#generating-tag-code-for-a-service" title="Permanent link">#</a></h3>
+<p>This step is only necessary for the first implementation and may have been previously completed. If so, move on to the next section.</p>
+<p>More details about this code generation, including fixes for potential error messages in this process, can be found in the <a href="../../internal/generate/tags/README.md">generate documentation</a>.</p>
+<ul>
+<li>Open the AWS Go SDK documentation for the service, e.g., for <a href="https://docs.aws.amazon.com/sdk-for-go/api/service/eks/"><code>service/eks</code></a>. Note: there can be a delay between the AWS announcement and the updated AWS Go SDK documentation.</li>
+<li>Use the AWS Go SDK to determine which types of tagging code to generate. There are three main types of tagging code you can generate: service tags, list tags, and update tags. These are not mutually exclusive and some services use more than one.</li>
+<li>Determine if a service already has a <code>generate.go</code> file (e.g., <code>internal/service/eks/generate.go</code>). If none exists, follow the example of other <code>generate.go</code> files in many other services. This is a very simple file, perhaps 3-5 lines long, and must <em>only</em> contain generate directives at the very top of the file and a package declaration (e.g., <code>package eks</code>) -- <em>nothing else</em>.</li>
+<li>Check for a tagging code directive: <code>//go:generate go run ../../generate/tags/main.go</code>. If one does not exist, add it. Note that without flags, the directive itself will not do anything useful. <strong>WARNING:</strong> You must never have more than one <code>generate/tags/main.go</code> directive in a <code>generate.go</code> file. Even if you want to generate all three types of tag code, you will use multiple flags but only one <code>generate/tags/main.go</code> directive! Including more than one directive will cause the generator to overwrite one set of generated code with whatever is specified in the next directive.</li>
+<li>
+<p>If the service supports service tags, determine the service's "type" of tagging implementation. Some services will use a simple map style (<code>map[string]*string</code> in Go) while others will have a separate structure (<code>[]service.Tag</code> <code>struct</code> with <code>Key</code> and <code>Value</code> fields).</p>
+<ul>
+<li>If the type is a map, add a new flag to the tagging directive (see above): <code>-ServiceTagsMap</code>. If the type is <code>struct</code>, add a  <code>-ServiceTagsSlice</code> flag.</li>
+<li>If you use the <code>-ServiceTagsSlice</code> flag and if the <code>struct</code> name is not exactly <code>Tag</code>, you must include the <code>-TagType</code> flag with the name of the <code>struct</code> (e.g., <code>-TagType=S3Tag</code>). If the key and value elements of the <code>struct</code> are not exactly <code>Key</code> and <code>Value</code> respectively, you must include the <code>-TagTypeKeyElem</code> and/or <code>-TagTypeValElem</code> flags with the correct names.</li>
+<li>In summary, you may need to include one or more of the following flags with <code>-ServiceTagsSlice</code> in order to properly customize the generated code: <code>-TagKeyType</code>, <code>TagPackage</code>, <code>TagResTypeElem</code>, <code>TagType</code>, <code>TagType2</code>, <code>TagTypeAddBoolElem</code>, <code>TagTypeAddBoolElemSnake</code>, <code>TagTypeIDElem</code>, <code>TagTypeKeyElem</code>, and <code>TagTypeValElem</code>.</li>
+</ul>
+</li>
+<li>
+<p>If the service supports listing tags (usually a <code>ListTags</code> or <code>ListTagsForResource</code> API call), follow these guidelines.</p>
+<ul>
+<li>Add a new flag to the tagging directive (see above): <code>-ListTags</code>.</li>
+<li>If the API list operation is not exactly <code>ListTagsForResource</code>, include the <code>-ListTagsOp</code> flag with the name of the operation (e.g., <code>-ListTagsOp=DescribeTags</code>).</li>
+<li>If the API list tags operation identifying element is not exactly <code>ResourceArn</code>, include the <code>-ListTagsInIDElem</code> flag with the name of the element (e.g., <code>-ListTagsInIDElem=ResourceARN</code>).</li>
+<li>If the API list tags operation identifying element needs a slice, include the <code>-ListTagsInIDNeedSlice</code> flag with a <code>yes</code> value (e.g., <code>-ListTagsInIDNeedSlice=yes</code>).</li>
+<li>If the API list tags operation output element is not exactly <code>Tags</code>, include the <code>-ListTagsOutTagsElem</code> flag with the name of the element (e.g., <code>-ListTagsOutTagsElem=TagList</code>).</li>
+<li>In summary, you may need to include one or more of the following flags with <code>-ListTags</code> in order to properly customize the generated code: <code>ListTagsInFiltIDName</code>, <code>ListTagsInIDElem</code>, <code>ListTagsInIDNeedSlice</code>, <code>ListTagsOp</code>, <code>ListTagsOutTagsElem</code>, <code>TagPackage</code>, <code>TagResTypeElem</code>, and <code>TagTypeIDElem</code>.</li>
+</ul>
+</li>
+<li>
+<p>If the service API supports updating tags (usually <code>TagResource</code> and <code>UntagResource</code> API calls), follow these guidelines.</p>
+<ul>
+<li>Add a new flag to the tagging directive (see above): <code>-UpdateTags</code>.</li>
+<li>If the API tag operation is not exactly <code>TagResource</code>, include the <code>-TagOp</code> flag with the name of the operation (e.g., <code>-TagOp=AddTags</code>).</li>
+<li>If the API untag operation is not exactly <code>UntagResource</code>, include the <code>-UntagOp</code> flag with the name of the operation (e.g., <code>-UntagOp=RemoveTags</code>).</li>
+<li>If the API operation identifying element is not exactly <code>ResourceArn</code>, include the <code>-TagInIDElem</code> flag with the name of the element (e.g., <code>-TagInIDElem=ResourceARN</code>).</li>
+<li>If the API untag operation tags input element is not exactly <code>TagKeys</code>, include the <code>-UntagInTagsElem</code> flag with the name of the element (e.g., <code>-UntagInTagsElem=Keys</code>).</li>
+<li>In summary, you may need to include one or more of the following flags with <code>-UpdateTags</code> in order to properly customize the generated code: <code>TagInCustomVal</code>, <code>TagInIDElem</code>, <code>TagInIDNeedSlice</code>, <code>TagInTagsElem</code>, <code>TagOp</code>, <code>TagOpBatchSize</code>, <code>TagPackage</code>, <code>TagResTypeElem</code>, <code>TagTypeAddBoolElem</code>, <code>TagTypeIDElem</code>, <code>UntagInCustomVal</code>, <code>UntagInNeedTagKeyType</code>, <code>UntagInNeedTagType</code>, <code>UntagInTagsElem</code>, and <code>UntagOp</code>.</li>
+</ul>
+</li>
+<li>
+<p>Run <code>make gen</code> (<code>go generate ./...</code>) and ensure there are no errors via <code>make test</code> (<code>go test ./...</code>)</p>
+</li>
+</ul>
+<h3 id="resource-tagging-code-implementation">Resource Tagging Code Implementation<a class="headerlink" href="#resource-tagging-code-implementation" title="Permanent link">#</a></h3>
+<ul>
+<li>In the resource Go file (e.g., <code>internal/service/eks/cluster.go</code>), add the following Go import: <code>tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"</code></li>
+<li>In the resource schema, add <code>"tags": tagsSchema(),</code> and <code>"tags_all": tagsSchemaComputed(),</code></li>
+<li>In the <code>schema.Resource</code> struct definition, add the <code>CustomizeDiff: SetTagsDiff</code> handling essential to resource support for default tags:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">ResourceCluster</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Resource</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Resource</span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* ... other configuration ... */</span>
+<span class="w">    </span><span class="nx">CustomizeDiff</span><span class="p">:</span><span class="w"> </span><span class="nx">verify</span><span class="p">.</span><span class="nx">SetTagsDiff</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If the resource already contains a <code>CustomizeDiff</code> function, append the <code>SetTagsDiff</code> via the <code>customdiff.Sequence</code> method:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">ResourceExample</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Resource</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Resource</span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* ... other configuration ... */</span>
+<span class="w">    </span><span class="nx">CustomizeDiff</span><span class="p">:</span><span class="w"> </span><span class="nx">customdiff</span><span class="p">.</span><span class="nx">Sequence</span><span class="p">(</span>
+<span class="w">      </span><span class="nx">resourceExampleCustomizeDiff</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">verify</span><span class="p">.</span><span class="nx">SetTagsDiff</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>If the API supports tagging on creation (the <code>Input</code> struct accepts a <code>Tags</code> field), in the resource <code>Create</code> function, implement the logic to convert the configuration tags into the service tags, e.g., with EKS Clusters:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// Typically declared near conn := /* ... */</span>
+<span class="nx">defaultTagsConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.(</span><span class="o">*</span><span class="nx">AWSClient</span><span class="p">).</span><span class="nx">DefaultTagsConfig</span>
+<span class="nx">tags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">defaultTagsConfig</span><span class="p">.</span><span class="nx">MergeTags</span><span class="p">(</span><span class="nx">tftags</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;tags&quot;</span><span class="p">).(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})))</span>
+
+<span class="nx">input</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">eks</span><span class="p">.</span><span class="nx">CreateClusterInput</span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/* ... other configuration ... */</span>
+<span class="w">  </span><span class="nx">Tags</span><span class="p">:</span><span class="w"> </span><span class="nx">Tags</span><span class="p">(</span><span class="nx">tags</span><span class="p">.</span><span class="nx">IgnoreAWS</span><span class="p">()),</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If the service API does not allow passing an empty list, the logic can be adjusted similar to:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Typically declared near conn := /* ... */</span>
+<span class="nx">defaultTagsConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.(</span><span class="o">*</span><span class="nx">AWSClient</span><span class="p">).</span><span class="nx">DefaultTagsConfig</span>
+<span class="nx">tags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">defaultTagsConfig</span><span class="p">.</span><span class="nx">MergeTags</span><span class="p">(</span><span class="nx">tftags</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;tags&quot;</span><span class="p">).(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})))</span>
+
+<span class="nx">input</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">eks</span><span class="p">.</span><span class="nx">CreateClusterInput</span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/* ... other configuration ... */</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">tags</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">input</span><span class="p">.</span><span class="nx">Tags</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Tags</span><span class="p">(</span><span class="nx">tags</span><span class="p">.</span><span class="nx">IgnoreAWS</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Otherwise if the API does not support tagging on creation (the <code>Input</code> struct does not accept a <code>Tags</code> field), in the resource <code>Create</code> function, implement the logic to convert the configuration tags into the service API call to tag a resource, e.g., with Elasticsearch Domain:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// Typically declared near conn := /* ... */</span>
+<span class="nx">defaultTagsConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.(</span><span class="o">*</span><span class="nx">AWSClient</span><span class="p">).</span><span class="nx">DefaultTagsConfig</span>
+<span class="nx">tags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">defaultTagsConfig</span><span class="p">.</span><span class="nx">MergeTags</span><span class="p">(</span><span class="nx">tftags</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;tags&quot;</span><span class="p">).(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})))</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">tags</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">UpdateTags</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">tags</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error adding Elasticsearch Cluster (%s) tags: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Some EC2 resources (e.g., <a href="https://www.terraform.io/docs/providers/aws/r/ec2_fleet.html"><code>aws_ec2_fleet</code></a>) have a <code>TagSpecifications</code> field in the <code>InputStruct</code> instead of a <code>Tags</code> field. In these cases the <code>ec2TagSpecificationsFromKeyValueTags()</code> helper function should be used. This example shows using <code>TagSpecifications</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// Typically declared near conn := /* ... */</span>
+<span class="nx">defaultTagsConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.(</span><span class="o">*</span><span class="nx">AWSClient</span><span class="p">).</span><span class="nx">DefaultTagsConfig</span>
+<span class="nx">tags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">defaultTagsConfig</span><span class="p">.</span><span class="nx">MergeTags</span><span class="p">(</span><span class="nx">tftags</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;tags&quot;</span><span class="p">).(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})))</span>
+
+<span class="nx">input</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ec2</span><span class="p">.</span><span class="nx">CreateFleetInput</span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/* ... other configuration ... */</span>
+<span class="w">  </span><span class="nx">TagSpecifications</span><span class="p">:</span><span class="w"> </span><span class="nx">ec2TagSpecificationsFromKeyValueTags</span><span class="p">(</span><span class="nx">tags</span><span class="p">,</span><span class="w"> </span><span class="nx">ec2</span><span class="p">.</span><span class="nx">ResourceTypeFleet</span><span class="p">),</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>In the resource <code>Read</code> function, implement the logic to convert the service tags to save them into the Terraform state for drift detection, e.g., with EKS Clusters (which had the tags available in the DescribeCluster API call):</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// Typically declared near conn := /* ... */</span>
+<span class="nx">defaultTagsConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.(</span><span class="o">*</span><span class="nx">AWSClient</span><span class="p">).</span><span class="nx">DefaultTagsConfig</span>
+<span class="nx">ignoreTagsConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.(</span><span class="o">*</span><span class="nx">AWSClient</span><span class="p">).</span><span class="nx">IgnoreTagsConfig</span>
+
+<span class="cm">/* ... other d.Set(...) logic ... */</span>
+
+<span class="nx">tags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">keyvaluetags</span><span class="p">.</span><span class="nx">EksKeyValueTags</span><span class="p">(</span><span class="nx">cluster</span><span class="p">.</span><span class="nx">Tags</span><span class="p">).</span><span class="nx">IgnoreAWS</span><span class="p">().</span><span class="nx">IgnoreConfig</span><span class="p">(</span><span class="nx">ignoreTagsConfig</span><span class="p">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;tags&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tags</span><span class="p">.</span><span class="nx">RemoveDefaultConfig</span><span class="p">(</span><span class="nx">defaultTagsConfig</span><span class="p">).</span><span class="nx">Map</span><span class="p">());</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error setting tags: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;tags_all&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tags</span><span class="p">.</span><span class="nx">Map</span><span class="p">());</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error setting tags_all: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If the service API does not return the tags directly from reading the resource and requires a separate API call, its possible to use the <code>keyvaluetags</code> functionality like the following, e.g., with Athena Workgroups:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Typically declared near conn := /* ... */</span>
+<span class="nx">defaultTagsConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.(</span><span class="o">*</span><span class="nx">AWSClient</span><span class="p">).</span><span class="nx">DefaultTagsConfig</span>
+<span class="nx">ignoreTagsConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.(</span><span class="o">*</span><span class="nx">AWSClient</span><span class="p">).</span><span class="nx">IgnoreTagsConfig</span>
+
+<span class="cm">/* ... other d.Set(...) logic ... */</span>
+
+<span class="nx">tags</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">keyvaluetags</span><span class="p">.</span><span class="nx">AthenaListTags</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">arn</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error listing tags for resource (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">arn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">tags</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tags</span><span class="p">.</span><span class="nx">IgnoreAWS</span><span class="p">().</span><span class="nx">IgnoreConfig</span><span class="p">(</span><span class="nx">ignoreTagsConfig</span><span class="p">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;tags&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tags</span><span class="p">.</span><span class="nx">RemoveDefaultConfig</span><span class="p">(</span><span class="nx">defaultTagsConfig</span><span class="p">).</span><span class="nx">Map</span><span class="p">());</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error setting tags: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;tags_all&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tags</span><span class="p">.</span><span class="nx">Map</span><span class="p">());</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error setting tags_all: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>In the resource <code>Update</code> function (this may be the first functionality requiring the creation of the <code>Update</code> function), implement the logic to handle tagging updates, e.g., with EKS Clusters:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">HasChange</span><span class="p">(</span><span class="s">&quot;tags_all&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">o</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetChange</span><span class="p">(</span><span class="s">&quot;tags_all&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">keyvaluetags</span><span class="p">.</span><span class="nx">EksUpdateTags</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;arn&quot;</span><span class="p">).(</span><span class="kt">string</span><span class="p">),</span><span class="w"> </span><span class="nx">o</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error updating tags: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If the resource <code>Update</code> function applies specific updates to attributes regardless of changes to tags, implement the following e.g., with IAM Policy:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">HasChangesExcept</span><span class="p">(</span><span class="s">&quot;tags&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tags_all&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/* ... other logic ...*/</span>
+<span class="w">  </span><span class="nx">request</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">iam</span><span class="p">.</span><span class="nx">CreatePolicyVersionInput</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">PolicyArn</span><span class="p">:</span><span class="w">      </span><span class="nx">aws</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">()),</span>
+<span class="w">    </span><span class="nx">PolicyDocument</span><span class="p">:</span><span class="w"> </span><span class="nx">aws</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;policy&quot;</span><span class="p">).(</span><span class="kt">string</span><span class="p">)),</span>
+<span class="w">    </span><span class="nx">SetAsDefault</span><span class="p">:</span><span class="w">   </span><span class="nx">aws</span><span class="p">.</span><span class="nx">Bool</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">CreatePolicyVersion</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error updating IAM policy (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="resource-tagging-acceptance-testing-implementation">Resource Tagging Acceptance Testing Implementation<a class="headerlink" href="#resource-tagging-acceptance-testing-implementation" title="Permanent link">#</a></h3>
+<ul>
+<li>In the resource testing (e.g., <code>internal/service/eks/cluster_test.go</code>), verify that existing resources without tagging are unaffected and do not have tags saved into their Terraform state. This should be done in the <code>_basic</code> acceptance test by adding one line similar to <code>resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),</code> and one similar to <code>resource.TestCheckResourceAttr(resourceName, "tags_all.%", "0"),</code></li>
+<li>In the resource testing, implement a new test named <code>_tags</code> with associated configurations, that verifies creating the resource with tags and updating tags. E.g., EKS Clusters:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">TestAccEKSCluster_tags</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">cluster1</span><span class="p">,</span><span class="w"> </span><span class="nx">cluster2</span><span class="p">,</span><span class="w"> </span><span class="nx">cluster3</span><span class="w"> </span><span class="nx">eks</span><span class="p">.</span><span class="nx">Cluster</span>
+<span class="w">  </span><span class="nx">rName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkacctest</span><span class="p">.</span><span class="nx">RandomWithPrefix</span><span class="p">(</span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ResourcePrefix</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">resourceName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;aws_eks_cluster.test&quot;</span>
+
+<span class="w">  </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ParallelTest</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">PreCheck</span><span class="p">:</span><span class="w">          </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">PreCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span><span class="w"> </span><span class="nx">testAccPreCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">ErrorCheck</span><span class="p">:</span><span class="w">        </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ErrorCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">eks</span><span class="p">.</span><span class="nx">EndpointsID</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">ProviderFactories</span><span class="p">:</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ProviderFactories</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">CheckDestroy</span><span class="p">:</span><span class="w">      </span><span class="nx">testAccCheckClusterDestroy</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">Steps</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestStep</span><span class="p">{</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Config</span><span class="p">:</span><span class="w"> </span><span class="nx">testAccClusterConfigTags1</span><span class="p">(</span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">Check</span><span class="p">:</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ComposeTestCheckFunc</span><span class="p">(</span>
+<span class="w">          </span><span class="nx">testAccCheckClusterExists</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">cluster1</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tags.%&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tags.key1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">ResourceName</span><span class="p">:</span><span class="w">      </span><span class="nx">resourceName</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ImportState</span><span class="p">:</span><span class="w">       </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ImportStateVerify</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Config</span><span class="p">:</span><span class="w"> </span><span class="nx">testAccClusterConfigTags2</span><span class="p">(</span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1updated&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">Check</span><span class="p">:</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ComposeTestCheckFunc</span><span class="p">(</span>
+<span class="w">          </span><span class="nx">testAccCheckClusterExists</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">cluster2</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tags.%&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tags.key1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1updated&quot;</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tags.key2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Config</span><span class="p">:</span><span class="w"> </span><span class="nx">testAccClusterConfigTags1</span><span class="p">(</span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">Check</span><span class="p">:</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ComposeTestCheckFunc</span><span class="p">(</span>
+<span class="w">          </span><span class="nx">testAccCheckClusterExists</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">cluster3</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tags.%&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tags.key2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">testAccClusterConfigTags1</span><span class="p">(</span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="nx">tagKey1</span><span class="p">,</span><span class="w"> </span><span class="nx">tagValue1</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ConfigCompose</span><span class="p">(</span><span class="nx">testAccClusterConfig_base</span><span class="p">(</span><span class="nx">rName</span><span class="p">),</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">`</span>
+<span class="s">resource &quot;aws_eks_cluster&quot; &quot;test&quot; {</span>
+<span class="s">  name     = %[1]q</span>
+<span class="s">  role_arn = aws_iam_role.test.arn</span>
+
+<span class="s">  tags = {</span>
+<span class="s">    %[2]q = %[3]q</span>
+<span class="s">  }</span>
+
+<span class="s">  vpc_config {</span>
+<span class="s">    subnet_ids = aws_subnet.test[*].id</span>
+<span class="s">  }</span>
+
+<span class="s">  depends_on = [aws_iam_role_policy_attachment.test-AmazonEKSClusterPolicy]</span>
+<span class="s">}</span>
+<span class="s">`</span><span class="p">,</span><span class="w"> </span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="nx">tagKey1</span><span class="p">,</span><span class="w"> </span><span class="nx">tagValue1</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">testAccClusterConfigTags2</span><span class="p">(</span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="nx">tagKey1</span><span class="p">,</span><span class="w"> </span><span class="nx">tagValue1</span><span class="p">,</span><span class="w"> </span><span class="nx">tagKey2</span><span class="p">,</span><span class="w"> </span><span class="nx">tagValue2</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ConfigCompose</span><span class="p">(</span><span class="nx">testAccClusterConfig_base</span><span class="p">(</span><span class="nx">rName</span><span class="p">),</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">`</span>
+<span class="s">resource &quot;aws_eks_cluster&quot; &quot;test&quot; {</span>
+<span class="s">  name     = %[1]q</span>
+<span class="s">  role_arn = aws_iam_role.test.arn</span>
+
+<span class="s">  tags = {</span>
+<span class="s">    %[2]q = %[3]q</span>
+<span class="s">    %[4]q = %[5]q</span>
+<span class="s">  }</span>
+
+<span class="s">  vpc_config {</span>
+<span class="s">    subnet_ids = aws_subnet.test[*].id</span>
+<span class="s">  }</span>
+
+<span class="s">  depends_on = [aws_iam_role_policy_attachment.test-AmazonEKSClusterPolicy]</span>
+<span class="s">}</span>
+<span class="s">`</span><span class="p">,</span><span class="w"> </span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="nx">tagKey1</span><span class="p">,</span><span class="w"> </span><span class="nx">tagValue1</span><span class="p">,</span><span class="w"> </span><span class="nx">tagKey2</span><span class="p">,</span><span class="w"> </span><span class="nx">tagValue2</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Verify all acceptance testing passes for the resource (e.g., <code>make testacc TESTS=TestAccEKSCluster_ PKG=eks</code>)</li>
+</ul>
+<h3 id="resource-tagging-documentation-implementation">Resource Tagging Documentation Implementation<a class="headerlink" href="#resource-tagging-documentation-implementation" title="Permanent link">#</a></h3>
+<ul>
+<li>In the resource documentation (e.g., <code>website/docs/r/eks_cluster.html.markdown</code>), add the following to the arguments reference:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">*</span><span class="w"> </span><span class="sb">`tags`</span> - (Optional) Key-value mapping of resource tags. If configured with a provider [<span class="sb">`default_tags`</span> configuration block](/docs/providers/aws/index.html#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level.
+</code></pre></div>
+<ul>
+<li>In the resource documentation (e.g., <code>website/docs/r/eks_cluster.html.markdown</code>), add the following to the attributes reference:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">*</span><span class="w"> </span><span class="sb">`tags_all`</span> - Map of tags assigned to the resource, including those inherited from the provider [<span class="sb">`default_tags`</span> configuration block](/docs/providers/aws/index.html#default_tags-configuration-block).
+</code></pre></div>
+<h2 id="adding-resource-filtering-support">Adding Resource Filtering Support<a class="headerlink" href="#adding-resource-filtering-support" title="Permanent link">#</a></h2>
+<p>AWS provides server-side filtering across many services and resources, which can be used when listing resources of that type, for example in the implementation of a data source.
+See the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Filtering.html#Filtering_Resources_CLI">EC2 Listing and filtering your resources page</a> for information about how server-side filtering can be used with EC2 resources.</p>
+<p>Implementing server-side filtering support for Terraform AWS Provider resources requires the following, each with its own section below:</p>
+<ul>
+<li>[ ] <em>Generated Service Filtering Code</em>: In the internal code generators (e.g., <code>internal/generate/namevaluesfilters</code>), implementation and customization of how a service handles filtering, which is standardized for the resources.</li>
+<li>[ ] <em>Resource Filtering Code Implementation</em>: In the resource's equivalent data source code (e.g., <code>internal/service/{servicename}/thing_data_source.go</code>), implementation of <code>filter</code> schema attribute, along with handling in the <code>Read</code> function.</li>
+<li>[ ] <em>Resource Filtering Documentation Implementation</em>: In the resource's equivalent data source documentation (e.g., <code>website/docs/d/service_thing.html.markdown</code>), addition of <code>filter</code> argument</li>
+</ul>
+<h3 id="adding-service-to-filter-generating-code">Adding Service to Filter Generating Code<a class="headerlink" href="#adding-service-to-filter-generating-code" title="Permanent link">#</a></h3>
+<p>This step is only necessary for the first implementation and may have been previously completed. If so, move on to the next section.</p>
+<p>More details about this code generation can be found in the <a href="../../internal/generate/namevaluesfilters/README.md">namevaluesfilters documentation</a>.</p>
+<ul>
+<li>Open the AWS Go SDK documentation for the service, e.g., for <a href="https://docs.aws.amazon.com/sdk-for-go/api/service/rds/"><code>service/rds</code></a>. Note: there can be a delay between the AWS announcement and the updated AWS Go SDK documentation.</li>
+<li>Determine if the service API includes functionality for filtering resources (usually a <code>Filters</code> argument to a <code>DescribeThing</code> API call). If so, add the AWS Go SDK service name (e.g., <code>rds</code>) to <code>sliceServiceNames</code> in <code>internal/generate/namevaluesfilters/generators/servicefilters/main.go</code>.</li>
+<li>Run <code>make gen</code> (<code>go generate ./...</code>) and ensure there are no errors via <code>make test</code> (<code>go test ./...</code>)</li>
+</ul>
+<h3 id="resource-filtering-code-implementation">Resource Filtering Code Implementation<a class="headerlink" href="#resource-filtering-code-implementation" title="Permanent link">#</a></h3>
+<ul>
+<li>In the resource's equivalent data source Go file (e.g., <code>internal/service/ec2/internet_gateway_data_source.go</code>), add the following Go import: <code>"github.com/hashicorp/terraform-provider-aws/internal/generate/namevaluesfilters"</code></li>
+<li>In the resource schema, add <code>"filter": namevaluesfilters.Schema(),</code></li>
+<li>Implement the logic to build the list of filters:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">input</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ec2</span><span class="p">.</span><span class="nx">DescribeInternetGatewaysInput</span><span class="p">{}</span>
+
+<span class="c1">// Filters based on attributes.</span>
+<span class="nx">filters</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">namevaluesfilters</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;internet-gateway-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;internet_gateway_id&quot;</span><span class="p">).(</span><span class="kt">string</span><span class="p">),</span>
+<span class="p">})</span>
+<span class="c1">// Add filters based on keyvalue tags (N.B. Not applicable to all AWS services that support filtering)</span>
+<span class="nx">filters</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="nx">namevaluesfilters</span><span class="p">.</span><span class="nx">Ec2Tags</span><span class="p">(</span><span class="nx">keyvaluetags</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;tags&quot;</span><span class="p">).(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})).</span><span class="nx">IgnoreAWS</span><span class="p">().</span><span class="nx">IgnoreConfig</span><span class="p">(</span><span class="nx">ignoreTagsConfig</span><span class="p">).</span><span class="nx">Map</span><span class="p">()))</span>
+<span class="c1">// Add filters based on the custom filtering &quot;filter&quot; attribute.</span>
+<span class="nx">filters</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;filter&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Set</span><span class="p">))</span>
+
+<span class="nx">input</span><span class="p">.</span><span class="nx">Filters</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">filters</span><span class="p">.</span><span class="nx">Ec2Filters</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="resource-filtering-documentation-implementation">Resource Filtering Documentation Implementation<a class="headerlink" href="#resource-filtering-documentation-implementation" title="Permanent link">#</a></h3>
+<ul>
+<li>In the resource's equivalent data source documentation (e.g., <code>website/docs/d/internet_gateway.html.markdown</code>), add the following to the arguments reference:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">*</span><span class="w"> </span><span class="sb">`filter`</span> - (Optional) Custom filter block as described below.
+
+More complex filters can be expressed using one or more <span class="sb">`filter`</span> sub-blocks, which take the following arguments:
+
+<span class="k">*</span><span class="w"> </span><span class="sb">`name`</span> - (Required) The name of the field to filter by, as defined by
+  [<span class="nt">the underlying AWS API</span>](<span class="na">https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInternetGateways.html</span>).
+
+<span class="k">*</span><span class="w"> </span><span class="sb">`values`</span> - (Required) Set of values that are accepted for the given field.
+  An Internet Gateway will be selected if any one of the given values matches.
+</code></pre></div>
+<h2 id="new-resource">New Resource<a class="headerlink" href="#new-resource" title="Permanent link">#</a></h2>
+<p><em>Before submitting this type of contribution, it is highly recommended to read and understand the other pages of the <a href="../">Contributing Guide</a>.</em></p>
+<p>Implementing a new resource is a good way to learn more about how Terraform
+interacts with upstream APIs. There are plenty of examples to draw from in the
+existing resources, but you still get to implement something completely new.</p>
+<p>In addition to the below checklist, please see the <a href="../pullrequest-submission-and-lifecycle/#common-review-items">Common Review
+Items</a> sections for more specific coding and testing
+guidelines.</p>
+<ul>
+<li>[ ] <strong>Minimal LOC</strong>: It's difficult for both the reviewer and author to go
+   through long feedback cycles on a big PR with many resources. We ask you to
+   only submit <strong>1 resource at a time</strong>.</li>
+<li>[ ] <strong>Acceptance tests</strong>: New resources should include acceptance tests
+   covering their behavior. See <a href="../running-and-writing-acceptance-tests/#writing-an-acceptance-test">Writing Acceptance
+   Tests</a> for a detailed guide on how to
+   approach these.</li>
+<li>
+<p>[ ] <strong>Resource Naming</strong>: Resources should be named <code>aws_&lt;service&gt;_&lt;name&gt;</code>,
+   using underscores (<code>_</code>) as the separator. Resources are namespaced with the
+   service name to allow easier searching of related resources, to align
+   the resource naming with the service for <a href="https://www.terraform.io/docs/providers/aws/guides/custom-service-endpoints.html#available-endpoint-customizations">Customizing Endpoints</a>,
+   and to prevent future conflicts with new AWS services/resources.
+   For reference:</p>
+<ul>
+<li><code>service</code> is the AWS short service name that matches the key in
+ the <code>serviceData</code> map in the <code>conns</code> package (created via the <a href="#new-service">New Service</a>
+ section)</li>
+<li><code>name</code> represents the conceptual infrastructure represented by the
+ create, read, update, and delete methods of the service API. It should
+ be a singular noun. For example, in an API that has methods such as
+ <code>CreateThing</code>, <code>DeleteThing</code>, <code>DescribeThing</code>, and <code>ModifyThing</code> the name
+ of the resource would end in <code>_thing</code>.</li>
+</ul>
+</li>
+<li>
+<p>[ ] <strong>Arguments_and_Attributes</strong>: The HCL for arguments and attributes should mimic the types and structs presented by the AWS API. API arguments should be converted from <code>CamelCase</code> to <code>camel_case</code>. The resource logic for handling these should follow the recommended implementations in the <a href="../data-handling-and-conversion/">Data Handling and Conversion</a> documentation.</p>
+</li>
+<li>[ ] <strong>Documentation</strong>: Each data source and resource gets a page in the Terraform
+   documentation, which lives at <code>website/docs/d/&lt;service&gt;_&lt;name&gt;.html.markdown</code> and
+   <code>website/docs/r/&lt;service&gt;_&lt;name&gt;.html.markdown</code> respectively.</li>
+<li>[ ] <strong>Well-formed Code</strong>: Do your best to follow existing conventions you
+   see in the codebase, and ensure your code is formatted with <code>go fmt</code>.
+   The PR reviewers can help out on this front, and may provide comments with
+   suggestions on how to improve the code.</li>
+<li>[ ] <strong>Dependency updates</strong>: Create a separate PR if you are updating dependencies.
+   This is to avoid conflicts as version updates tend to be fast-
+   moving targets. We will plan to merge the PR with this change first.</li>
+</ul>
+<h3 id="new-tag-resource">New Tag Resource<a class="headerlink" href="#new-tag-resource" title="Permanent link">#</a></h3>
+<p>Adding a tag resource, similar to the <code>aws_ecs_tag</code> resource, has its own implementation procedure since the resource code and initial acceptance testing functions are automatically generated. The rest of the resource acceptance testing and resource documentation must still be manually created.</p>
+<ul>
+<li>In <code>internal/generate</code>: Ensure the service is supported by all generators. Run <code>make gen</code> after any modifications.</li>
+<li>In <code>internal/service/{service}/generate.go</code>: Add the new <code>//go:generate</code> call with the correct generator directives. Run <code>make gen</code> after any modifications.</li>
+<li>In <code>internal/provider/provider.go</code>: Add the new resource.</li>
+<li>Run <code>make test</code> and ensure there are no failures.</li>
+<li>Create <code>internal/service/{service}/tag_gen_test.go</code> with initial acceptance testing similar to the following (where the parent resource is simple to provision):</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">    </span><span class="s">&quot;testing&quot;</span>
+
+<span class="w">  </span><span class="s">&quot;github.com/aws/aws-sdk-go/service/{Service}&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestAcc</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">Tag_basic</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">rName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkacctest</span><span class="p">.</span><span class="nx">RandomWithPrefix</span><span class="p">(</span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ResourcePrefix</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">resourceName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;aws_{service}_tag.test&quot;</span>
+
+<span class="w">    </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ParallelTest</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">PreCheck</span><span class="p">:</span><span class="w">          </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">PreCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">ErrorCheck</span><span class="p">:</span><span class="w">        </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ErrorCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">Service</span><span class="p">}.</span><span class="nx">EndpointsID</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">ProviderFactories</span><span class="p">:</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ProviderFactories</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">CheckDestroy</span><span class="p">:</span><span class="w">      </span><span class="nx">testAccCheck</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagDestroy</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Steps</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestStep</span><span class="p">{</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Config</span><span class="p">:</span><span class="w"> </span><span class="nx">testAcc</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagConfig</span><span class="p">(</span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p">),</span>
+<span class="w">                </span><span class="nx">Check</span><span class="p">:</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ComposeTestCheckFunc</span><span class="p">(</span>
+<span class="w">                    </span><span class="nx">testAccCheck</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagExists</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">),</span>
+<span class="w">                    </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key1&quot;</span><span class="p">),</span>
+<span class="w">                    </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p">),</span>
+<span class="w">                </span><span class="p">),</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">ResourceName</span><span class="p">:</span><span class="w">      </span><span class="nx">resourceName</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">ImportState</span><span class="p">:</span><span class="w">       </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">ImportStateVerify</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestAcc</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">Tag_disappears</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">rName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkacctest</span><span class="p">.</span><span class="nx">RandomWithPrefix</span><span class="p">(</span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ResourcePrefix</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">resourceName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;aws_{service}_tag.test&quot;</span>
+
+<span class="w">    </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ParallelTest</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">PreCheck</span><span class="p">:</span><span class="w">          </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">PreCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">ErrorCheck</span><span class="p">:</span><span class="w">        </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ErrorCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">Service</span><span class="p">}.</span><span class="nx">EndpointsID</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">ProviderFactories</span><span class="p">:</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ProviderFactories</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">CheckDestroy</span><span class="p">:</span><span class="w">      </span><span class="nx">testAccCheck</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagDestroy</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Steps</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestStep</span><span class="p">{</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Config</span><span class="p">:</span><span class="w"> </span><span class="nx">testAcc</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagConfig</span><span class="p">(</span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p">),</span>
+<span class="w">                </span><span class="nx">Check</span><span class="p">:</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ComposeTestCheckFunc</span><span class="p">(</span>
+<span class="w">                    </span><span class="nx">testAccCheck</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagExists</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">),</span>
+<span class="w">                    </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">CheckResourceDisappears</span><span class="p">(</span><span class="nx">acctest</span><span class="p">.</span><span class="nx">Provider</span><span class="p">,</span><span class="w"> </span><span class="nx">resourceAws</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">Tag</span><span class="p">(),</span><span class="w"> </span><span class="nx">resourceName</span><span class="p">),</span>
+<span class="w">                </span><span class="p">),</span>
+<span class="w">                </span><span class="nx">ExpectNonEmptyPlan</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestAcc</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">Tag_Value</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">rName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkacctest</span><span class="p">.</span><span class="nx">RandomWithPrefix</span><span class="p">(</span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ResourcePrefix</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">resourceName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;aws_{service}_tag.test&quot;</span>
+
+<span class="w">    </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ParallelTest</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">PreCheck</span><span class="p">:</span><span class="w">          </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">PreCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">ErrorCheck</span><span class="p">:</span><span class="w">        </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ErrorCheck</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">Service</span><span class="p">}.</span><span class="nx">EndpointsID</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">ProviderFactories</span><span class="p">:</span><span class="w"> </span><span class="nx">acctest</span><span class="p">.</span><span class="nx">ProviderFactories</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">CheckDestroy</span><span class="p">:</span><span class="w">      </span><span class="nx">testAccCheck</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagDestroy</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Steps</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestStep</span><span class="p">{</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Config</span><span class="p">:</span><span class="w"> </span><span class="nx">testAcc</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagConfig</span><span class="p">(</span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p">),</span>
+<span class="w">                </span><span class="nx">Check</span><span class="p">:</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ComposeTestCheckFunc</span><span class="p">(</span>
+<span class="w">                    </span><span class="nx">testAccCheck</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagExists</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">),</span>
+<span class="w">                    </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key1&quot;</span><span class="p">),</span>
+<span class="w">                    </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p">),</span>
+<span class="w">                </span><span class="p">),</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">ResourceName</span><span class="p">:</span><span class="w">      </span><span class="nx">resourceName</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">ImportState</span><span class="p">:</span><span class="w">       </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">ImportStateVerify</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Config</span><span class="p">:</span><span class="w"> </span><span class="nx">testAcc</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagConfig</span><span class="p">(</span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1updated&quot;</span><span class="p">),</span>
+<span class="w">                </span><span class="nx">Check</span><span class="p">:</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">ComposeTestCheckFunc</span><span class="p">(</span>
+<span class="w">                    </span><span class="nx">testAccCheck</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagExists</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">),</span>
+<span class="w">                    </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key1&quot;</span><span class="p">),</span>
+<span class="w">                    </span><span class="nx">resource</span><span class="p">.</span><span class="nx">TestCheckResourceAttr</span><span class="p">(</span><span class="nx">resourceName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value1updated&quot;</span><span class="p">),</span>
+<span class="w">                </span><span class="p">),</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">testAcc</span><span class="p">{</span><span class="nx">Service</span><span class="p">}</span><span class="nx">TagConfig</span><span class="p">(</span><span class="nx">rName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">`</span>
+<span class="s">resource &quot;aws_{service}_{thing}&quot; &quot;test&quot; {</span>
+<span class="s">  name = %[1]q</span>
+
+<span class="s">  lifecycle {</span>
+<span class="s">    ignore_changes = [tags]</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+
+<span class="s">resource &quot;aws_{service}_tag&quot; &quot;test&quot; {</span>
+<span class="s">  resource_arn = aws_{service}_{thing}.test.arn</span>
+<span class="s">  key          = %[2]q</span>
+<span class="s">  value        = %[3]q</span>
+<span class="s">}</span>
+<span class="s">`</span><span class="p">,</span><span class="w"> </span><span class="nx">rName</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Run <code>make testacc TESTS=TestAcc{Service}Tags_ PKG={Service}</code> and ensure there are no failures.</li>
+<li>Create <code>website/docs/r/{service}_tag.html.markdown</code> with initial documentation similar to the following:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>---
+subcategory: &quot;{SERVICE}&quot;
+layout: &quot;aws&quot;
+page_title: &quot;AWS: aws_{service}_tag&quot;
+description: |-
+<span class="gu">  Manages an individual {SERVICE} resource tag</span>
+<span class="gu">---</span>
+
+<span class="gh"># Resource: aws_{service}_tag</span>
+
+Manages an individual {SERVICE} resource tag. This resource should only be used in cases where {SERVICE} resources are created outside Terraform (e.g., {SERVICE} {THING}s implicitly created by {OTHER SERVICE THING}).
+
+~&gt; <span class="gs">**NOTE:**</span> This tagging resource should not be combined with the Terraform resource for managing the parent resource. For example, using <span class="sb">`aws_{service}_{thing}`</span> and <span class="sb">`aws_{service}_tag`</span> to manage tags of the same {SERVICE} {THING} will cause a perpetual difference where the <span class="sb">`aws_{service}_{thing}`</span> resource will try to remove the tag being added by the <span class="sb">`aws_{service}_tag`</span> resource.
+
+~&gt; <span class="gs">**NOTE:**</span> This tagging resource does not use the [<span class="nt">provider `ignore_tags` configuration</span>](<span class="na">/docs/providers/aws/index.html#ignore_tags</span>).
+
+<span class="gu">## Example Usage</span>
+
+<span class="sb">```terraform</span>
+<span class="err">resource</span><span class="w"> </span><span class="s2">&quot;aws_{service}_tag&quot; &quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">resource_arn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">  </span><span class="na">key</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Name&quot;</span>
+<span class="w">  </span><span class="na">value</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Hello World&quot;</span>
+<span class="p">}</span>
+<span class="sb">```</span>
+
+<span class="gu">## Argument Reference</span>
+
+The following arguments are supported:
+
+<span class="k">*</span><span class="w"> </span><span class="sb">`resource_arn`</span> - (Required) Amazon Resource Name (ARN) of the {SERVICE} resource to tag.
+<span class="k">*</span><span class="w"> </span><span class="sb">`key`</span> - (Required) Tag name.
+<span class="k">*</span><span class="w"> </span><span class="sb">`value`</span> - (Required) Tag value.
+
+<span class="gu">## Attributes Reference</span>
+
+In addition to all arguments above, the following attributes are exported:
+
+<span class="k">*</span><span class="w"> </span><span class="sb">`id`</span> - {SERVICE} resource identifier and key, separated by a comma (<span class="sb">`,`</span>)
+
+<span class="gu">## Import</span>
+
+<span class="sb">`aws_{service}_tag`</span> can be imported by using the {SERVICE} resource identifier and key, separated by a comma (<span class="sb">`,`</span>), e.g.
+
+<span class="sb">```</span>
+<span class="sb">$ terraform import aws_{service}_tag.example arn:aws:{service}:us-east-1:123456789012:{thing}/example,Name</span>
+<span class="sb">```</span>
+</code></pre></div>
+<h2 id="new-service">New Service<a class="headerlink" href="#new-service" title="Permanent link">#</a></h2>
+<p>Implementing a new AWS service gives Terraform the ability to manage resources in
+a whole new API. It's a larger undertaking, but brings major new functionality
+into Terraform.</p>
+<ul>
+<li>[ ] <strong>Service Client</strong>: Before new resources are submitted, we request
+  a separate pull request containing just the new AWS Go SDK service client.
+  Doing so will pull the AWS Go SDK service code into the project at the
+  current version. Since the AWS Go SDK is updated frequently, these pull
+  requests can easily have merge conflicts or be out of date. The maintainers
+  prioritize reviewing and merging these quickly to prevent those situations.</li>
+</ul>
+<p><strong>We have changed these directions a lot! Please review them carefully!</strong></p>
+<p>To add an AWS Go SDK service client:</p>
+<div class="highlight"><pre><span></span><code>- Determine the service identifier using the rule described in [the Naming Guide](./naming.md#service-identifier).
+- In `names/names_data.csv`, add a new line with all the requested information for the service following the guidance in the [`names` README](../../names/README.md). **_Be very careful when adding or changing data in `names_data.csv`! The Provider and generators depend on the file being correct._**
+
+- Run the following then submit the pull request:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>gen
+make<span class="w"> </span><span class="nb">test</span>
+go<span class="w"> </span>mod<span class="w"> </span>tidy
+</code></pre></div>
+<ul>
+<li>[ ] <strong>Initial Resource</strong>: Some services can be big and it can be
+  difficult for both reviewer &amp; author to go through long feedback cycles
+  on a big PR with many resources. Often feedback items in one resource
+  will also need to be applied in other resources. We prefer you to submit
+  the necessary minimum in a single PR, ideally <strong>just the first resource</strong>
+  of the service.</li>
+</ul>
+<p>The initial resource and changes afterwards should follow the other sections
+of this guide as appropriate.</p>
+<h2 id="new-region">New Region<a class="headerlink" href="#new-region" title="Permanent link">#</a></h2>
+<p>While region validation is automatically added with SDK updates, new regions
+are generally limited in which services they support. Below are some
+manually sourced values from documentation. Amazon employees can code search
+previous region values to find new region values in internal packages like
+RIPStaticConfig if they are not documented yet.</p>
+<ul>
+<li>[ ] Check <a href="https://docs.aws.amazon.com/general/latest/gr/elb.html#elb_region">Elastic Load Balancing endpoints and quotas</a> and add Route53 Hosted Zone ID if available to <a href="../../internal/service/elb/hosted_zone_id_data_source.go"><code>internal/service/elb/hosted_zone_id_data_source.go</code></a></li>
+<li>[ ] Check <a href="https://docs.aws.amazon.com/general/latest/gr/s3.html#s3_region">Amazon Simple Storage Service endpoints and quotas</a> and add Route53 Hosted Zone ID if available to <a href="../../internal/service/s3/hosted_zones.go"><code>internal/service/s3/hosted_zones.go</code></a></li>
+<li>[ ] Check <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-supported-regions.html#cloudtrail-supported-regions">CloudTrail Supported Regions docs</a> and add AWS Account ID if available to <a href="../../internal/service/cloudtrail/service_account_data_source.go"><code>internal/service/cloudtrail/service_account_data_source.go</code></a></li>
+<li>[ ] Check <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-access-logs.html#attach-bucket-policy">Elastic Load Balancing Access Logs docs</a> and add Elastic Load Balancing Account ID if available to <a href="../../internal/service/elb/service_account_data_source.go"><code>internal/service/elb/service_account_data_source.go</code></a></li>
+<li>[ ] Check <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/db-auditing.html#db-auditing-bucket-permissions">Redshift Database Audit Logging docs</a> and add AWS Account ID if available to <a href="../../internal/service/redshift/service_account_data_source.go"><code>internal/service/redshift/service_account_data_source.go</code></a></li>
+<li>[ ] Check <a href="https://docs.aws.amazon.com/general/latest/gr/elasticbeanstalk.html#elasticbeanstalk_region">AWS Elastic Beanstalk endpoints and quotas</a> and add Route53 Hosted Zone ID if available to <a href="../../internal/service/elasticbeanstalk/hosted_zone_data_source.go"><code>internal/service/elasticbeanstalk/hosted_zone_data_source.go</code></a></li>
+<li>[ ] Check <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">SageMaker docs</a> and add AWS Account IDs if available to <a href="../../internal/service/sagemaker/prebuilt_ecr_image_data_source.go"><code>internal/service/sagemaker/prebuilt_ecr_image_data_source.go</code></a></li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

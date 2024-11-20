@@ -1,0 +1,238 @@
+site_name: Terraform Rockitcloud Provider - Contributor Guide
+site_description: 'Contributor documentation and reference for the
+                   Terraform Rockitcloud Provider'
+copyright: HashiCorp
+repo_name: hashicorp/terraform-provider-rockitcloud
+repo_url: https://github.com/C2Devel/terraform-provider-rockitcloud
+edit_uri: "https://github.com/C2Devel/terraform-provider-rockitcloud/tree/main/docs"
+
+nav:
+  - Welcome: ./index.html.markdown             
+  - Autoscaling:
+    - DataSources:
+      - autoscaling_group: d/autoscaling_group.html.markdown
+    - Resources:
+      - autoscaling_policy: r/autoscaling_policy.html.markdown
+  - Backup:
+    - DataSources:
+      - backup_plan: d/backup_plan.html.markdown
+      - backup_selection: d/backup_selection.html.markdown
+      - backup_vault: d/backup_vault.html.markdown
+    - Resources:
+      - backup_plan: r/backup_plan.html.markdown
+      - backup_selection: r/backup_selection.html.markdown
+      - backup_vault_default: r/backup_vault_default.html.markdown
+  - EBS (EC2):
+    - DataSources:
+      - ebs_snapshot: d/ebs_snapshot.html.markdown
+      - ebs_snapshot_ids: d/ebs_snapshot_ids.html.markdown
+      - ebs_volume: d/ebs_volume.html.markdown
+      - ebs_volumes: d/ebs_volumes.html.markdown
+    - Resources:
+      - ebs_snapshot: r/ebs_snapshot.html.markdown
+      - ebs_snapshot_import: r/ebs_snapshot_import.html.markdown
+      - ebs_volume: r/ebs_volume.html.markdown
+      - snapshot_create_volume_permission: r/snapshot_create_volume_permission.html.markdown
+      - volume_attachment: r/volume_attachment.html.markdown
+  - EC2 (Elastic Compute Cloud):
+    - DataSources:
+      - ami: d/ami.html.markdown
+      - ami_ids: d/ami_ids.html.markdown
+      - availability_zones: d/availability_zones.html.markdown
+      - availability_zone: d/availability_zone.html.markdown
+      - ec2_host: d/ec2_host.html.markdown
+      - eip: d/eip.html.markdown
+      - eips: d/eips.html.markdown
+      - instance: d/instance.html.markdown
+      - instances: d/instances.html.markdown
+      - key_pair: d/key_pair.html.markdown
+      - launch_template: d/launch_template.html.markdown
+    - Resources:
+      - ami: r/ami.html.markdown
+      - ami_from_instance: r/ami_from_instance.html.markdown
+      - ami_launch_permission: r/ami_launch_permission.html.markdown
+      - ec2_tag: r/ec2_tag.html.markdown
+      - eip: r/eip.html.markdown
+      - eip_association: r/eip_association.html.markdown
+      - instance: r/instance.html.markdown
+      - key_pair: r/key_pair.html.markdown
+      - launch_template: r/launch_template.html.markdown
+      - placement_group: r/placement_group.html.markdown
+  - EKS (Elastic Kubernetes):
+    - DataSources:
+      - eks_cluster: d/eks_cluster.html.markdown
+      - eks_cluster_auth: d/eks_cluster_auth.html.markdown
+      - eks_clusters: d/eks_clusters.html.markdown
+      - eks_node_group: d/eks_node_group.html.markdown
+      - eks_node_groups: d/eks_node_groups.html.markdown
+    - Resources:
+      - eks_cluster: r/eks_cluster.html.markdown
+      - eks_node_group: r/eks_node_group.html.markdown
+  - ELB (Elastic Load Balancing):
+    - DataSources:
+      - lb: d/lb.html.markdown
+      - lb_listener: d/lb_listener.html.markdown
+      - lb_target_group: d/lb_target_group.html.markdown
+    - Resources:
+      - lb: r/lb.html.markdown
+      - lb_listener: r/lb_listener.html.markdown
+      - lb_target_group: r/lb_target_group.html.markdown
+      - lb_target_group_attachment: r/lb_target_group_attachment.html.markdown
+  - IAM (Identity & Access Management):
+    - DataSources:
+      - iam_group: d/iam_group.html.markdown
+      - iam_policy: d/iam_policy.html.markdown
+      - iam_project: d/iam_project.html.markdown
+      - iam_user: d/iam_user.html.markdown
+      - iam_users: d/iam_users.html.markdown
+    - Resources:
+      - iam_group: r/iam_group.html.markdown
+      - iam_group_membership: r/iam_group_membership.html.markdown
+      - iam_group_policy_attachment: r/iam_group_policy_attachment.markdown
+      - iam_policy: r/iam_policy.html.markdown
+      - iam_project: r/iam_project.html.markdown
+      - iam_user: r/iam_user.html.markdown
+      - iam_user_group_membership: r/iam_user_group_membership.html.markdown
+      - iam_user_policy_attachment: r/iam_user_policy_attachment.markdown
+  - PaaS:
+    - DataSources:
+      - paas_backup: d/paas_backup.html.markdown
+      - paas_backup_users: d/paas_backup_users.html.markdown
+      - paas_backups: d/paas_backups.html.markdown
+      - paas_service: d/paas_service.html.markdown
+    - Resources:
+      - paas_backup: r/paas_backup.html.markdown
+      - paas_service: r/paas_service.html.markdown
+  - Route 53:
+    - DataSources:
+      - route53_zone: d/route53_zone.html.markdown
+    - Resources:
+      - route53_record: r/route53_record.html.markdown
+      - route53_zone: r/route53_zone.html.markdown
+  - S3 (Simple Storage):
+    - DataSources:
+      - canonical_user_id: d/canonical_user_id.html.markdown
+      - s3_bucket: d/s3_bucket.html.markdown
+      - s3_bucket_object: d/s3_bucket_object.html.markdown
+      - s3_bucket_objects: d/s3_bucket_objects.html.markdown
+      - s3_bucket_policy: d/s3_bucket_policy.html.markdown
+      - s3_object: d/s3_object.html.markdown
+      - s3_objects: d/s3_objects.html.markdown
+    - Resources:
+      - s3_bucket: r/s3_bucket.html.markdown
+      - s3_bucket_acl: r/s3_bucket_acl.html.markdown
+      - s3_bucket_cors_configuration: r/s3_bucket_cors_configuration.html.markdown
+      - s3_bucket_lifecycle_configuration: r/s3_bucket_lifecycle_configuration.html.markdown
+      - s3_bucket_object: r/s3_bucket_object.html.markdown
+      - s3_bucket_policy: r/s3_bucket_policy.html.markdown
+      - s3_bucket_request_payment_configuration: r/s3_bucket_request_payment_configuration.html.markdown
+      - s3_bucket_server_side_encryption_configuration: r/s3_bucket_server_side_encryption_configuration.html.markdown
+      - s3_bucket_versioning: r/s3_bucket_versioning.html.markdown
+      - s3_bucket_website_configuration: r/s3_bucket_website_configuration.html.markdown
+      - s3_object: r/s3_object.html.markdown
+      - s3_object_copy: r/s3_object_copy.html.markdown
+  - Transit Gateway:
+    - DataSources:
+      - ec2_transit_gateway: d/ec2_transit_gateway.html.markdown
+      - ec2_transit_gateway_route_table: d/ec2_transit_gateway_route_table.html.markdown
+      - ec2_transit_gateway_route_tables: d/ec2_transit_gateway_route_tables.html.markdown
+      - ec2_transit_gateway_vpc_attachment: d/ec2_transit_gateway_vpc_attachment.html.markdown
+      - ec2_transit_gateway_vpc_attachments: d/ec2_transit_gateway_vpc_attachments.html.markdown
+    - Resources:
+      - ec2_transit_gateway: r/ec2_transit_gateway.html.markdown
+      - ec2_transit_gateway_route: r/ec2_transit_gateway_route.html.markdown
+      - ec2_transit_gateway_route_table: r/ec2_transit_gateway_route_table.html.markdown
+      - ec2_transit_gateway_route_table_association: r/ec2_transit_gateway_route_table_association.html.markdown
+      - ec2_transit_gateway_route_table_propagation: r/ec2_transit_gateway_route_table_propagation.html.markdown
+      - ec2_transit_gateway_vpc_attachment: r/ec2_transit_gateway_vpc_attachment.html.markdown
+  - VPC (Virtul Private Cloud):
+    - DataSources:
+      - network_acls: d/network_acls.html.markdown
+      - network_interface: d/network_interface.html.markdown
+      - network_interfaces: d/network_interfaces.html.markdown
+      - route: d/route.html.markdown
+      - route_table: d/route_table.html.markdown
+      - route_tables: d/route_tables.html.markdown
+      - security_group: d/security_group.html.markdown
+      - security_groups: d/security_groups.html.markdown
+      - subnet: d/subnet.html.markdown
+      - subnet_ids: d/subnet_ids.html.markdown
+      - subnets: d/subnets.html.markdown
+      - vpc: d/vpc.html.markdown
+      - vpc_dhcp_options: d/vpc_dhcp_options.html.markdown
+      - vpcs: d/vpcs.html.markdown
+    - Resources:
+      - default_network_acl: r/default_network_acl.html.markdown
+      - default_route_table: r/default_route_table.html.markdown
+      - default_security_group: r/default_security_group.html.markdown
+      - default_vpc: r/default_vpc.html.markdown
+      - default_vpc_dhcp_options: r/default_vpc_dhcp_options.html.markdown
+      - main_route_table_association: r/main_route_table_association.html.markdown
+      - network_acl: r/network_acl.html.markdown
+      - network_acl_association: r/network_acl_association.html.markdown
+      - network_acl_rule: r/network_acl_rule.html.markdown
+      - network_interface: r/network_interface.html.markdown
+      - network_interface_attachment: r/network_interface_attachment.html.markdown
+      - network_interface_sg_attachment: r/network_interface_sg_attachment.html.markdown
+      - route: r/route.html.markdown
+      - route_table: r/route_table.html.markdown
+      - route_table_association: r/route_table_association.html.markdown
+      - security_group: r/security_group.html.markdown
+      - security_group_rule: r/security_group_rule.html.markdown
+      - subnet: r/subnet.html.markdown
+      - vpc: r/vpc.html.markdown
+      - vpc_dhcp_options: r/vpc_dhcp_options.html.markdown
+      - vpc_dhcp_options_association: r/vpc_dhcp_options_association.html.markdown
+  - VPN (Site-to-Site):
+    - DataSources:
+      - customer_gateway: d/customer_gateway.html.markdown
+      - vpn_gateway: d/vpn_gateway.html.markdown
+    - Resources:
+      - customer_gateway: r/customer_gateway.html.markdown
+      - vpn_gateway_route_propagation: r/vpn_gateway_route_propagation.html.markdown
+             
+             
+theme:
+  name: material
+  # logo: images/hashicorp.png
+  logo: images/favicon.ico
+  # favicon: images/hashicorp-black.png
+  favicon: images/favicon.ico
+  palette:
+    scheme: hashicorp
+    primary: gray
+    accent: blue
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      warning: octicons/alert-16
+
+  
+  font: false
+  features:
+    - navigation.instant
+    - content.tabs.link
+    - content.code.copy
+
+plugins:
+  # - terraform-monorepo
+  - search:
+      lang:
+        - en
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: "#"
+
+# extra_css:
+#   - stylesheets/extra.css

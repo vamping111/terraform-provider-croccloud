@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Frequently Asked Questions - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/contributing/faq.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#frequently-asked-questions" class="nav-link">Frequently Asked Questions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="frequently-asked-questions">Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">#</a></h1>
+<!-- markdownlint-disable no-trailing-punctuation -->
+
+<h3 id="who-are-the-maintainers">Who are the maintainers?<a class="headerlink" href="#who-are-the-maintainers" title="Permanent link">#</a></h3>
+<p>The HashiCorp Terraform AWS provider team is :</p>
+<ul>
+<li>Mary Cutrali, Product Manager - GitHub <a href="https://github.com/maryelizbeth">@maryelizbeth</a> Twitter <a href="https://twitter.com/marycutrali">@marycutrali</a></li>
+<li>Simon Davis, Engineering Manager - GitHub <a href="https://github.com/breathingdust">@breathingdust</a></li>
+<li>Justin Retzolk, Technical Community Manager - GitHub <a href="https://github.com/justinretzolk">@justinretzolk</a></li>
+<li>Angie Pinilla, Engineer - GitHub <a href="https://github.com/angie44">@angie44</a></li>
+<li>Dirk Avery, Engineer - GitHub <a href="https://github.com/yakdriver">@YakDriver</a></li>
+<li>Graham Davison, Engineer - GitHub <a href="https://github.com/gdavison">@gdavison</a></li>
+<li>Kerim Satirli, Developer Advocate - GitHub <a href="https://github.com/ksatirli">@ksatirli</a></li>
+<li>Kit Ewbank, Engineer - GitHub <a href="https://github.com/ewbankkit">@ewbankkit</a></li>
+<li>Zoe Helding, Engineer - GitHub <a href="https://github.com/zhelding">@zhelding</a></li>
+<li>Adrian Johnson, Engineer - GitHub <a href="https://github.com/johnsonaj">@johnsonaj</a></li>
+</ul>
+<h3 id="why-isnt-my-pr-merged-yet">Why isn’t my PR merged yet?<a class="headerlink" href="#why-isnt-my-pr-merged-yet" title="Permanent link">#</a></h3>
+<p>Unfortunately, due to the volume of issues and new pull requests we receive, we are unable to give each one the full attention that we would like. We always focus on the contributions that provide the greatest value to the most community members. For more information on how we prioritize pull requests, see the <a href="../prioritization/">prioritization guide</a>.</p>
+<h3 id="how-do-you-decide-what-gets-merged-for-each-release">How do you decide what gets merged for each release?<a class="headerlink" href="#how-do-you-decide-what-gets-merged-for-each-release" title="Permanent link">#</a></h3>
+<p>We have a large backlog of pull requests to get through and the team are moving through them as quick as we can. All pull requests must be reviewed by a HashiCorp engineer before inclusion. This is to ensure that the design of the addition fits with what provider users have come to expect, and to ensure that testing and best practices are adhered to. This is particularly important for such a large codebase, to ensure that we sustain its maintainability as its grows.</p>
+<p>The number one factor we look at when deciding what issues to look at are your 👍 <a href="https://blog.github.com/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/">reactions</a> to the original issue/PR description as these can be <a href="https://github.com/hashicorp/terraform-provider-aws/issues?q=is%3Aopen+sort%3Areactions-%2B1-desc">easily discovered</a>. Comments that further explain desired use cases or poor user experience are also heavily factored. The items with the most support are always on our radar, and we commit to keep the community updated on their status and potential timelines.</p>
+<p>We publish a <a href="../../ROADMAP.md">roadmap</a> every quarter which describes major themes or specific product areas of focus. What is excluded from the public roadmap is work performed under NDA with AWS on new services, and any ad-hoc work we pick up during the quarter. This ad-hoc work can be responding to bugs, gardening day activity, customer prioritization, and technical debt items.</p>
+<p>We also are investing time to improve the contributing experience by improving documentation, adding more linter coverage to ensure that incoming PR's can be in as good shape as possible. This will allow us to get through them quicker.</p>
+<h3 id="my-pr-hasnt-been-merged-and-it-now-has-merge-conflictsfailed-checks-should-i-keep-it-up-to-date">My PR hasn't been merged and it now has merge conflicts/failed checks, should I keep it up to date?<a class="headerlink" href="#my-pr-hasnt-been-merged-and-it-now-has-merge-conflictsfailed-checks-should-i-keep-it-up-to-date" title="Permanent link">#</a></h3>
+<p>We realize that sometimes pull requests sit for a considerable amount of time without being addressed. During this time period they may accumulate merge conflicts and failed linter checks as the provider codebase moves forward. As maintainers we have no expectation that you keep your PR up to date, these issues will be addressed at review time most often by the maintainers themselves. Obviously we would hope that your PR is mergeable when first raised! The mergeability of the PR does not affect its prioritization for review.</p>
+<h3 id="how-often-do-you-release">How often do you release?<a class="headerlink" href="#how-often-do-you-release" title="Permanent link">#</a></h3>
+<p>We release weekly on Thursday. We release often to ensure we can bring value to the community at a frequent cadence and to ensure we are in a good place to react to AWS region launches and service announcements.</p>
+<h3 id="backward-compatibility-promise">Backward Compatibility Promise<a class="headerlink" href="#backward-compatibility-promise" title="Permanent link">#</a></h3>
+<p>Our policy is described on the Terraform website <a href="https://www.terraform.io/docs/extend/best-practices/versioning.html">here</a>. While we do our best to prevent breaking changes until major version releases of the provider, it is generally recommended to <a href="https://www.terraform.io/docs/configuration/providers.html#provider-versions">pin the provider version in your configuration</a>.</p>
+<p>Due to the constant release pace of AWS and the relatively infrequent major version releases of the provider, there can be cases where a minor version update may contain unexpected changes depending on your configuration or environment. These may include items such as a resource requiring additional IAM permissions to support newer functionality. We typically base these decisions on a pragmatic compromise between introducing a relatively minor one-time inconvenience for a subset of the community versus better overall user experience for the entire community.</p>
+<h3 id="once-a-major-release-is-published-will-new-features-and-fixes-be-backported-to-previous-versions">Once a major release is published, will new features and fixes be backported to previous versions?<a class="headerlink" href="#once-a-major-release-is-published-will-new-features-and-fixes-be-backported-to-previous-versions" title="Permanent link">#</a></h3>
+<p>Generally new features and fixes will only be added to the most recent major version. Due to the high touch nature of provider development and the extensive regression testing required to ensure stability, maintaining multiple versions of the provider is not sustainable at this time. An exception to this could be a discovered security vulnerability for which backporting may be the most reasonable course of action. These would be reviewed on a case by case basis.</p>
+<h3 id="aws-just-announced-a-new-region-when-will-i-see-it-in-the-provider">AWS just announced a new region, when will I see it in the provider.<a class="headerlink" href="#aws-just-announced-a-new-region-when-will-i-see-it-in-the-provider" title="Permanent link">#</a></h3>
+<p>Normally pretty quickly. We usually see the region appear within the <code>aws-go-sdk</code> within a couple days of the announcement. Depending on when it lands, we can often get it out within the current or following weekly release. Comparatively, adding support for a new  region in the S3 backend can take a little longer, as it is shipped as part of Terraform Core and not via the AWS Provider.</p>
+<p>Please note that this new region requires a manual process to enable in your account. Once enabled in the console, it takes a few minutes for everything to work properly.</p>
+<p>If the region is not enabled properly, or the enablement process is still in progress, you may receive errors like these:</p>
+<div class="highlight"><pre><span></span><code>$ terraform apply
+
+Error: error validating provider credentials: error calling sts:GetCallerIdentity: InvalidClientTokenId: The security token included in the request is invalid.
+    status code: 403, request id: 142f947b-b2c3-11e9-9959-c11ab17bcc63
+
+  on main.tf line 1, in provider &quot;aws&quot;:
+   1: provider &quot;aws&quot; {
+</code></pre></div>
+<p>To use this new region before support has been added to the Terraform AWS Provider, you can disable the provider's automatic region validation via:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">provider</span><span class="w"> </span><span class="nv">&quot;aws&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  # ... potentially other configuration ...</span>
+
+<span class="w">  </span><span class="na">region</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;af-south-1&quot;</span>
+<span class="w">  </span><span class="na">skip_region_validation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="how-can-i-help">How can I help?<a class="headerlink" href="#how-can-i-help" title="Permanent link">#</a></h3>
+<p>Great question, if you have contributed before check out issues with the <code>help-wanted</code> label. These are normally enhancement issues that will have a great impact, but the maintainers are unable to develop them in the near future. If you are just getting started, take a look at issues with the <code>good-first-issue</code> label. Items with these labels will always be given priority for response.</p>
+<p>Check out the <a href="../">Contributing Guide</a> for additional information.</p>
+<h3 id="how-can-i-become-a-maintainer">How can I become a maintainer?<a class="headerlink" href="#how-can-i-become-a-maintainer" title="Permanent link">#</a></h3>
+<p>This is an area under active research. Stay tuned!</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

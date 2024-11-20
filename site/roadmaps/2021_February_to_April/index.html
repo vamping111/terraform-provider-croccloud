@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Roadmap: February 2021 - April 2021 - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/roadmaps/2021_February_to_April.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#roadmap-february-2021-april-2021" class="nav-link">Roadmap: February 2021 - April 2021</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#provider-functionality-default-tags" class="nav-link">Provider Functionality: Default Tags</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#new-services" class="nav-link">New Services</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#core-service-reliability" class="nav-link">Core Service Reliability</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#technical-debt-theme" class="nav-link">Technical Debt Theme</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#research-topics" class="nav-link">Research Topics</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#disclosures" class="nav-link">Disclosures</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="roadmap-february-2021-april-2021">Roadmap:  February 2021 - April 2021<a class="headerlink" href="#roadmap-february-2021-april-2021" title="Permanent link">#</a></h1>
+<p>Every few months, the team will highlight areas of focus for our work and upcoming research.</p>
+<p>We select items for inclusion in the roadmap from the Top 10 Community Issues, <a href="../../contributing/core-services/">Core Services</a>, and internal priorities. Where community sourced contributions exist we will work with the authors to review and merge their work. Where this does not exist or the original contributors, are not available we will create the resources and implementation ourselves.</p>
+<p>Each weekly release will include necessary tasks that lead to the completion of the stated goals as well as community pull requests, enhancements, and features that are not highlighted in the roadmap. To view all the items we've prioritized for this quarter, please see the <a href="https://github.com/hashicorp/terraform-provider-aws/milestone/138">Roadmap milestone</a>.</p>
+<p>This roadmap does not describe all the work that will be included within this timeframe, but it does describe our focus. We will include other work as events occur .</p>
+<p>From <a href="../2020_November_to_January/">November through January</a>, we added support for (among other things):</p>
+<ul>
+<li>SSO Permission Sets</li>
+<li>EC2 Managed Prefix Lists</li>
+<li>Firewall Manager Policies</li>
+<li>SASL/SCRAM Authentication for MSK</li>
+<li>ImageBuilder</li>
+<li>LakeFormation</li>
+<li>Serverless Application Repository</li>
+<li>Cloudwatch Composite Alarms</li>
+</ul>
+<p>As well as partnering with AWS to provide launch day support for:</p>
+<ul>
+<li>Network Firewall</li>
+<li>Code Signing for Lambda</li>
+<li>Container Images for Lambda</li>
+<li>Gateway Load Balancer</li>
+<li>Spot Launch for EKS Managed Node Groups</li>
+</ul>
+<p>From February-April ‘21, we will be prioritizing the following areas of work:</p>
+<h2 id="provider-functionality-default-tags">Provider Functionality: Default Tags<a class="headerlink" href="#provider-functionality-default-tags" title="Permanent link">#</a></h2>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/7926">#7926</a></p>
+<p>Default Tags builds on the workflows in Ignore Tags to provide additional control over the ways Terraform manages tagging capabilities. Users will be able to specify lists of tags to apply to all resources in a configuration at the provider level. Our goal in offering this use case is to assist in tidying up configuration files, decreasing development efforts, and streamlining cost allocation and resource attribution within organizations of all sizes.</p>
+<h2 id="new-services">New Services<a class="headerlink" href="#new-services" title="Permanent link">#</a></h2>
+<h3 id="cloudwatch-synthetics">CloudWatch Synthetics<a class="headerlink" href="#cloudwatch-synthetics" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/11145">#11145</a></p>
+<p><em><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html">CloudWatch Synthetics</a> You can use Amazon CloudWatch Synthetics to create canaries, configurable scripts that run on a schedule, to monitor your endpoints and APIs. Canaries follow the same routes and perform the same actions as a customer, which makes it possible for you to continually verify your customer experience even when you don't have any customer traffic on your applications. By using canaries, you can discover issues before your customers do.</em></p>
+<p>Support for CloudWatch Synthetics will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li>aws_synthetics_canary</li>
+</ul>
+<p>New Datasource(s):</p>
+<ul>
+<li>aws_synthetics_canary_runs</li>
+</ul>
+<h3 id="managed-workflows-for-apache-airflow">Managed Workflows for Apache Airflow<a class="headerlink" href="#managed-workflows-for-apache-airflow" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/16432">#16432</a></p>
+<p><em><a href="https://aws.amazon.com/blogs/aws/introducing-amazon-managed-workflows-for-apache-airflow-mwaa/">Managed Workflows for Apache Airflow</a> Amazon Managed Workflows for Apache Airflow (MWAA) is a managed orchestration service for Apache Airflow1 that makes it easier to set up and operate end-to-end data pipelines in the cloud at scale. Apache Airflow is an open-source tool used to programmatically author, schedule, and monitor sequences of processes and tasks referred to as “workflows.” With Managed Workflows, you can use Airflow and Python to create workflows without having to manage the underlying infrastructure for scalability, availability, and security. Managed Workflows automatically scales its workflow execution capacity to meet your needs, and is integrated with AWS security services to help provide you with fast and secure access to data.</em></p>
+<p>Support for Amazon Managed Workflows for Apache Airflow will include:</p>
+<p>New Resource(s):</p>
+<ul>
+<li>aws_mwaa_environment</li>
+</ul>
+<h2 id="core-service-reliability">Core Service Reliability<a class="headerlink" href="#core-service-reliability" title="Permanent link">#</a></h2>
+<p>Core Services are areas of high usage or strategic importance for our users. We strive to offer rock solid reliability in these areas. This quarter we will have a focus on RDS and Elasticache (which we are also promoting to Core Service status) to address some common pain points in their usage and ensure they continue to meet our standards.</p>
+<h3 id="rds">RDS<a class="headerlink" href="#rds" title="Permanent link">#</a></h3>
+<ul>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/15177">#15177</a>: Subsequent plan/apply forces global cluster recreation when source cluster's storage_encrypted=true</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/15583">#15583</a>:  aws db parameter group ... converts keys and values to lowercase and fails 'apply' due to aws_db_parameter_group changes</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/1198">#1198</a>: Unable to ignore changes to RDS minor engine version</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/9401">#9401</a>: Destroy/recreate DB instance on minor version update rather than updating</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/2635">#2635</a>: RDS - storage_encrypted = true does not work</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/467">#467</a>: With aws_db_instance when you remove the snapshot_identifier it wants to force a new resource</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/10197">#10197</a>: AWS aurora unexpected state 'configuring-iam-database-auth' when modifying the <code>iam_database_authentication_enabled</code> flag</li>
+<li><a href="https://github.com/hashicorp/terraform-provider-aws/issues/13891">#13891</a>: RDS Cluster is not reattached to Global Cluster after failing deletion</li>
+</ul>
+<h2 id="technical-debt-theme">Technical Debt Theme<a class="headerlink" href="#technical-debt-theme" title="Permanent link">#</a></h2>
+<p>Last quarter we continued to improve the stability of our Acceptance Test suite. Following on from that work we will begin to integrate our Pull Request workflow with our Acceptance testing suite with a goal of being able to determine which tests to run, trigger, and view results of Acceptance Test runs on GitHub. This will improve our time to merge incoming PR's and further protect against regressions.</p>
+<p>We also spent time last quarter improving our documentation to give contributors more explicit guidance on best practice patterns for <a href="https://github.com/hashicorp/terraform-provider-aws/blob/main/docs/contributing/data-handling-and-conversion.md">data conversion</a> and <a href="https://github.com/hashicorp/terraform-provider-aws/blob/main/docs/contributing/error-handling.md">error handling</a>.  </p>
+<h2 id="research-topics">Research Topics<a class="headerlink" href="#research-topics" title="Permanent link">#</a></h2>
+<p>Research topics include features, architectural changes, and ideas that we are pursuing in the longer term that may significantly impact the core user experience of the AWS provider. Research topics are discovery only and are not guaranteed to be included in a future release.</p>
+<p>We are interested in your thoughts and feedback about the proposals below and encourage you to comment on the linked issues or schedule time with @maryelizbeth via the link on her GitHub profile to discuss.</p>
+<h3 id="api-callsiam-actions-per-terraform-resource-minimum-iam">API Calls/IAM Actions Per Terraform Resource (Minimum IAM)<a class="headerlink" href="#api-callsiam-actions-per-terraform-resource-minimum-iam" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/9154">#9154</a></p>
+<p>To address security concerns and best practices we are considering how Terraform could surface minimally viable IAM policies for taking actions on resources or executing a TF plan. This is in the early stages of research and we are particularly interested in whether or not this would be useful and the resources or services areas for which it is most valuable.</p>
+<h3 id="lifecycle-retain-add-retain-attribute-to-the-terraform-lifecycle-meta-parameter">Lifecycle: Retain [Add 'retain' attribute to the Terraform lifecycle meta-parameter]<a class="headerlink" href="#lifecycle-retain-add-retain-attribute-to-the-terraform-lifecycle-meta-parameter" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/902">#902</a></p>
+<p>Some resources (e.g. log groups) are intended to be created but never destroyed. Terraform currently does not have a lifecycle attribute for retaining such resources. We are curious as to whether or not retaining resources is a workflow that meets the needs of our community and if so, how and where we might make use of that in the AWS Provider.</p>
+<h2 id="disclosures">Disclosures<a class="headerlink" href="#disclosures" title="Permanent link">#</a></h2>
+<p>The product-development initiatives in this document reflect HashiCorp's current plans and are subject to change and/or cancellation in HashiCorp's sole discretion.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

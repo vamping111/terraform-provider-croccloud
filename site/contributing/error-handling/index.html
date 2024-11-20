@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Error Handling - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/contributing/error-handling.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#error-handling" class="nav-link">Error Handling</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#general-guidelines-and-helpers" class="nav-link">General Guidelines and Helpers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#resource-lifecycle-guidelines" class="nav-link">Resource Lifecycle Guidelines</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">#</a></h1>
+<p><em>Please Note: This documentation is intended for Terraform AWS Provider code developers. Typical operators writing and applying Terraform configurations do not need to read or understand this material.</em></p>
+<p>The Terraform AWS Provider codebase bridges the implementation of a <a href="https://www.terraform.io/docs/extend/how-terraform-works.html">Terraform Plugin</a> and an AWS API client to support AWS operations and data types as Terraform Resources. An important aspect of performing resource and remote actions is properly handling those operations, but those operations are not guaranteed to succeed every time. Some common examples include where network connections are unreliable, necessary permissions are not properly setup, incorrect Terraform configurations, or the remote system responds unexpectedly. All these situations lead to an unexpected workflow action that must be surfaced to the Terraform user interface for operators to troubleshoot. This guide is intended to explain and show various Terraform AWS Provider code implementations that are considered best practice for surfacing these issues properly to operators and code maintainers.</p>
+<p>For further details about how the AWS SDK for Go v1 and the Terraform AWS Provider resource logic handle retryable errors, see the <a href="../retries-and-waiters/">Retries and Waiters documentation</a>.</p>
+<ul>
+<li><a href="#general-guidelines-and-helpers">General Guidelines and Helpers</a><ul>
+<li><a href="#naming-and-check-style">Naming and Check Style</a></li>
+<li><a href="#wrap-errors">Wrap Errors</a></li>
+<li><a href="#aws-sdk-for-go-v1-errors">AWS SDK for Go v1 Errors</a><ul>
+<li><a href="#aws-sdk-for-go-error-helpers">AWS SDK for Go v1 Error Helpers</a></li>
+<li><a href="#use-aws-sdk-for-go-v1-error-code-constants">Use AWS SDK for Go v1 Error Code Constants</a></li>
+</ul>
+</li>
+<li><a href="#terraform-plugin-sdk-types-and-helpers">Terraform Plugin SDK Types and Helpers</a></li>
+</ul>
+</li>
+<li><a href="#resource-lifecycle-guidelines">Resource Lifecycle Guidelines</a><ul>
+<li><a href="#resource-creation">Resource Creation</a><ul>
+<li><a href="#disnewresource-checks">d.IsNewResource() Checks</a></li>
+<li><a href="#creation-error-message-context">Creation Error Message Context</a></li>
+</ul>
+</li>
+<li><a href="#resource-deletion">Resource Deletion</a><ul>
+<li><a href="#resource-already-deleted">Resource Already Deleted</a></li>
+<li><a href="#deletion-error-message-context">Deletion Error Message Context</a></li>
+</ul>
+</li>
+<li><a href="#resource-read">Resource Read</a><ul>
+<li><a href="#singular-data-source-errors">Singular Data Source Errors</a></li>
+<li><a href="#plural-data-source-errors">Plural Data Source Errors</a></li>
+<li><a href="#read-error-message-context">Read Error Message Context</a></li>
+</ul>
+</li>
+<li><a href="#resource-update">Resource Update</a><ul>
+<li><a href="#update-error-message-context">Update Error Message Context</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="general-guidelines-and-helpers">General Guidelines and Helpers<a class="headerlink" href="#general-guidelines-and-helpers" title="Permanent link">#</a></h2>
+<h3 id="naming-and-check-style">Naming and Check Style<a class="headerlink" href="#naming-and-check-style" title="Permanent link">#</a></h3>
+<p>Following typical Go conventions, error variables in the Terraform AWS Provider codebase should be named <code>err</code>, e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="s">&quot;oh no!&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>The code that then checks these errors should prefer <code>if</code> conditionals that usually <code>return</code> (or in the case of looping constructs, <code>break</code>/<code>continue</code>) early, especially in the case of multiple error checks, e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="cm">/* ... something checking err first ... */</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ... return, break, continue, etc. ...</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ... return, break, continue, etc. ...</span>
+<span class="p">}</span>
+
+<span class="c1">// all good!</span>
+</code></pre></div>
+<p>This is in preference of some other styles of error checking, such as <code>switch</code> conditionals without a condition.</p>
+<h3 id="wrap-errors">Wrap Errors<a class="headerlink" href="#wrap-errors" title="Permanent link">#</a></h3>
+<p>Go implements error wrapping, which means that a deeply nested function call can return a particular error type, while each function up the stack can provide additional error message context without losing the ability to determine the original error. Additional information about this concept can be found on the <a href="https://blog.golang.org/go1.13-errors">Go blog entry titled Working with Errors in Go 1.13</a>.</p>
+<p>For most use cases in this codebase, this means if code is receiving an error and needs to return it, it should implement <a href="https://pkg.go.dev/fmt#Errorf"><code>fmt.Errorf()</code></a> and the <code>%w</code> verb, e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;adding some additional message: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+</code></pre></div>
+<p>This type of error wrapping should be applied to all Terraform resource logic. It should also be applied to any nested functions that contains two or more error conditions (e.g., a function that calls an update API and waits for the update to finish) so practitioners and code maintainers have a clear idea which generated the error. When returning errors in those situations, it is important to only include necessary additional context. Resource logic will typically include the information such as the type of operation and resource identifier (e.g., <code>error updating Service Thing (%s): %w</code>), so these messages can be more terse such as <code>error waiting for completion: %w</code>.</p>
+<h3 id="aws-sdk-for-go-v1-errors">AWS SDK for Go v1 Errors<a class="headerlink" href="#aws-sdk-for-go-v1-errors" title="Permanent link">#</a></h3>
+<p>The <a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/welcome.html">AWS SDK for Go v1 documentation</a> includes a <a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/handling-errors.html">section on handling errors</a>, which is recommended reading.</p>
+<p>For the purposes of this documentation, the most important concepts with handling these errors are:</p>
+<ul>
+<li>Each response error (which eventually implements <code>awserr.Error</code>) has a <code>string</code> error code (<code>Code</code>) and <code>string</code> error message (<code>Message</code>). When printed as a string, they format as: <code>Code: Message</code>, e.g., <code>InvalidParameterValueException: IAM Role arn:aws:iam::123456789012:role/XXX cannot be assumed by AWS Backup</code>.</li>
+<li>Error handling is almost exclusively done via those <code>string</code> fields and not other response information, such as HTTP Status Codes.</li>
+<li>When the error code is non-specific, the error message should also be checked. Unfortunately, AWS APIs generally do not provide documentation or API modeling with the contents of these messages and often the Terraform AWS Provider code must rely on substring matching.</li>
+<li>Not all errors are returned in the response error from an AWS API operation. This is service- and sometimes API-call-specific. For example, the <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteVpcEndpoints.html">EC2 <code>DeleteVpcEndpoints</code> API call</a> can return a "successful" response (in terms of no response error) but include information in an <code>Unsuccessful</code> field in the response body.</li>
+</ul>
+<p>When working with AWS SDK for Go v1 errors, it is preferred to use the helpers outlined below and use the <code>%w</code> format verb. Code should generally avoid type assertions with the underlying <code>awserr.Error</code> type or calling its <code>Code()</code>, <code>Error()</code>, <code>Message()</code>, or <code>String()</code> receiver methods. Using the <code>%v</code>, <code>%#v</code>, or <code>%+v</code> format verbs generally provides extraneous information that is not helpful to operators or code maintainers.</p>
+<h4 id="aws-sdk-for-go-error-helpers">AWS SDK for Go Error Helpers<a class="headerlink" href="#aws-sdk-for-go-error-helpers" title="Permanent link">#</a></h4>
+<p>To simplify operations with AWS SDK for Go error types, the following helpers are available via the <code>github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr</code> Go package:</p>
+<ul>
+<li><code>tfawserr.ErrCodeEquals(err, "Code")</code>: Preferred when the error code is specific enough for the check condition. For example, a <code>ResourceNotFoundError</code> code provides enough information that the requested API resource identifier/Amazon Resource Name does not exist.</li>
+<li><code>tfawserr.ErrMessageContains(err, "Code", "MessageContains")</code>: Does simple substring matching for the error message.</li>
+</ul>
+<p>The recommendation for error message checking is to be just specific enough to capture the anticipated issue, but not include <em>too</em> much matching as the AWS API can change over time without notice. The maintainers have observed changes in wording and capitalization cause unexpected issues in the past.</p>
+<p>For example, given this error code and message:</p>
+<div class="highlight"><pre><span></span><code>InvalidParameterValueException: IAM Role arn:aws:iam::123456789012:role/XXX cannot be assumed by AWS Backup
+</code></pre></div>
+<p>An error check for this might be:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">tfawserr</span><span class="p">.</span><span class="nx">ErrMessageContains</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">backup</span><span class="p">.</span><span class="nx">ErrCodeInvalidParameterValueException</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cannot be assumed&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>The Amazon Resource Name in the error message will be different for every environment and does not add value to the check. The AWS Backup suffix is also extraneous and could change should the service ever rename.</p>
+<h4 id="use-aws-sdk-for-go-v1-error-code-constants">Use AWS SDK for Go v1 Error Code Constants<a class="headerlink" href="#use-aws-sdk-for-go-v1-error-code-constants" title="Permanent link">#</a></h4>
+<p>Each AWS SDK for Go v1 service API typically implements common error codes, which get exported as public constants in the SDK. In the <a href="https://docs.aws.amazon.com/sdk-for-go/api/">AWS SDK for Go v1 API Reference</a>, these can be found in each of the service packages under the <code>Constants</code> section (typically named <code>ErrCode{ExceptionName}</code>).</p>
+<p>If an AWS SDK for Go service API is missing an error code constant, an AWS Support case should be submitted and a new constant can be added to <code>internal/service/{SERVICE}/errors.go</code> file (created if not present), e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">ErrCodeInvalidParameterException</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;InvalidParameterException&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Then referencing code can use it via:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// imports</span>
+<span class="nx">tf</span><span class="p">{</span><span class="nx">SERVICE</span><span class="p">}</span><span class="w"> </span><span class="s">&quot;github.com/hashicorp/terraform-provider-aws/internal/service/{SERVICE}&quot;</span>
+
+<span class="c1">// logic</span>
+<span class="nx">tfawserr</span><span class="p">.</span><span class="nx">ErrCodeEquals</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">tf</span><span class="p">{</span><span class="nx">SERVICE</span><span class="p">}.</span><span class="nx">ErrCodeInvalidParameterException</span><span class="p">)</span>
+</code></pre></div>
+<p>e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// imports</span>
+<span class="nx">tfec2</span><span class="w"> </span><span class="s">&quot;github.com/hashicorp/terraform-provider-aws/internal/service/ec2&quot;</span>
+
+<span class="c1">// logic</span>
+<span class="nx">tfawserr</span><span class="p">.</span><span class="nx">ErrCodeEquals</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">tfec2</span><span class="p">.</span><span class="nx">ErrCodeInvalidParameterException</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="terraform-plugin-sdk-types-and-helpers">Terraform Plugin SDK Types and Helpers<a class="headerlink" href="#terraform-plugin-sdk-types-and-helpers" title="Permanent link">#</a></h3>
+<p>The Terraform Plugin SDK includes some error types which are used in certain operations and typically preferred over implementing new types:</p>
+<ul>
+<li><a href="https://pkg.go.dev/github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource#NotFoundError"><code>resource.NotFoundError</code></a></li>
+<li><a href="https://pkg.go.dev/github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource#TimeoutError"><code>resource.TimeoutError</code></a>: Returned from <a href="https://pkg.go.dev/github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource#Retry"><code>resource.Retry()</code></a>, <a href="https://pkg.go.dev/github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource#RetryContext"><code>resource.RetryContext()</code></a>, <a href="https://pkg.go.dev/github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource#StateChangeConf.WaitForState"><code>(resource.StateChangeConf).WaitForState()</code></a>, and <a href="https://pkg.go.dev/github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource#StateChangeConf.WaitForStateContext"><code>(resource.StateChangeConf).WaitForStateContext()</code></a></li>
+</ul>
+<p>The Terraform AWS Provider codebase implements some additional helpers for working with these in the <code>github.com/hashicorp/terraform-provider-aws/internal/tfresource</code> package:</p>
+<ul>
+<li><code>tfresource.NotFound(err)</code>: Returns true if the error is a <code>resource.NotFoundError</code>.</li>
+<li><code>tfresource.TimedOut(err)</code>: Returns true if the error is a <code>resource.TimeoutError</code> and contains no <code>LastError</code>. This typically signifies that the retry logic was never signaled for a retry, which can happen when AWS API operations are automatically retrying before returning.</li>
+</ul>
+<h2 id="resource-lifecycle-guidelines">Resource Lifecycle Guidelines<a class="headerlink" href="#resource-lifecycle-guidelines" title="Permanent link">#</a></h2>
+<p>Terraform CLI and the Terraform Plugin SDK have certain expectations and automatic behaviors depending on the lifecycle operation of a resource. This section highlights some common issues that can occur and their expected resolution.</p>
+<h3 id="resource-creation">Resource Creation<a class="headerlink" href="#resource-creation" title="Permanent link">#</a></h3>
+<p>Invoked in the resource via the <code>schema.Resource</code> type <code>Create</code>/<code>CreateContext</code> function.</p>
+<h4 id="disnewresource-checks">d.IsNewResource() Checks<a class="headerlink" href="#disnewresource-checks" title="Permanent link">#</a></h4>
+<p>During resource creation, Terraform CLI expects either a properly applied state for the new resource or an error. To signal proper resource existence, the Terraform Plugin SDK uses an underlying resource identifier (set via <code>d.SetId(/* some value */)</code>). If for some reason the resource creation is returned without an error, but also without the resource identifier being set, Terraform CLI will return an error such as:</p>
+<div class="highlight"><pre><span></span><code>Error: Provider produced inconsistent result after apply
+
+When applying changes to aws_sns_topic_subscription.sqs,
+provider &quot;registry.terraform.io/hashicorp/aws&quot; produced an unexpected new
+value: Root resource was present, but now absent.
+
+This is a bug in the provider, which should be reported in the provider&#39;s own
+issue tracker.
+</code></pre></div>
+<p>A typical pattern in resource implementations in the <code>Create</code>/<code>CreateContext</code> function is to <code>return</code> the <code>Read</code>/<code>ReadContext</code> function at the end to fill in the Terraform State for all attributes. Another typical pattern in resource implementations in the <code>Read</code>/<code>ReadContext</code> function is to remove the resource from the Terraform State if the remote system returns an error or status that indicates the remote resource no longer exists by explicitly calling <code>d.SetId("")</code> and returning no error. If the remote system is not strongly read-after-write consistent (eventually consistent), this means the resource creation can return no error and also return no resource state.</p>
+<p>To prevent this type of Terraform CLI error, the resource implementation should also check against <code>d.IsNewResource()</code> before removing from the Terraform State and returning no error. If that check is <code>true</code>, then remote operation error (or one synthesized from the non-existent status) should be returned instead. While adding this check will not fix the resource implementation to handle the eventually consistent nature of the remote system, the error being returned will be less opaque for operators and code maintainers to troubleshoot.</p>
+<p>In the Terraform AWS Provider, an initial fix for the Terraform CLI error will typically look like:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">resourceServiceThingCreate</span><span class="p">(</span><span class="nx">d</span><span class="w"> </span><span class="o">*</span><span class="nx">schema</span><span class="p">.</span><span class="nx">ResourceData</span><span class="p">,</span><span class="w"> </span><span class="nx">meta</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* ... */</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">resourceServiceThingRead</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span><span class="w"> </span><span class="nx">meta</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">resourceServiceThingRead</span><span class="p">(</span><span class="nx">d</span><span class="w"> </span><span class="o">*</span><span class="nx">schema</span><span class="p">.</span><span class="nx">ResourceData</span><span class="p">,</span><span class="w"> </span><span class="nx">meta</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* ... */</span>
+
+<span class="w">    </span><span class="nx">output</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">DescribeServiceThing</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">d</span><span class="p">.</span><span class="nx">IsNewResource</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">tfawserr</span><span class="p">.</span><span class="nx">ErrCodeEquals</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ResourceNotFoundException&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;[WARN] {Service} {Thing} (%s) not found, removing from state&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">())</span>
+<span class="w">        </span><span class="nx">d</span><span class="p">.</span><span class="nx">SetId</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error reading {Service} {Thing} (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/* ... */</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If the remote system is not strongly read-after-write consistent, see the <a href="../retries-and-waiters/#resource-lifecycle-retries">Retries and Waiters documentation on Resource Lifecycle Retries</a> for how to prevent consistency-type errors.</p>
+<h4 id="creation-error-message-context">Creation Error Message Context<a class="headerlink" href="#creation-error-message-context" title="Permanent link">#</a></h4>
+<p>Returning errors during creation should include additional messaging about the location or cause of the error for operators and code maintainers by wrapping with <a href="https://pkg.go.dev/fmt#Errorf"><code>fmt.Errorf()</code></a>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error creating {SERVICE} {THING}: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error creating EC2 VPC: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Code that also uses waiters or other operations that return errors should follow a similar pattern, including the resource identifier since it has typically been set before this execution:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">VpcAvailable</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">());</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error waiting for EC2 VPC (%s) availability: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="resource-deletion">Resource Deletion<a class="headerlink" href="#resource-deletion" title="Permanent link">#</a></h3>
+<p>Invoked in the resource via the <code>schema.Resource</code> type <code>Delete</code>/<code>DeleteContext</code> function.</p>
+<h4 id="resource-already-deleted">Resource Already Deleted<a class="headerlink" href="#resource-already-deleted" title="Permanent link">#</a></h4>
+<p>A typical pattern for resource deletion is to immediately perform the remote system deletion operation without checking existence. This is generally acceptable as operators are encouraged to always refresh their Terraform State prior to performing changes. However in certain scenarios, such as external systems modifying the remote system prior to the Terraform execution, it is certainly still possible that the remote system will return an error signifying that remote resource does not exist. In these cases, resources should implement logic that catches the error and returns no error.</p>
+<p><em>NOTE: The Terraform Plugin SDK automatically handles the equivalent of d.SetId("") on deletion, so it is not necessary to include it.</em></p>
+<p>For example in the Terraform AWS Provider:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">resourceServiceThingDelete</span><span class="p">(</span><span class="nx">d</span><span class="w"> </span><span class="o">*</span><span class="nx">schema</span><span class="p">.</span><span class="nx">ResourceData</span><span class="p">,</span><span class="w"> </span><span class="nx">meta</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* ... */</span>
+
+<span class="w">    </span><span class="nx">output</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">DeleteServiceThing</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">tfawserr</span><span class="p">.</span><span class="nx">ErrCodeEquals</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ResourceNotFoundException&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error deleting {Service} {Thing} (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/* ... */</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="deletion-error-message-context">Deletion Error Message Context<a class="headerlink" href="#deletion-error-message-context" title="Permanent link">#</a></h4>
+<p>Returning errors during deletion should include the resource identifier and additional messaging about the location or cause of the error for operators and code maintainers by wrapping with <a href="https://pkg.go.dev/fmt#Errorf"><code>fmt.Errorf()</code></a>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error deleting {SERVICE} {THING} (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error deleting EC2 VPC (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Code that also uses <a href="../retries-and-waiters/">waiters</a> or other operations that return errors should follow a similar pattern:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">VpcDeleted</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">());</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error waiting for EC2 VPC (%s) deletion: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="resource-read">Resource Read<a class="headerlink" href="#resource-read" title="Permanent link">#</a></h3>
+<p>Invoked in the resource via the <code>schema.Resource</code> type <code>Read</code>/<code>ReadContext</code> function.</p>
+<h4 id="singular-data-source-errors">Singular Data Source Errors<a class="headerlink" href="#singular-data-source-errors" title="Permanent link">#</a></h4>
+<p>A data source which is expected to return Terraform State about a single remote resource is commonly referred to as a "singular" data source. Implementation-wise, it may use any available describe or listing functionality from the remote system to retrieve the information. In addition to any remote operation and other data handling errors that should be returned, these two additional cases should be covered:</p>
+<ul>
+<li>Returning an error when zero results are found.</li>
+<li>Returning an error when multiple results are found.</li>
+</ul>
+<p>For remote operations that are designed to return an error when the remote resource is not found, this error is typically just passed through similar to other remote operation errors. For remote operations that are designed to return a successful result whether there is zero, one, or multiple multiple results the error must be generated.</p>
+<p>For example in pseudo-code:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">output</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">ListServiceThings</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error listing {Service} {Thing}s: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nx">output</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">output</span><span class="p">.</span><span class="nx">Results</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;no {Service} {Thing} found matching criteria; try different search&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">output</span><span class="p">.</span><span class="nx">Results</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;multiple {Service} {Thing} found matching criteria; try different search&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="plural-data-source-errors">Plural Data Source Errors<a class="headerlink" href="#plural-data-source-errors" title="Permanent link">#</a></h4>
+<p>An emergent concept is a data source that returns multiple results, acting similar to any available listing functionality available from the remote system. These types of data sources should return <em>no</em> error if zero results are returned and <em>no</em> error if multiple results are found. Remote operation and other data handling errors should still be returned.</p>
+<h4 id="read-error-message-context">Read Error Message Context<a class="headerlink" href="#read-error-message-context" title="Permanent link">#</a></h4>
+<p>Returning errors during read should include the resource identifier (for managed resources) and additional messaging about the location or cause of the error for operators and code maintainers by wrapping with <a href="https://pkg.go.dev/fmt#Errorf"><code>fmt.Errorf()</code></a>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error reading {SERVICE} {THING} (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error reading EC2 VPC (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="resource-update">Resource Update<a class="headerlink" href="#resource-update" title="Permanent link">#</a></h3>
+<p>Invoked in the resource via the <code>schema.Resource</code> type <code>Update</code>/<code>UpdateContext</code> function.</p>
+<h4 id="update-error-message-context">Update Error Message Context<a class="headerlink" href="#update-error-message-context" title="Permanent link">#</a></h4>
+<p>Returning errors during update should include the resource identifier and additional messaging about the location or cause of the error for operators and code maintainers by wrapping with <a href="https://pkg.go.dev/fmt#Errorf"><code>fmt.Errorf()</code></a>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error updating {SERVICE} {THING} (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error updating EC2 VPC (%s): %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Code that also uses waiters or other operations that return errors should follow a similar pattern:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">VpcAvailable</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">());</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;error waiting for EC2 VPC (%s) update: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Id</span><span class="p">(),</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

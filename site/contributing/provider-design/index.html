@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Provider Design - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/contributing/provider-design.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#provider-design" class="nav-link">Provider Design</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#api-and-sdk-boundary" class="nav-link">API and SDK Boundary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#infrastructure-as-code-suitability" class="nav-link">Infrastructure as Code Suitability</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#resource-type-considerations" class="nav-link">Resource Type Considerations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#other-considerations" class="nav-link">Other Considerations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="provider-design">Provider Design<a class="headerlink" href="#provider-design" title="Permanent link">#</a></h1>
+<p><em>Please Note: This documentation is intended for Terraform AWS Provider code developers. Typical operators writing and applying Terraform configurations do not need to read or understand this material.</em></p>
+<p>The Terraform AWS Provider follows the guidelines established in the <a href="https://www.terraform.io/docs/extend/hashicorp-provider-design-principles.html">HashiCorp Provider Design Principles</a>. That general documentation provides many high-level design points gleaned from years of experience with Terraform's design and implementation concepts. Sections below will expand on specific design details between that documentation and this provider, while others will capture other pertinent information that may not be covered there. Other pages of the contributing guide cover implementation details such as code, testing, and documentation specifics.</p>
+<ul>
+<li><a href="#api-and-sdk-boundary">API and SDK Boundary</a></li>
+<li><a href="#infrastructure-as-code-suitability">Infrastructure as Code Suitability</a></li>
+<li><a href="#resource-type-considerations">Resource Type Considerations</a><ul>
+<li><a href="#authorization-and-acceptance-resources">Authorization and Acceptance Resources</a></li>
+<li><a href="#cross-service-functionality">Cross-Service Functionality</a></li>
+<li><a href="#data-sources">Data Sources</a><ul>
+<li><a href="#plural-data-sources">Plural Data Sources</a></li>
+<li><a href="#singular-data-sources">Singular Data Sources</a></li>
+</ul>
+</li>
+<li><a href="#iam-resource-based-policy-resources">IAM Resource-Based Policy Resources</a></li>
+<li><a href="#managing-resource-running-state">Managing Resource Running State</a></li>
+<li><a href="#task-execution-and-waiter-resources">Task Execution and Waiter Resources</a></li>
+<li><a href="#versioned-resources">Versioned Resources</a></li>
+</ul>
+</li>
+<li><a href="#other-considerations">Other Considerations</a><ul>
+<li><a href="#aws-credential-exfiltration">AWS Credential Exfiltration</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="api-and-sdk-boundary">API and SDK Boundary<a class="headerlink" href="#api-and-sdk-boundary" title="Permanent link">#</a></h2>
+<p>The AWS provider implements support for the <a href="https://aws.amazon.com/">AWS</a> service APIs using the <a href="https://aws.amazon.com/sdk-for-go/">AWS Go SDK</a>. The API and SDK limits extend to the provider. In general, SDK operations manage the lifecycle of AWS components, such as creating, describing, updating, and deleting a database. Operations do not usually handle functionality within those components, such as executing a query on a database. If you are interested in other APIs/SDKs, we invite you to view the many Terraform Providers available, as each has a community of domain expertise.</p>
+<p>Some examples of functionality that is not expected in this provider:</p>
+<ul>
+<li>Raw HTTP(S) handling. See the <a href="https://registry.terraform.io/providers/hashicorp/http/latest">Terraform HTTP Provider</a> and <a href="https://registry.terraform.io/providers/hashicorp/tls/latest">Terraform TLS Provider</a> instead.</li>
+<li>Kubernetes resource management beyond the EKS service APIs. See the <a href="https://registry.terraform.io/providers/hashicorp/kubernetes/latest">Terraform Kubernetes Provider</a> instead.</li>
+<li>Active Directory or other protocol clients. See the <a href="https://registry.terraform.io/providers/hashicorp/ad/latest/docs">Terraform Active Directory Provider</a> and other available provider instead.</li>
+<li>Functionality that requires additional software beyond the Terraform AWS Provider to be installed on the host executing Terraform. This currently includes the AWS CLI. See the <a href="https://registry.terraform.io/providers/hashicorp/external/latest">Terraform External Provider</a> and other available providers instead.</li>
+</ul>
+<h2 id="infrastructure-as-code-suitability">Infrastructure as Code Suitability<a class="headerlink" href="#infrastructure-as-code-suitability" title="Permanent link">#</a></h2>
+<p>The provider maintainers' design goal is to cover as much of the AWS API as pragmatically possible. However, not every aspect of the API is compatible with an infrastructure-as-code (IaC) conception. If such limits affect you, we recommend that you open an AWS Support case and encourage others to do the same. Request that AWS components be made more self-contained and compatible with IaC. These AWS Support cases can also yield insights into the AWS service and API that are not well documented.</p>
+<h2 id="resource-type-considerations">Resource Type Considerations<a class="headerlink" href="#resource-type-considerations" title="Permanent link">#</a></h2>
+<p>Terraform resources work best as the smallest infrastructure blocks on which practitioners can build more complex configurations and abstractions, such as <a href="https://www.terraform.io/docs/modules/">Terraform Modules</a>. The general heuristic guiding when to implement a new Terraform resource for an aspect of AWS is whether the AWS service API provides create, read, update, and delete (CRUD) operations. However, not all AWS service API functionality falls cleanly into CRUD lifecycle management. In these situations, there is extra consideration necessary for properly mapping API operations to Terraform resources.</p>
+<p>This section highlights design patterns when to consider an implementation within a singular Terraform resource or as separate Terraform resources.</p>
+<p>Please note: the overall design and implementation across all AWS functionality is federated: individual services may implement concepts and use terminology differently. As such, this guide is not exhaustive. The aim is to provide general concepts and basic terminology that points contributors in the right direction, especially in understanding previous implementations.</p>
+<h3 id="authorization-and-acceptance-resources">Authorization and Acceptance Resources<a class="headerlink" href="#authorization-and-acceptance-resources" title="Permanent link">#</a></h3>
+<p>Some AWS services use an authorization-acceptance model for cross-account associations or access. Examples include:</p>
+<ul>
+<li>Direct Connect Association Proposals</li>
+<li>GuardDuty Member Invitations</li>
+<li>RAM Resource Share Associations</li>
+<li>Route 53 VPC Associations</li>
+<li>Security Hub Member Invitations</li>
+</ul>
+<p>Depending on the API and components, AWS uses two basic ways of creating cross-region and cross-account associations. One way is to generate an invitation (or proposal) identifier from one AWS account to another. Then in the other AWS account, that identifier is used to accept the invitation. The second way is configuring a reference to another AWS account identifier. These may not require explicit acceptance on the receiving account to finish creating the association or begin working.</p>
+<p>To model creating an association using an invitation or proposal, follow these guidelines.</p>
+<ul>
+<li>Follow the naming in the AWS service API to determine whether to use the term "invitation" or "proposal."</li>
+<li>For the originating account, create an "invitation" or "proposal" resource. Make sure that the AWS service API has operations for creating and reading invitations.</li>
+<li>For the responding account, create an "accepter" resource. Ensure that the API has operations for accepting, reading, and rejecting invitations in the responding account. Map the operations as follows:<ul>
+<li>Create: Accepts the invitation.</li>
+<li>Read: Reads the invitation to determine its status. Note that in some APIs, invitations expire and disappear, complicating associations. If a resource does not find an invitation, the developer should implement a fall back to read the API resource associated with the invitation/proposal.</li>
+<li>Delete: Rejects or otherwise deletes the invitation.</li>
+</ul>
+</li>
+</ul>
+<p>To model the second type of association, implicit associations, create an "association" resource and, optionally, an "authorization" resource. Map create, read, and delete to the corresponding operations in the AWS service API.</p>
+<h3 id="cross-service-functionality">Cross-Service Functionality<a class="headerlink" href="#cross-service-functionality" title="Permanent link">#</a></h3>
+<p>Many AWS service APIs build on top of other AWS services. Some examples of these include:</p>
+<ul>
+<li>EKS Node Groups managing Auto Scaling Groups</li>
+<li>Lambda Functions managing EC2 ENIs</li>
+<li>Transfer Servers managing EC2 VPC Endpoints</li>
+</ul>
+<p>Some cross-service API implementations lack the management or description capabilities of the other service. The lack can make the Terraform resource implementation seem incomplete or unsuccessful in end-to-end configurations. Given the overall “resources should represent a single API object” goal from the <a href="https://www.terraform.io/docs/extend/hashicorp-provider-design-principles.html">HashiCorp Provider Design Principles</a>, a resource must only communicate with a single AWS service API. As such, maintainers will not approve cross-service resources.</p>
+<p>The rationale behind this design decision includes the following:</p>
+<ul>
+<li>Unexpected IAM permissions being necessary for the resource. In high-security environments, all the service permissions may not be available or acceptable.</li>
+<li>Unexpected services generating CloudTrail logs for the resource.</li>
+<li>Needing extra and unexpected API endpoints configuration for organizations using custom endpoints, such as VPC endpoints.</li>
+<li>Unexpected changes to the AWS service internals for the cross-service implementations. Given that this functionality is not part of the primary service API, these details can change over time and may not be considered as a breaking change by the service team for an API upgrade.</li>
+</ul>
+<p>A poignant real-world example of the last point involved a Lambda resource. The resource helped clean up extra resources (ENIs) due to a common misconfiguration. Practitioners found the functionality helpful since the issue was hard to diagnose. Years later, AWS updated the Lambda API. Immediately, practitioners reported that Terraform executions were failing. Downgrading the provider was not possible since many configurations depended on recent releases. For environments running many versions behind, forcing an upgrade with the fix would likely cause unrelated and unexpected changes. In the end, HashiCorp and AWS performed a large-scale outreach to help upgrade and fixing the misconfigurations. Provider maintainers and practitioners lost considerable time.</p>
+<h3 id="data-sources">Data Sources<a class="headerlink" href="#data-sources" title="Permanent link">#</a></h3>
+<p>A separate class of Terraform resource types are <a href="https://www.terraform.io/docs/language/data-sources/">data sources</a>. These are typically intended as a configuration method to lookup or fetch data in a read-only manner. Data sources should not have side effects on the remote system.</p>
+<p>When discussing data sources, they are typically classified by the intended number of return objects or data. Singular data sources represent a one-to-one lookup or data operation. Plural data sources represent a one-to-many operation.</p>
+<h4 id="plural-data-sources">Plural Data Sources<a class="headerlink" href="#plural-data-sources" title="Permanent link">#</a></h4>
+<p>These data sources are intended to return zero, one, or many results, usually associated with a managed resource type. Typically results are a set unless ordering guarantees are provided by the remote system. These should be named with a plural suffix (e.g., <code>s</code> or <code>es</code>) and should not include any specific attribute in the naming (e.g., prefer <code>aws_ec2_transit_gateways</code> instead of <code>aws_ec2_transit_gateway_ids</code>).</p>
+<h4 id="singular-data-sources">Singular Data Sources<a class="headerlink" href="#singular-data-sources" title="Permanent link">#</a></h4>
+<p>These data sources are intended to return one result or an error. These should not include any specific attribute in the naming (e.g., prefer <code>aws_ec2_transit_gateway</code> instead of <code>aws_ec2_transit_gateway_id</code>).</p>
+<h3 id="iam-resource-based-policy-resources">IAM Resource-Based Policy Resources<a class="headerlink" href="#iam-resource-based-policy-resources" title="Permanent link">#</a></h3>
+<p>For some AWS components, the AWS API allows specifying an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html">IAM resource-based policy</a>, the IAM policy to associate with a component. Some examples include:</p>
+<ul>
+<li>ECR Repository Policies</li>
+<li>EFS File System Policies</li>
+<li>SNS Topic Policies</li>
+</ul>
+<p>Provider developers should implement this capability in a new resource rather than adding it to the associated resource. Reasons for this include:</p>
+<ul>
+<li>Many of the policies must include the Amazon Resource Name (ARN) of the resource. Working around this requirement with custom difference handling within a self-contained resource is unnecessarily cumbersome.</li>
+<li>Some policies involving multiple resources need to cross-reference each other's ARNs. Without a separate resource, this introduces a configuration cycle.</li>
+<li>Splitting the resources allows operators to logically split their configurations into purely operational and security boundaries. This allows environments to have distinct practitioners roles and permissions for IAM versus infrastructure changes.</li>
+</ul>
+<p>One rare exception to this guideline is where the policy is <em>required</em> during resource creation.</p>
+<h3 id="managing-resource-running-state">Managing Resource Running State<a class="headerlink" href="#managing-resource-running-state" title="Permanent link">#</a></h3>
+<p>The AWS API provides the ability to start, stop, enable, or disable some AWS components. Some examples include:</p>
+<ul>
+<li>Batch Job Queues</li>
+<li>CloudFront Distributions</li>
+<li>RDS DB Event Subscriptions</li>
+</ul>
+<p>In this situation, provider developers should implement this ability within the resource instead of creating a separate resource. Since a practitioner cannot practically manage interaction with a resource's states in Terraform's declarative configuration, developers should implement the state management in the resource. This design provides consistency and future-proofing even where updating a resource in the current API is not problematic.</p>
+<h3 id="task-execution-and-waiter-resources">Task Execution and Waiter Resources<a class="headerlink" href="#task-execution-and-waiter-resources" title="Permanent link">#</a></h3>
+<p>Some AWS operations are asynchronous. Terraform requests that AWS perform a task. Initially, AWS only notifies Terraform that it received the request. Terraform then requests the status while awaiting completion. Examples of this include:</p>
+<ul>
+<li>ACM Certificate validation</li>
+<li>EC2 AMI copying</li>
+<li>RDS DB Cluster Snapshot management</li>
+</ul>
+<p>In this situation, provider developers should create a separate resource representing the task, assuming that the AWS service API provides operations to start the task and read its status. Adding the task functionality to the parent resource muddies its infrastructure-management purpose. The maintainers prefer this approach even though there is some duplication of an existing resource. For example, the provider has a resource for copying an EC2 AMI in addition to the EC2 AMI resource itself. This modularity allows practitioners to manage the result of the task resource with another resource.</p>
+<p>For a related consideration, see the <a href="#managing-resource-running-state">Managing Resource Running State section</a>.</p>
+<h3 id="versioned-resources">Versioned Resources<a class="headerlink" href="#versioned-resources" title="Permanent link">#</a></h3>
+<p>AWS supports having multiple versions of some components. Examples of this include:</p>
+<ul>
+<li>ECS Task Definitions</li>
+<li>Lambda Functions</li>
+<li>Secrets Manager Secrets</li>
+</ul>
+<p>In general, provider developers should create a separate resource to represent a single version. For example, the provider has both the <code>aws_secretsmanager_secret</code> and <code>aws_secretsmanager_secret_version</code> resources. However, in some cases, developers should handle versioning in the main resource.</p>
+<p>In deciding when to create a separate resource, follow these guidelines:</p>
+<ul>
+<li>If AWS necessarily creates a version when you make a new AWS component, include version handling in the same Terraform resource. Creating an AWS component with one Terraform resource and later using a different resource for updates is confusing.</li>
+<li>If the AWS service API allows deleting versions and practitioners will want to delete versions, provider developers should implement a separate version resource.</li>
+<li>If the API only supports publishing new versions, either method is acceptable, however most current implementations are self-contained. Terraform's current configuration language does not natively support triggering resource updates or recreation across resources without a state value change. This can make the implementation more difficult for practitioners without special resource and configuration workarounds, such as a <code>triggers</code> attribute. If this changes in the future, then this guidance may be updated towards separate resources, following the <a href="#task-execution-and-waiter-resources">Task Execution and Waiter Resources</a> guidance.</li>
+</ul>
+<h2 id="other-considerations">Other Considerations<a class="headerlink" href="#other-considerations" title="Permanent link">#</a></h2>
+<h3 id="aws-credential-exfiltration">AWS Credential Exfiltration<a class="headerlink" href="#aws-credential-exfiltration" title="Permanent link">#</a></h3>
+<p>In the interest of security, the maintainers will not approve data sources that provide the ability to reference or export the AWS credentials of the running provider. There are valid use cases for this information, such as to execute AWS CLI calls as part of the same Terraform configuration. However, this mechanism may allow credentials to be discovered and used outside of Terraform. Some specific concerns include:</p>
+<ul>
+<li>The values may be visible in Terraform user interface output or logging, allowing anyone with user interface or log access to see the credentials.</li>
+<li>The values are currently stored in plaintext in the Terraform state, allowing anyone with access to the state file or another Terraform configuration that references the state access to the credentials.</li>
+<li>Any new related functionality, while opt-in to implement, is also opt-in to prevent via security controls or policies. Adopting a weaker default security posture requires advance notice and prevents organizations that implement those controls from updating to a version with any such functionality.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

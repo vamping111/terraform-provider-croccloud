@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Roadmap: May - July 2020 - Terraform AWS Provider - Contributor Guide</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Terraform AWS Provider - Contributor Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/hashicorp/terraform-provider-aws/tree/main/docs/roadmaps/2020_May_to_July.md" class="nav-link">Edit on hashicorp/terraform-provider-rockitcloud
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#roadmap-may-july-2020" class="nav-link">Roadmap: May - July 2020</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#research-topics" class="nav-link">Research Topics</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#disclosures" class="nav-link">Disclosures</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="roadmap-may-july-2020">Roadmap: May - July 2020<a class="headerlink" href="#roadmap-may-july-2020" title="Permanent link">#</a></h1>
+<p>Each quarter the team will highlight areas of focus for our work and upcoming research.</p>
+<p>We select items for inclusion in the roadmap from the Top 10 Community Issues, <a href="../../contributing/core-services/">core services</a>, and internal priorities. When community pull requests exist for a given item, we will prioritize working with the original authors to include their contributions. If the author can no longer take on the implementation, HashiCorp will complete any additional work needed.</p>
+<p>Each weekly release will include necessary tasks that lead to the completion of the stated goals as well as community pull requests, enhancements, and features that are not highlighted in the roadmap.</p>
+<p>To make contribution easier, we’ll be using the <a href="https://github.com/hashicorp/terraform-provider-aws/labels/help%20wanted"><code>Help Wanted</code></a> tag to point to issues we’d like to include in this quarter’s series of releases.</p>
+<p>This quarter (May-July ‘20) we will be prioritizing the following areas of work:</p>
+<h3 id="300">3.0.0<a class="headerlink" href="#300" title="Permanent link">#</a></h3>
+<p>Milestone: <a href="https://github.com/hashicorp/terraform-provider-aws/milestone/70">v3.0.0</a></p>
+<p>Each year the TF AWS Provider team releases a major version. <a href="https://www.terraform.io/docs/extend/best-practices/versioning.html#example-major-number-increments">Major releases</a> include code removals, deprecations, and breaking changes. A corresponding “upgrade guide” will be published alongside the release.</p>
+<p>We'll be updating the linked milestone as we work to finalize and complete v3.0.0.</p>
+<h3 id="wafv2">WAFv2<a class="headerlink" href="#wafv2" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/11046">#11046</a></p>
+<p><em>AWS WAFv2 is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to Amazon CloudFront, an Amazon API Gateway API, or an Application Load Balancer.</em></p>
+<p>Support for WAFv2 functionality will be wholly separate from WAF “Classic”. We’ll focus on enabling community contributions to WAFv2 first. If there is not a community contribution, HashiCorp will work to add the missing resource or data source.</p>
+<p>Support for WAFv2 will include:</p>
+<h4 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">#</a></h4>
+<ul>
+<li>aws_wafv2_ip_set</li>
+<li>aws_wafv2_regex_pattern_set</li>
+<li>aws_wafv2_rule_group</li>
+<li>aws_wafv2_web_acl</li>
+<li>aws_wafv2_web_acl_association</li>
+</ul>
+<h4 id="data-sources">Data Sources<a class="headerlink" href="#data-sources" title="Permanent link">#</a></h4>
+<ul>
+<li>aws_wafv2_ip_set</li>
+<li>aws_wafv2_regex_pattern_set</li>
+<li>aws_wafv2_rule_group</li>
+<li>aws_wafv2_web_acl</li>
+</ul>
+<h3 id="amazon-lex">Amazon Lex<a class="headerlink" href="#amazon-lex" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/905">#905</a></p>
+<p><em>Amazon Lex is a service for building conversational interfaces into any application using voice and text. Amazon Lex provides the advanced deep learning functionalities of automatic speech recognition (ASR) for converting speech to text, and natural language understanding (NLU) to recognize the intent of the text, to enable you to build applications with highly engaging user experiences and lifelike conversational interactions.</em></p>
+<p>We’ll focus on enabling community contributions to Lex first. If there is not a community contribution, HashiCorp will work to add the missing resource or data source.</p>
+<p>Support for Amazon Lex will include:</p>
+<h4 id="resources_1">Resources<a class="headerlink" href="#resources_1" title="Permanent link">#</a></h4>
+<ul>
+<li>aws_lex_slot_type</li>
+<li>aws_lex_intent</li>
+<li>aws_lex_bot</li>
+<li>aws_lex_bot_alias</li>
+</ul>
+<h4 id="data-sources_1">Data Sources<a class="headerlink" href="#data-sources_1" title="Permanent link">#</a></h4>
+<ul>
+<li>aws_lex_slot_type</li>
+<li>aws_lex_intent</li>
+<li>aws_lex_bot</li>
+<li>aws_lex_bot_alias</li>
+</ul>
+<h3 id="aws-certificate-manager">AWS Certificate Manager<a class="headerlink" href="#aws-certificate-manager" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/8531">#8531</a></p>
+<p><em>AWS Certificate Manager is a service that allows you to easily provision, manage, and deploy public and private Secure Sockets Layer/Transport Layer Security (SSL/TLS) certificates for use with AWS services and your internal connected resources.</em></p>
+<p>After evaluating the issue linked above, we concluded that the ACM resource was in need of a redesign. We’ll be prioritizing redesigning and updating the resource while we tackle the open bug reports and enhancements. Our research and redesign work will be tracked <a href="https://github.com/hashicorp/terraform-provider-aws/issues/13053">here</a>.</p>
+<h2 id="research-topics">Research Topics<a class="headerlink" href="#research-topics" title="Permanent link">#</a></h2>
+<p>Research topics include features, architectural changes, and ideas that we are pursuing in the longer term that may significantly impact the core user experience of the AWS provider. Research topics are discovery only and are not guaranteed to be included in a future release.</p>
+<h3 id="global-default-tags">Global Default Tags<a class="headerlink" href="#global-default-tags" title="Permanent link">#</a></h3>
+<p>Issue: <a href="https://github.com/hashicorp/terraform-provider-aws/issues/7926">#7926</a></p>
+<p>We’ve been evaluating how users approach tagging their infrastructure in Terraform and the systems and practices that may interact with TF when it comes to tagging. The <a href="https://github.com/hashicorp/terraform/issues/20866">initial discussions</a> led us to prioritize functionality that allows users to ignore specific tags globally in the AWS provider. As a complement to that feature, we are exploring the ability to supply global default tags to resources defined by the AWS Provider.</p>
+<p>We are interested in your thoughts and feedback about this proposal and encourage you to comment on the issue linked above or schedule time with @maryelizbeth via the link on her <a href="https://github.com/maryelizbeth">GitHub profile</a> to discuss.</p>
+<h2 id="disclosures">Disclosures<a class="headerlink" href="#disclosures" title="Permanent link">#</a></h2>
+<p>The product-development initiatives in this document reflect HashiCorp's current plans and are subject to change and/or cancellation in HashiCorp's sole discretion.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>HashiCorp</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
