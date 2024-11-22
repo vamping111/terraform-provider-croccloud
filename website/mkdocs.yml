@@ -1,9 +1,9 @@
-site_name: Terraform Rockitcloud Provider - Contributor Guide
-site_description: 'Contributor documentation and reference for the
+site_name: Terraform Rockitcloud Provider - User Guide
+site_description: 'User documentation and reference for the
                    Terraform Rockitcloud Provider'
 use_directory_urls: false
 copyright: Rockit Cloud
-repo_name: hashicorp/terraform-provider-rockitcloud
+repo_name: C2Devel/terraform-provider-rockitcloud
 repo_url: https://github.com/C2Devel/terraform-provider-rockitcloud
 edit_uri: "https://github.com/C2Devel/terraform-provider-rockitcloud/tree/develop/website/docs"
 nav:
@@ -201,7 +201,7 @@ theme:
   favicon: images/favicon.ico
   palette:
     scheme: hashicorp
-    primary: gray
+    primary: white
     accent: blue
   icon:
     repo: fontawesome/brands/github
@@ -211,8 +211,6 @@ theme:
       tip: octicons/squirrel-16
       warning: octicons/alert-16
 
-  
-  font: false
   features:
     - navigation.instant
     - content.tabs.link
@@ -233,3 +231,9 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - toc:
       permalink: "#"
+
+extra_css:
+     - 'assets/stylesheets/extra.css'
+     - "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+extra_javascript:
+     - 'assets/stylesheets/extra.js'
