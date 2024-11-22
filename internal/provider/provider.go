@@ -367,6 +367,7 @@ func Provider() *schema.Provider {
 			//
 			"aws_dx_connection": directconnect.DataSourceConnection(),
 			"aws_dx_gateway":    directconnect.DataSourceGateway(),
+			"aws_dx_lag":        directconnect.DataSourceLag(),
 			// "aws_dx_location":   directconnect.DataSourceLocation(),
 			// "aws_dx_locations":  directconnect.DataSourceLocations(),
 			//
