@@ -3,12 +3,12 @@ subcategory: "EKS (Elastic Kubernetes)"
 layout: "aws"
 page_title: "aws_eks_cluster"
 description: |-
-  Retrieves information about an EKS cluster.
+  Provides information about an EKS cluster.
 ---
 
 # Data Source: aws_eks_cluster
 
-Retrieves information about an EKS cluster.
+Provides information about an EKS cluster.
 
 ## Example Usage
 
@@ -20,9 +20,9 @@ data "aws_eks_cluster" "example" {
 
 ## Argument Reference
 
-* `name` - (Required) The name of the cluster. Must be between 1-100 characters in length. Must begin with an alphanumeric character, and must only contain alphanumeric characters, dashes and underscores (`^[0-9A-Za-z][A-Za-z0-9\-_]+$`).
+* `name` - (Required) The name of the cluster.
 
-## Attributes Reference
+## Attribute Reference
 
 * `arn` - Cluster ID.
 * `certificate_authority` - Nested attribute containing `certificate-authority-data` for your cluster.
@@ -32,6 +32,14 @@ data "aws_eks_cluster" "example" {
 * `kubernetes_network_config` - Nested list containing Kubernetes Network Configuration.
     * `ip_family` - The IP family used to assign Kubernetes pod and service addresses.
     * `service_ipv4_cidr` - The CIDR block to assign Kubernetes service IP addresses from.
+* `legacy_cluster_params` - The parameters for fine-tuning the Kubernetes cluster.
+    * `master_config` - The configuration of the master node of the cluster.
+        * `high_availability` - Indicates whether this is a high-availability cluster.
+        * `instance_type` - The instance type of the master node.
+        * `public_ip` - The public IP address at which the master node is accessed.
+        * `volume_iops` - The number of read/write operations per second for the master node volume.
+        * `volume_size` - The size of the master node volume in GiB.
+        * `volume_type` - The type of the master node volume.
 * `platform_version` - The platform version for the cluster.
 * `status` - The status of the EKS cluster. One of `CLAIMED`, `CREATING`, `DELETED`, `DELETING`, `ERROR`, `MODIFYING`, `PENDING`, `PROVISIONING`, `READY`, `REPAIRING`.
 * `version` - The Kubernetes server version for the cluster.
