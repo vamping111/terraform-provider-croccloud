@@ -1,3 +1,4 @@
+/* Светлая тема — оставляем как есть */
 .note-block-yellow {
     border: 1px solid #ffc107;
     background-color: #fff8e1;
@@ -16,36 +17,11 @@
     font-family: "IBMPlexSans-Light";
 }
 
+/* Общие настройки */
 .note-block {
     padding: 1em;
     border-radius: 5px;
     margin: 1em 0;
-    font-family: "IBMPlexSans-Light";
-}
-
-code {
-    color: #d9534f !important;
-    background-color: #eaeef1;
-    border: 1px solid #d1d5da;
-    border-radius: 3px;
-    padding: 0.2em 0.4em;
-    font-size: 85%;
-    /* font-family: monospace; */
-    font-family: "IBMPlexSans-Light";
-}
-
-.text-yellow {
-    color: #c69500; /* Более темный оттенок желтого */
-    font-family: "IBMPlexSans-Light";
-}
-
-.text-blue {
-    color: #005b99 !important; /* Более темный оттенок синего */
-    font-family: "IBMPlexSans-Light";
-}
-
-.text-red {
-    color: #b52b21; /* Более темный оттенок красного */
     font-family: "IBMPlexSans-Light";
 }
 
@@ -87,4 +63,85 @@ table caption {
     font-family: "IBMPlexSans-Bold";
     text-align: center;
     caption-side: top;
+}
+
+/* Темная тема */
+body[data-md-color-scheme="slate"] .note-block-yellow {
+    border-color: #705606; /* Темно-желтый */
+    background-color: #3e2f00; /* Темный фон */
+}
+
+body[data-md-color-scheme="slate"] .note-block-blue {
+    border-color: #268bd2; /* Темно-синий */
+    background-color: #001f3f; /* Темный фон */
+}
+
+body[data-md-color-scheme="slate"] .note-block-red {
+    border-color: #dc322f; /* Темно-красный */
+    background-color: #330000; /* Темный фон */
+}
+
+code {
+    color: #d9534f !important;
+    background-color: #eaeef1;
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    font-size: 85%;
+    font-family: "IBMPlexSans-Light";
+}
+
+body[data-md-color-scheme="slate"] code {
+    background-color: #272727;
+    color: #e0e0e0;
+}
+
+.text-yellow {
+    color: #c69500;
+    font-family: "IBMPlexSans-Light";
+}
+
+.text-blue {
+    color: #005b99 !important;
+    font-family: "IBMPlexSans-Light";
+}
+
+.text-red {
+    color: #b52b21;
+    font-family: "IBMPlexSans-Light";
+}
+
+/* Потенциальные конфликты мы устраняем, проверяя дублирование селекторов */
+
+/* Темная и светлая темы общие настройки */
+body {
+    /* Эти стили могут быть удлинены более специфическими селекторами */
+}
+
+body[data-md-color-scheme="default"] {
+    background-color: #ffffff; /* Светлая тема фон */
+    color: #000000; /* Светлая тема текст */
+}
+
+body[data-md-color-scheme="slate"] {
+    background-color: #121212; /* Темная тема фон */
+    color: #e0e0e0; /* Темная тема текст */
+}
+
+[data-md-color-scheme="slate"] .md-nav, 
+[data-md-color-scheme="slate"] .md-sidebar {
+    background-color: #1e1e1e;
+}
+
+[data-md-color-scheme="slate"] .md-content {
+    background-color: #222;
+    color: #e0e0e0;
+}
+
+a {
+    color: #000000;
+}
+
+[data-md-color-scheme="slate"] a {
+    color: #ffffff;
 }

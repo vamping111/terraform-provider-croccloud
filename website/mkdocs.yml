@@ -200,9 +200,18 @@ theme:
   logo: images/favicon.ico
   favicon: images/favicon.ico
   palette:
-    scheme: hashicorp
-    primary: white
-    accent: blue
+    - scheme: default
+      primary: white
+      # accent: blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      # accent: blue
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
   icon:
     repo: fontawesome/brands/github
     admonition:
