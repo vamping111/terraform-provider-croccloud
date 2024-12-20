@@ -23,19 +23,13 @@ upload_other_files () {
 }
 
 # Funtion to upload .css files to the bucket with specified Content-Type
-upload_css_files () {
-    echo "Setting of the content-type for .css files in bucket"
-    find "$SOURCE_DIR" -type f -name "*.css" | while read -r file; do
-    s3cmd modify "s3://$S3_DOCS_BUCKET_NAME/${file#$SOURCE_DIR}" --add-header='Content-Type:text/css'
-done
-}
-
-# Funtion to upload .js files to the bucket with specified Content-Type
-upload_js_files () {
-    echo "Setting of the content-type for .js files in bucket"
-    find "$SOURCE_DIR" -type f -name "*.js" | while read -r file; do
-    s3cmd modify "s3://$S3_DOCS_BUCKET_NAME/${file#$SOURCE_DIR}" --add-header='Content-Type:application/javascript'
-done
+modify_content_type () {
+    local file_type=$1
+    local content_type=$2
+    echo "Setting of the content-type for .$file_type files in bucket"
+    find "$SOURCE_DIR" -type f -name "*.$file_type" | while read -r file; do
+        s3cmd modify "s3://$S3_DOCS_BUCKET_NAME/${file#$SOURCE_DIR}" --add-header="Content-Type:$content_type"
+    done
 }
 
 # Function to run internal documentation locally
@@ -55,8 +49,8 @@ if [[ "$1" == "push" ]]; then
     if [[ -n $S3_DOCS_BUCKET_NAME ]]; then
         mkdocs_build
         upload_other_files
-        upload_css_files
-        upload_js_files
+        modify_content_type css text/css
+        modify_content_type js application/javascript
         remove_temp_files
     else
         echo "Define S3_DOCS_BUCKET_NAME environment variable."
