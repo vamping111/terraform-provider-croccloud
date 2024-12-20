@@ -25,6 +25,16 @@ nav:
   - CloudWatch:
     - Resources:
       - aws_cloudwatch_metric_alarm: r/cloudwatch_metric_alarm.md
+  - Direct Connect:
+    - Resources:
+      - aws_dx_gateway: r/dx_gateway.md
+      - aws_dx_gateway_association: r/dx_gateway_association.md
+      - aws_dx_transit_virtual_interface: r/dx_transit_virtual_interface.md
+    - Data Sources:
+      - aws_dx_connection: d/dx_connection.md
+      - aws_dx_gateway: d/dx_gateway.md
+      - aws_dx_lag: d/dx_lag.md
+      - aws_ec2_transit_gateway_dx_gateway_attachment: d/ec2_transit_gateway_dx_gateway_attachment.md
   - EBS (EC2):
     - Resources:
       - aws_ebs_snapshot: r/ebs_snapshot.md

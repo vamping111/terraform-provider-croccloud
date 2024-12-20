@@ -12,9 +12,9 @@ import (
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 )
 
-func DataSourceConnection() *schema.Resource {
+func DataSourceLag() *schema.Resource {
 	return &schema.Resource{
-		Read: dataSourceConnectionRead,
+		Read: dataSourceLagRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
@@ -50,61 +50,61 @@ func DataSourceConnection() *schema.Resource {
 	}
 }
 
-func dataSourceConnectionRead(d *schema.ResourceData, meta interface{}) error {
+func dataSourceLagRead(d *schema.ResourceData, meta interface{}) error {
 	conn := meta.(*conns.AWSClient).DirectConnectConn
 	connEC2 := meta.(*conns.AWSClient).EC2Conn
 
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
-	var connections []*directconnect.Connection
-	input := &directconnect.DescribeConnectionsInput{}
+	var lags []*directconnect.Lag
+	input := &directconnect.DescribeLagsInput{}
 	name := d.Get("name").(string)
 
-	// DescribeConnections is not paginated.
-	output, err := conn.DescribeConnections(input)
+	// DescribeLags is not paginated.
+	output, err := conn.DescribeLags(input)
 
 	if err != nil {
-		return fmt.Errorf("error reading Direct Connect Connections: %w", err)
+		return fmt.Errorf("error reading Direct Connect LAGs: %w", err)
 	}
 
-	for _, connection := range output.Connections {
-		if aws.StringValue(connection.ConnectionName) == name {
-			connections = append(connections, connection)
+	for _, lag := range output.Lags {
+		if aws.StringValue(lag.LagName) == name {
+			lags = append(lags, lag)
 		}
 	}
 
-	switch count := len(connections); count {
+	switch count := len(lags); count {
 	case 0:
-		return fmt.Errorf("no matching Direct Connect Connection found")
+		return fmt.Errorf("no matching Direct Connect LAG found")
 	case 1:
 	default:
-		return fmt.Errorf("%d Direct Connect Connections matched; use additional constraints to reduce matches to a single Direct Connect Connection", count)
+		return fmt.Errorf("%d Direct Connect LAGs matched; use additional constraints to reduce matches to a single Direct Connect LAG", count)
 	}
 
-	connection := connections[0]
+	lag := lags[0]
 
-	d.SetId(aws.StringValue(connection.ConnectionId))
+	d.SetId(aws.StringValue(lag.LagId))
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    aws.StringValue(connection.Region),
+		Region:    aws.StringValue(lag.Region),
 		Service:   "directconnect",
-		AccountID: aws.StringValue(connection.OwnerAccount),
-		Resource:  fmt.Sprintf("dxconn/%s", d.Id()),
+		AccountID: aws.StringValue(lag.OwnerAccount),
+		Resource:  fmt.Sprintf("dxlag/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
-	d.Set("aws_device", connection.AwsDeviceV2)
-	d.Set("bandwidth", connection.Bandwidth)
-	d.Set("location", connection.Location)
-	d.Set("name", connection.ConnectionName)
-	d.Set("owner_account_id", connection.OwnerAccount)
-	d.Set("provider_name", connection.ProviderName)
+	d.Set("aws_device", lag.AwsDeviceV2)
+	d.Set("bandwidth", lag.ConnectionsBandwidth)
+	d.Set("location", lag.Location)
+	d.Set("name", lag.LagName)
+	d.Set("owner_account_id", lag.OwnerAccount)
+	d.Set("provider_name", lag.ProviderName)
 
 	// FIXME: Use directconnect.ListTags after DescribeTags is supported in Direct Connect API.
 	tags, err := ec2.ListTags(connEC2, d.Id())
 
 	if err != nil {
-		return fmt.Errorf("error listing tags for Direct Connect Connection (%s): %w", arn, err)
+		return fmt.Errorf("error listing tags for Direct Connect LAG (%s): %w", arn, err)
 	}
 
 	if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
