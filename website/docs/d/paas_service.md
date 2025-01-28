@@ -202,19 +202,19 @@ the following attributes are exported only for a MySQL service:
 * `connect_timeout` - The number of seconds that the _mysqld_ server waits for a connect packet before responding with **Bad handshake**.
 * `database` - List of MySQL databases with parameters. The structure of this block is [described below](#mysql-database).
 * `galera_options` - Other Galera parameters.
-* `gcache_size` - A Galera parameter. The size of GCache circular buffer storage preallocated on startup in bytes.
+* `gcache_size` - A Galera parameter. The size of GCache circular buffer storage preallocated on startup, in bytes.
 * `gcs_fc_factor` - A Galera parameter. The fraction of `gcs_fc_limit` at which replication is resumed
   when the recv queue length falls below this value.
 * `gcs_fc_limit` - A Galera parameter. The number of writesets. If the recv queue length exceeds it replication is suspended.
 * `gcs_fc_master_slave` - A Galera parameter. Indicates whether the cluster has only one source node.
 * `gcs_fc_single_primary` - A Galera parameter. Indicates whether there is more than one replication source.
 * `innodb_buffer_pool_instances` - The number of regions that `innodb_buffer_pool_size` is divided into when `innodb_buffer_pool_size` > 1 GiB.
-* `innodb_buffer_pool_size` - The size in bytes of the buffer pool used to cache table data and indexes.
+* `innodb_buffer_pool_size` - The size, in bytes, of the buffer pool used to cache table data and indexes.
 * `innodb_change_buffering` - Operations for which change buffering optimization is enabled.
 * `innodb_flush_log_at_trx_commit` - The value of the parameter controls the behaviour for transaction commit operations.
 * `innodb_io_capacity` - The number of I/O operations per second (IOPS) available to InnoDB background tasks.
 * `innodb_io_capacity_max` - The maximum number of IOPS that InnoDB background tasks can perform.
-* `innodb_log_file_size` - The size of a single file in bytes in the redo system log.
+* `innodb_log_file_size` - The size of a single file, in bytes, in the redo system log.
 * `innodb_log_files_in_group` - The number of system log files in a log group.
 * `innodb_purge_threads` - The number of background threads allocated for the InnoDB purge operation.
 * `innodb_thread_concurrency` - The maximum number of threads permitted inside of InnoDB.
@@ -224,7 +224,7 @@ the following attributes are exported only for a MySQL service:
   or any parameter sent by the _mysql_stmt_send_long_data()_ C API function.
 * `max_connect_errors` - The maximum number of connection errors, at which the server blocks the host from further connections.
 * `max_connections` - The maximum permitted number of simultaneous client connections that a host can handle.
-* `max_heap_table_size` - The maximum size in bytes to which user-created `MEMORY` tables are permitted to grow.
+* `max_heap_table_size` - The maximum size, in bytes, to which user-created `MEMORY` tables are permitted to grow.
 * `logging` - The logging settings for the service. The structure of this block is [described below](#logging).
 * `monitoring` - The monitoring settings for the service. The structure of this block is [described below](#monitoring).
 * `options` - Other MySQL parameters.
