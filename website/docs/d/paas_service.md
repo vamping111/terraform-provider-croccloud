@@ -282,35 +282,35 @@ the following attributes are exported only for a PostgreSQL service:
 * `autovacuum_vacuum_cost_delay` - The cost delay value in milliseconds used in automatic `VACUUM` operations.
 * `autovacuum_vacuum_cost_limit` - The cost limit value used in automatic `VACUUM` operations.
 * `autovacuum_analyze_scale_factor` - The fraction of the table size to add to `autovacuum_analyze_threshold`
-  when deciding whether to trigger an `ANALYZE`.
+  when deciding whether to trigger `ANALYZE`.
 * `autovacuum_vacuum_scale_factor` - The fraction of the table size to add to `autovacuum_vacuum_threshold`
-  when deciding whether to trigger a `VACUUM`.
+  when deciding whether to trigger `VACUUM`.
 * `class` - The service class.
 * `database` - List of PostgreSQL databases with parameters. The structure of this block is [described below](#postgresql-database).
-* `effective_cache_size` - The planner’s assumption about the effective size of the disk cache
+* `effective_cache_size` - The planner’s assumption about the effective size of the disk cache, in bytes,
   that is available to a single query.
 * `effective_io_concurrency` - The number of concurrent disk I/O operations.
 * `logging` - The logging settings for the service. The structure of this block is [described below](#logging).
-* `maintenance_work_mem` - The maximum amount of memory in bytes used by maintenance operations,
+* `maintenance_work_mem` - The maximum amount of memory, in bytes, used by maintenance operations,
   such as `VACUUM`, `CREATE INDEX`, and `ALTER TABLE ADD FOREIGN KEY`.
 * `max_connections` - The maximum number of simultaneous connections to the database server.
-* `max_wal_size` - The maximum size in bytes that WAL can reach at automatic checkpoints.
+* `max_wal_size` - The maximum size, in bytes, that WAL can reach at automatic checkpoints.
 * `max_parallel_maintenance_workers` - The maximum number of parallel workers that a single utility command can start.
 * `max_parallel_workers` - The maximum number of workers that the system can support for parallel operations.
 * `max_parallel_workers_per_gather` - The maximum number of workers that a single _Gather_ node can start.
 * `max_worker_processes` - The maximum number of background processes that the system can support.
-* `min_wal_size` - The minimum size in bytes to shrink the WAL to. As long as WAL disk usage stays below this setting,
+* `min_wal_size` - The minimum size, in bytes, to shrink the WAL to. As long as WAL disk usage stays below this setting,
   old WAL files are always recycled for future use at a checkpoint, rather than removed.
 * `monitoring` - The monitoring settings for the service. The structure of this block is [described below](#monitoring).
 * `options` - Other PostgreSQL parameters.
 * `replication_mode` - The replication mode in the _Patroni_ cluster.
-* `shared_buffers` - The amount of memory the database server uses for shared memory buffers.
+* `shared_buffers` - The amount of memory, in bytes, the database server uses for shared memory buffers.
 * `user` - List of PostgreSQL users with parameters. The structure of this block is [described below](#postgresql-user).
 * `version` - The installed version.
 * `wal_buffers` - The amount of shared memory used for WAL data not yet written to a volume.
 * `wal_keep_segments` - The minimum number of log files segments that must be kept in the _pg_xlog_ directory,
   in case a standby server needs to fetch them for streaming replication.
-* `work_mem` - The base maximum amount of memory in bytes to be used by a query operation (such as a sort or hash table)
+* `work_mem` - The base maximum amount of memory, in bytes, to be used by a query operation (such as a sort or hash table)
   before writing to temporary disk files.
 
 ### PostgreSQL database
