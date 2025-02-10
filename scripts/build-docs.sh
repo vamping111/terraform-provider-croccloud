@@ -23,8 +23,8 @@ tools () {
 # Function to build internal documentation
 mkdocs_build () {
     # Copying of configuration for the documentatiion to the website folder
-    cp -r docs/c2/mkdocs/assets docs/c2/mkdocs/images website/docs/
-    cp docs/c2/mkdocs/mkdocs.yml website/
+    cp -r mkdocs/assets mkdocs/images website/docs/
+    cp mkdocs/mkdocs.yml website/
 
     # Generation of the documentation
     cd website
@@ -69,7 +69,7 @@ remove_temp_files () {
     echo "Removing of the temp files"
     rm -fr $dir/images $dir/assets mkdocs.yml site
     echo "Cleaning is complete!"
-    echo "The backup folder is not removed! Remove it manually."
+    echo "The backup/ folder is not removed! Remove it manually."
 }
 
 # Function to restore doc's sources from backup
@@ -116,11 +116,11 @@ backup () {
 if [[ "$1" == "--push" ]]; then
     if [[ -n $S3_DOCS_BUCKET_NAME ]]; then
         backup
-        # Moving of the files from the r folder to the Resources folder
-        echo "Moving of the .md files from $WEBSITE_DOCS_DIR/r to appropriate folders..."
+        # Copying of the files from the r folder to the Resources folder
+        echo "Copying of the .md files from $WEBSITE_DOCS_DIR/r to appropriate folders..."
         process_files "$WEBSITE_DOCS_DIR/r" "Resources"
-        # Moving of the files from the d folder to the Data Sources folder
-        echo "Moving of the .md files from $WEBSITE_DOCS_DIR/d to appropriate folders..."
+        # Copying of the files from the d folder to the Data Sources folder
+        echo "Copying of the .md files from $WEBSITE_DOCS_DIR/d to appropriate folders..."
         process_files "$WEBSITE_DOCS_DIR/d" "Data Sources"
         rm -fr $WEBSITE_DOCS_DIR/r
         rm -fr $WEBSITE_DOCS_DIR/d
