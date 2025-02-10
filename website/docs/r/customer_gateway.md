@@ -37,18 +37,21 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - ID of the gateway.
 * `arn` - The ARN of the customer gateway.
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `certificate_arn` - The Amazon Resource Name (ARN) for the customer gateway certificate. Always `""`.
-* `device_name` - A name for the customer gateway device. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
 
+The following attributes are not currently supported:
+
+`certificate_arn`, `device_name`.
 
 ## Import
 

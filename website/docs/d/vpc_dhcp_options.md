@@ -52,6 +52,8 @@ For more information about filtering, see the [EC2 API documentation][describe-d
 
 ## Attributes Reference
 
+### Supported attributes
+
 * `arn` - The ARN of the DHCP options Set.
 * `dhcp_options_id` - EC2 DHCP options ID.
 * `domain_name` - The suffix domain name to used when resolving non Fully Qualified Domain Names e.g., the `search` value in the `/etc/resolv.conf` file.
@@ -62,9 +64,10 @@ For more information about filtering, see the [EC2 API documentation][describe-d
 * `ntp_servers` - List of NTP servers.
 * `tags` - A map of tags assigned to the resource.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `owner_id` -The ID of the project that owns the DHCP options. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `owner_id`.
 
 [describe-dhcp-options]: https://docs.cloud.croc.ru/en/api/ec2/dhcp_options/DescribeDhcpOptions.html

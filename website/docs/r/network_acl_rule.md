@@ -65,14 +65,17 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - ID of the network ACL Rule
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `ipv6_cidr_block` - The IPv6 CIDR block. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `ipv6_cidr_block`.
 
 ## Import
 

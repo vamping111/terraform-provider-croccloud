@@ -95,18 +95,19 @@ The `redirect` configuration block supports the following arguments:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The `bucket`.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `expected_bucket_owner` - The account ID of the expected bucket owner. Always `""`.
-* `redirect`:
-    * `http_redirect_code` - The HTTP redirect code to use on the response. Always `""`
-* `website_domain` - The domain of the website endpoint. Contains domain based on AWS region.
-* `website_endpoint` - The website endpoint. Contains endpoint based on AWS region.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`expected_bucket_owner`, `redirect.http_redirect_code`, `website_domain`, `website_endpoint`.
 
 ## Import
 

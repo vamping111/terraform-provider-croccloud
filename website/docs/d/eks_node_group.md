@@ -26,6 +26,8 @@ data "aws_eks_node_group" "example" {
 
 ## Attributes Reference
 
+### Supported attributes
+
 * `arn` - EKS node group ID.
 * `disk_size` - Disk size in GiB for worker nodes.
 * `id` - EKS cluster name and EKS node group name separated by a colon (`:`).
@@ -49,14 +51,10 @@ data "aws_eks_node_group" "example" {
     * `effect` - The effect of the taint.
 * `version` – Kubernetes version.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `ami_type` - Type of image associated with the EKS node group. Always `""`.
-* `node_role_arn` – The ARN of the IAM Role that provides permissions for the EKS node group. Always `""`.
-* `release_version` – Image version of the EKS node group. Always `""`.
-* `remote_access` - Configuration block with remote access settings.
-    * `source_security_group_ids` - Set of EC2 Security Group IDs to allow SSH access (port 22) from on the worker nodes. Always empty.
-* `resources` - List of objects containing information about underlying resources.
-    * `remote_access_security_group_id` - ID of the remote access EC2 security group. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
 
+The following attributes are not currently supported:
+
+`ami_type`, `node_role_arn`, `release_version`, `remote_access.source_security_group_ids`, `resources.remote_access_security_group_id`.

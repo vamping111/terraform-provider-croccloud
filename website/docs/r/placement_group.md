@@ -33,6 +33,8 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - Amazon Resource Name (ARN) of the placement group.
@@ -40,10 +42,11 @@ In addition to all arguments above, the following attributes are exported:
 * `placement_group_id` - The ID of the placement group.
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `partition_count` - The number of partitions to create in the placement group. Always `0`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `partition_count`.
 
 ## Import
 

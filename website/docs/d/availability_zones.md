@@ -48,16 +48,18 @@ For more information about filtering, see the [EC2 API documentation][describe-a
 
 ## Attributes Reference
 
+### Supported attributes
+
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - Region of the availability zones.
 * `names` - A list of the availability zone names available to the account.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `all_availability_zones` - Whether all availability zones and local zones are included regardless of your opt in status. Always empty.
-* `exclude_names` - List of availability zone names to exclude. Always empty.
-* `exclude_zone_ids` - List of availability zone IDs to exclude. Always empty.
-* `group_names` A set of the availability zone Group names. Always empty.
-* `zone_ids` - A list of the availability zone IDs available to the account. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`all_availability_zones`, `exclude_names`, `exclude_zone_ids`, `group_names`, `zone_ids`.

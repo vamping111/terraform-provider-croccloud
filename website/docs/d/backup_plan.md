@@ -26,12 +26,15 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to the arguments above, the following attributes are exported:
 
 * `arn` - The Amazon Resource Name (ARN) of the backup plan.
 * `name` - The name of the backup plan.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `version` - Unique, randomly generated, Unicode, UTF-8 encoded string used as the version ID of the backup plan. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `version`.

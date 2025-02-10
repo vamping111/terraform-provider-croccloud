@@ -148,6 +148,8 @@ Each `tag_specifications` block supports the following:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The ARN of the launch template.
@@ -155,95 +157,13 @@ In addition to all arguments above, the following attributes are exported:
 * `latest_version` - The latest version of the launch template.
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `block_device_mappings`:
-    * `ebs`:
-        * `encrypted` - Enables [EBS encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html) on the volume. Always `""`.
-        * `kms_key_id` - The ARN of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the encrypted volume. Always `""`.
-        * `throughput` - The throughput to provision for a `gp3` volume in MiB/s (specified as an integer, e.g., 500), with a maximum of 1,000 MiB/s. Always `0`.
-    * `virtual_name` - The [Instance Store Device Name](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreDeviceNames). Always `""`.
-* `capacity_reservation_specification` - Targeting for EC2 capacity reservations. Always empty.
-    * `capacity_reservation_preference` - Indicates the instance's Capacity Reservation preferences.
-    * `capacity_reservation_target` - Used to target a specific Capacity Reservation.
-        * `capacity_reservation_id` - The ID of the Capacity Reservation in which to run the instance.
-        * `capacity_reservation_resource_group_arn` - The ARN of the Capacity Reservation resource group in which to run the instance.
-* `cpu_options` - The CPU options for the instance. Always empty.
-    * `core_count` - The number of CPU cores for the instance.
-    * `threads_per_core` - The number of threads per CPU core.
-* `credit_specification` - Customize the credit specification of the instance. Always empty.
-    * `cpu_credits` - The credit option for CPU usage.
-* `ebs_optimized` - If `true`, the launched EC2 instance will be EBS-optimized.
-* `elastic_gpu_specifications` - The elastic GPU to attach to the instance. Always empty.
-    * `type` - The [Elastic GPU Type](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/elastic-gpus.html#elastic-gpus-basics)
-* `elastic_inference_accelerator` - Configuration block containing an Elastic Inference Accelerator to attach to the instance. Always empty.
-    * `type` - Accelerator type.
-* `enclave_options` - Enable Nitro Enclaves on launched instances. Always empty.
-    * `enabled` - If set to `true`, Nitro Enclaves will be enabled on the instance.
-* `hibernation_options` - The hibernation options for the instance. Always empty.
-    * `configured` - If set to `true`, the launched EC2 instance will hibernation enabled.
-* `iam_instance_profile` - The IAM Instance Profile to launch the instance with. Always empty.
-    * `arn` - The ARN of the instance profile.
-    * `name` - The name of the instance profile.
-* `instance_market_options` - The market (purchasing) option for the instance. Always empty.
-    * `market_type` - The market type. Can be `spot`.
-    * `spot_options` - The options for [Spot Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html)
-* `instance_requirements` - The attribute requirements for the type of instance. Always empty.
-    * `accelerator_count` - Block describing the minimum and maximum number of accelerators (GPUs, FPGAs, or AWS Inferentia chips).
-    * `accelerator_manufacturers` - List of accelerator manufacturer names.
-    * `accelerator_names` - List of accelerator names.
-    * `accelerator_total_memory_mib` - Block describing the minimum and maximum total memory of the accelerators.
-    * `accelerator_types` - List of accelerator types.
-    * `bare_metal` - Indicate whether bare metal instace types should be `included`, `excluded`, or `required`.
-    * `baseline_ebs_bandwidth_mbps` - Block describing the minimum and maximum baseline EBS bandwidth, in Mbps.
-    * `burstable_performance` - Indicate whether burstable performance instance types should be `included`, `excluded`, or `required`.
-    * `cpu_manufacturers` List of CPU manufacturer names.
-    * `excluded_instance_types` - List of instance types to exclude. You can use strings with one or more wild cards, represented by an asterisk (\*).
-    * `instance_generations` - List of instance generation names.
-    * `local_storage` - Indicate whether instance types with local storage volumes are `included`, `excluded`, or `required`.
-    * `local_storage_types` - List of local storage type names. Default any storage type.
-    * `memory_gib_per_vcpu` - Block describing the minimum and maximum amount of memory (GiB) per vCPU.
-    * `memory_mib` - Block describing the minimum and maximum amount of memory (MiB).
-    * `network_interface_count` - Block describing the minimum and maximum number of network interfaces.
-    * `on_demand_max_price_percentage_over_lowest_price` - The price protection threshold for On-Demand Instances.
-    * `require_hibernate_support` - Indicate whether instance types must support On-Demand Instance Hibernation, either `true` or `false`.
-    * `spot_max_price_percentage_over_lowest_price` - The price protection threshold for Spot Instances.
-    * `total_local_storage_gb` - Block describing the minimum and maximum total local storage (GB).
-    * `vcpu_count` - Block describing the minimum and maximum number of vCPUs.
-* `kernel_id` - The kernel ID. Always `""`.
-* `license_specification` - A list of license specifications to associate with. Always empty.
-    * `license_configuration_arn` - The ARN of the license configuration.
-* `maintenance_options` - The maintenance options for the instance. Always empty.
-    * `auto_recovery` - Disables the automatic recovery behavior of your instance or sets it to default.
-* `metadata_options` - Customize the metadata options for the instance. Always empty.
-    * `http_endpoint` - Whether the metadata service is available.
-    * `http_tokens` - Whether the metadata service requires session tokens, also referred to as _Instance Metadata Service Version 2 (IMDSv2)_.
-    * `http_put_response_hop_limit` - The desired HTTP PUT response hop limit for instance metadata requests.
-    * `http_protocol_ipv6` - Enables or disables the IPv6 endpoint for the instance metadata service.
-    * `instance_metadata_tags` - Enables or disables access to instance tags from the instance metadata service.
-* `network_interfaces`:
-    * `associate_carrier_ip_address` - Associate a Carrier IP address with `eth0` for a new network interface. Always `""`.
-    * `interface_type` - The type of network interface. Always `""`.
-    * `ipv4_address_count` - The number of secondary private IPv4 addresses to assign to a network interface. Always `0`.
-    * `ipv4_addresses` - One or more private IPv4 addresses to associate. Always empty.
-    * `ipv4_prefix_count` - The number of IPv4 prefixes to be automatically assigned to the network interface. Always `0`.
-    * `ipv4_prefixes` - One or more IPv4 prefixes to be assigned to the network interface. Always empty.
-    * `ipv6_address_count` - The number of IPv6 addresses to assign to a network interface. Always `0`.
-    * `ipv6_addresses` - One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. Always empty.
-    * `ipv6_prefix_count` - The number of IPv6 prefixes to be automatically assigned to the network interface. Always `0`.
-    * `ipv6_prefixes` - One or more IPv6 prefixes to be assigned to the network interface. Always empty.
-    * `network_card_index` - The index of the network card. Some instance types support multiple network cards. Always `0`.
-* `placement`:
-    * `host_resource_group_arn` - The ARN of the Host Resource Group in which to launch instances. Always `""`.
-    * `spread_domain` - Reserved for future use. Always `""`.
-    * `partition_number` - The number of the partition the instance should launch in. Always `0`.
-* `private_dns_name_options` - The options for the instance hostname. The default values are inherited from the subnet. Always empty.
-    * `enable_resource_name_dns_aaaa_record` - Indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records.
-    * `enable_resource_name_dns_a_record` - Indicates whether to respond to DNS queries for instance hostnames with DNS A records.
-    * `hostname_type` - The type of hostname for Amazon EC2 instances.
-* `ram_disk_id` - The ID of the RAM disk. Always `""`.
-* `security_group_names` - A list of security group names to associate with. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`block_device_mappings.ebs.encrypted`, `block_device_mappings.ebs.kms_key_id`, `block_device_mappings.ebs.throughput`, `block_device_mappings.virtual_name`, `capacity_reservation_specification`, `cpu_options`, `credit_specification`, `ebs_optimized`, `elastic_gpu_specifications`, `elastic_inference_accelerator`, `enclave_options`, `hibernation_options`, `iam_instance_profile`, `instance_market_options`, `instance_requirements`, `kernel_id`, `license_specification`, `maintenance_options`, `metadata_options`, `network_interfaces.associate_carrier_ip_address`, `network_interfaces.interface_type`, `network_interfaces.ipv4_address_count`, `network_interfaces.ipv4_addresses`, `network_interfaces.ipv4_prefix_count`, `network_interfaces.ipv4_prefixes`, `network_interfaces.ipv6_address_count`, `network_interfaces.ipv6_addresses`, `network_interfaces.ipv6_prefix_count`, `network_interfaces.ipv6_prefixes`, `network_interfaces.network_card_index`, `placement.host_resource_group_arn`, `placement.spread_domain`, `placement.partition_number`, `private_dns_name_options`, `ram_disk_id`, `security_group_names`.
 
 ## Import
 

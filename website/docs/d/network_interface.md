@@ -29,6 +29,8 @@ For more information about filtering, see the [EC2 API documentation][describe-n
 
 ## Attributes Reference
 
+### Supported attributes
+
 See the [`aws_network_interface`][tf-network-interface] for details on the returned attributes.
 
 Additionally, the following attributes are exported:
@@ -47,15 +49,7 @@ Additionally, the following attributes are exported:
 * `tags` - Any tags assigned to the network interface.
 * `vpc_id` - The ID of the VPC.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
-
-* `interface_type` - The type of interface. Always `"interface"`.
-* `ipv6_addresses` - List of IPv6 addresses to assign to the ENI. Always empty.
-* `requester_id` - The ID of the entity that launched the instance on your behalf. Always `""`.
-* `outpost_arn` - The ARN of the Outpost. Always `""`.
-
-### `association`
+#### `association`
 
 * `allocation_id` - The allocation ID.
 * `association_id` - The association ID.
@@ -64,10 +58,13 @@ These exported attributes are currently unsupported:
 * `public_dns_name` - The public DNS name.
 * `public_ip` - The address of the elastic IP address bound to the network interface.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `carrier_ip` - The carrier IP address associated with the network interface. This attribute is only set when the network interface is in a subnet which is associated with a Wavelength Zone.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`interface_type`, `ipv6_addresses`, `requester_id`, `outpost_arn`, `association.carrier_ip`.
 
 ## Import
 

@@ -40,6 +40,8 @@ data "aws_iam_group" "selected" {
 
 ## Attribute Reference
 
+### Supported attributes
+
 * `create_date` - The time in [RFC3339 format] when the group was created.
 * `group_id` - The ID of the group.
 * `id` - The ARN of the group.
@@ -47,15 +49,16 @@ data "aws_iam_group" "selected" {
 * `type` - The type of the group.
 * `users` - List of group members. The structure of this block is [described below](#users).
 
-### users
+#### users
 
 * `arn` - The ARN of a user.
 * `user_id` - The ID of a user.
 * `user_name` - The name of a user.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `path` - The path to the group. Always `""`.
-* `users`:
-    * `path` - The path to a user. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`path`, `users.path`.

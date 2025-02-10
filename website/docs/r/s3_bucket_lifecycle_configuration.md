@@ -302,34 +302,19 @@ The `tag` configuration block supports the following arguments:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The `bucket`.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `expected_bucket_owner` - The account ID of the expected bucket owner. Always `""`.
-* `rule`:
-    * `abort_incomplete_multipart_upload` - Configuration block that specifies the days since the initiation of an incomplete multipart upload that Amazon S3 will wait before permanently removing all parts of the upload. Always empty.
-        * `days_after_initiation` - The number of days after which Amazon S3 aborts an incomplete multipart upload.
-    * `filter`:
-        * `and`:
-            * `object_size_greater_than` - Minimum object size to which the rule applies. Always `0`.
-            * `object_size_less_than` - Maximum object size to which the rule applies. Always `0`.
-            * `prefix` - Prefix identifying one or more objects to which the rule applies. Always `""`.
-        * `object_size_greater_than` - Minimum object size (in bytes) to which the rule applies. Always `""`.
-        * `object_size_less_than` - Maximum object size (in bytes) to which the rule applies. Always `""`.
-    * `noncurrent_version_expiration`:
-        * `newer_noncurrent_versions` - The number of noncurrent versions Amazon S3 will retain. Always `""`.
-    * `noncurrent_version_transition` - Set of configuration blocks that specify the transition rule for the lifecycle rule that describes when noncurrent objects transition to a specific storage class. Always empty.
-        * `newer_noncurrent_versions` - The number of noncurrent versions Amazon S3 will retain.
-        * `noncurrent_days` - The number of days an object is noncurrent before Amazon S3 can perform the associated action.
-        * `storage_class` - The class of storage used to store the object.
-    * `transition` - Set of configuration blocks that specify when an Amazon S3 object transitions to a specified storage class. Always empty.
-        * `date` - The date objects are transitioned to the specified storage class.
-        * `days` - The number of days after creation when objects are transitioned to the specified storage class.
-        * `storage_class` - The class of storage used to store the object.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`expected_bucket_owner`, `rule.abort_incomplete_multipart_upload`, `rule.filter.and.object_size_greater_than`, `rule.filter.and.object_size_less_than`, `rule.filter.and.prefix`, `rule.filter.object_size_greater_than`, `rule.filter.object_size_less_than`, `rule.noncurrent_version_expiration.newer_noncurrent_versions`, `rule.noncurrent_version_transition`, `rule.transition`.
 
 ## Import
 

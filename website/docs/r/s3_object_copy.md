@@ -60,6 +60,8 @@ This configuration block has the following optional arguments (one of the three 
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `etag` - ETag generated for the object (an MD5 sum of the object content). For plaintext objects the hash is an MD5 digest of the object data. For objects created by either the Multipart Upload or Part Copy operation, the hash is not an MD5 digest, regardless of the method of encryption.
@@ -67,41 +69,10 @@ In addition to all arguments above, the following attributes are exported:
 * `last_modified` - Returns the date that the object was last modified, in [RFC3339 format].
 * `version_id` - Version ID of the newly created copy.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `cache_control` - Specifies caching behavior along the request/reply chain. Read [w3c cache_control] for further details. Always `""`.
-* `content_disposition` - Specifies presentational information for the object. Read [w3c content_disposition] for further information. Always `""`.
-* `content_encoding` - Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to obtain the media-type referenced by the Content-Type header field. Read [w3c content_encoding] for further information. Always `""`.
-* `content_language` - Language the content is in e.g., en-US or en-GB. Always `""`.
-* `copy_if_match` - Copies the object if its entity tag (ETag) matches the specified tag. Always empty.
-* `copy_if_modified_since` - Copies the object if it has been modified since the specified time, in [RFC3339 format]. Always empty.
-* `copy_if_none_match` - Copies the object if its entity tag (ETag) is different from the specified ETag. Always empty.
-* `copy_if_unmodified_since` - Copies the object if it hasn't been modified since the specified time, in [RFC3339 format]. Always empty.
-* `customer_algorithm` - Specifies the algorithm to use to when encrypting the object (for example, AES256). Always `""`.
-* `customer_key` - Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data.  Always `""`.
-* `customer_key_md5` - The 128-bit MD5 digest of the encryption key according to RFC 1321. Always `""`.
-* `expiration` - If the object expiration is configured, this attribute will be set. Always `""`.
-* `expected_bucket_owner` - Account id of the expected destination bucket owner. If the destination bucket is owned by a different account, the request will fail with an HTTP 403 (Access Denied) error. Always empty.
-* `expected_source_bucket_owner` - Account id of the expected source bucket owner. If the source bucket is owned by a different account, the request will fail with an HTTP 403 (Access Denied) error. Always empty.
-* `expires` - Date and time at which the object is no longer cacheable, in [RFC3339 format]. Always `""`.
-* `force_destroy` - Allow the object to be deleted by removing any legal hold on any object version. Always `false`.
-* `kms_encryption_context` - Specifies the AWS KMS Encryption Context to use for object encryption. Always `""`.
-* `kms_key_id` - Specifies the AWS KMS Key ARN to use for object encryption. Always `""`.
-* `metadata` - A map of keys/values to provision metadata (will be automatically prefixed by `x-amz-meta-`, note that only lowercase label are currently supported by the AWS Go API). Always empty.
-* `metadata_directive` - Specifies whether the metadata is copied from the source object or replaced with metadata provided in the request. Always empty.
-* `object_lock_legal_hold_status` - The [legal hold](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html#object-lock-legal-holds) status that you want to apply to the specified object. Always `""`.
-* `object_lock_mode` - The object lock [retention mode](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html#object-lock-retention-modes) that you want to apply to this object. Always `""`.
-* `object_lock_retain_until_date` - The date and time, in [RFC3339 format](https://tools.ietf.org/html/rfc3339#section-5.8), when this object's object lock will [expire](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html#object-lock-retention-periods). Always `""`.
-* `request_charged` - If present, indicates that the requester was successfully charged for the request.  Always `false`.
-* `request_payer` - Confirms that the requester knows that they will be charged for the request. Always empty.
-* `server_side_encryption` - Specifies server-side encryption of the object in S3. Always `""`.
-* `source_customer_algorithm` - Specifies the algorithm to use when decrypting the source object (for example, AES256). Always empty.
-* `source_customer_key` - Specifies the customer-provided encryption key for Amazon S3 to use to decrypt the source object. Always `""`.
-* `source_customer_key_md5` - Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Always empty.
-* `source_version_id` - Version of the copied object in the source bucket. Always `""`.
-* `storage_class` - Specifies the desired [storage class](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html#AmazonS3-CopyObject-request-header-StorageClass) for the object. Always `STANDARD`.
-* `tagging_directive` - Specifies whether the object tag-set are copied from the source object or replaced with tag-set provided in the request. Always empty.
-* `tags` - A map of tags to assign to the object. If configured with a provider [`default_tags` configuration block][default-tags] present, tags with matching keys will overwrite those defined at the provider-level. Always empty.
-* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags]. Always empty.
-* `website_redirect` - Specifies a target URL for [website redirect](http://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html). Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`cache_control`, `content_disposition`, `content_encoding`, `content_language`, `copy_if_match`, `copy_if_modified_since`, `copy_if_none_match`, `copy_if_unmodified_since`, `customer_algorithm`, `customer_key`, `customer_key_md5`, `expiration`, `expected_bucket_owner`, `expected_source_bucket_owner`, `expires`, `force_destroy`, `kms_encryption_context`, `kms_key_id`, `metadata`, `metadata_directive`, `object_lock_legal_hold_status`, `object_lock_mode`, `object_lock_retain_until_date`, `request_charged`, `request_payer`, `server_side_encryption`, `source_customer_algorithm`, `source_customer_key`, `source_customer_key_md5`, `source_version_id`, `storage_class`, `tagging_directive`, `tags`, `tags_all`, `website_redirect`.

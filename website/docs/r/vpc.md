@@ -44,6 +44,8 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - Amazon Resource Name (ARN) of VPC
@@ -56,22 +58,13 @@ In addition to all arguments above, the following attributes are exported:
 * `default_route_table_id` - ID of the route table created by default on VPC creation
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `assign_generated_ipv6_cidr_block` - (Optional) Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC. Always `false`.
-* `enable_classiclink` - Whether the VPC has Classiclink enabled. Always `false`.
-* `enable_classiclink_dns_support` - Whether the ClassicLink DNS Support for the VPC is enabled. Always `false`.
-* `enable_dns_hostnames` - Whether the VPC has DNS hostname support. Always `false`.
-* `instance_tenancy` - The allowed tenancy of instances launched into the selected VPC. Always `default`.
-* `ipv4_ipam_pool_id` -  ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. Always empty.
-* `ipv4_netmask_length` - The netmask length of the IPv4 CIDR you want to allocate to this VPC. Always empty.
-* `ipv6_association_id` - The association ID for the IPv6 CIDR block. Always `""`.
-* `ipv6_cidr_block` - The IPv6 CIDR block. Always `""`.
-* `ipv6_cidr_block_network_border_group` - The Network Border Group Zone name. Always `""`.
-* `ipv6_ipam_pool_id` - IPAM Pool ID for a IPv6 pool. Always `""`.
-* `ipv6_netmask_length` - Netmask length to request from IPAM Pool. Always `0`.
-* `owner_id` - The ID of the project that owns the VPC. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`assign_generated_ipv6_cidr_block`, `enable_classiclink`, `enable_classiclink_dns_support`, `enable_dns_hostnames`, `instance_tenancy`, `ipv4_ipam_pool_id`, `ipv4_netmask_length`, `ipv6_association_id`, `ipv6_cidr_block`, `ipv6_cidr_block_network_border_group`, `ipv6_ipam_pool_id`, `ipv6_netmask_length`, `owner_id`.
 
 ## Import
 

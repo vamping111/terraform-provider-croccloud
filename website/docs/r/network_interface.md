@@ -62,20 +62,15 @@ In addition to all arguments above, the following attributes are exported:
 * `private_dns_name` - Private DNS name of the network interface (IPv4).
 * `tags_all` - Map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `interface_type` - Type of network interface to create. Always `"interface"`.
-* `ipv4_prefix_count` - Number of IPv4 prefixes that AWS automatically assigns to the network interface. Always `0`.
-* `ipv4_prefixes` - One or more IPv4 prefixes assigned to the network interface. Always empty.
-* `ipv6_address_count` - Number of IPv6 addresses to assign to a network interface. Always `0`.
-* `ipv6_address_list_enable` - Whether `ipv6_addreses_list` is allowed and controls the IPs to assign to the ENI and `ipv6_addresses` and `ipv6_addresses_count` become read-only. Always `false`.
-* `ipv6_address_list` - List of private IPs to assign to the ENI in sequential order. Always empty.
-* `ipv6_addresses` - One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. Always empty.
-* `ipv6_prefix_count` - Number of IPv6 prefixes that AWS automatically assigns to the network interface. Always `0`.
-* `ipv6_prefixes` - One or more IPv6 prefixes assigned to the network interface. Always empty.
-* `private_ip_list_enable` - Whether `private_ip_list` is allowed and controls the IPs to assign to the ENI and `private_ips` and `private_ips_count` become read-only. Always `false`.
-* `private_ips_count` - Number of secondary private IPs to assign to the ENI. Always `0`.
+### Supported attributes
+
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`interface_type`, `ipv4_prefix_count`, `ipv4_prefixes`, `ipv6_address_count`, `ipv6_address_list_enable`, `ipv6_address_list`, `ipv6_addresses`, `ipv6_prefix_count`, `ipv6_prefixes`, `private_ip_list_enable`, `private_ips_count`.
 
 ## Import
 

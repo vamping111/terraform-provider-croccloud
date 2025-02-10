@@ -116,17 +116,19 @@ The `versioning_configuration` configuration block supports the following argume
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The `bucket`.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `expected_bucket_owner` - The account ID of the expected bucket owner. Always `""`.
-* `mfa` - The concatenation of the authentication device's serial number, a space, and the value that is displayed on your authentication device. Always empty.
-* `versioning_configuration`:
-    * `mfa_delete` - Specifies whether MFA delete is enabled in the bucket versioning configuration. `Disabled` or empty if `status` is `Disabled`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`expected_bucket_owner`, `mfa`, `versioning_configuration.mfa_delete`.
 
 ## Import
 

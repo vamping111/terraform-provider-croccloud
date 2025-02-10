@@ -39,6 +39,8 @@ For more information about filtering, see the [EC2 API documentation][describe-v
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The volume ID (e.g., vol-12345678).
@@ -52,12 +54,12 @@ In addition to all arguments above, the following attributes are exported:
 * `tags` - A map of tags for the resource.
 * `throughput` - The throughput that the volume supports, in MiB/s.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `encrypted` - Whether the snapshot is encrypted. Always `false`.
-* `kms_key_id` - The ARN for the KMS encryption key. Always `""`.
-* `multi_attach_enabled` - Whether EBS Multi-Attach is enabled. Always `false`.
-* `outpost_arn` - The ARN of the Outpost on which the snapshot is stored. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`encrypted`, `kms_key_id`, `multi_attach_enabled`, `outpost_arn`.
 
 [describe-volumes]: https://docs.cloud.croc.ru/en/api/ec2/volumes/DescribeVolumes.html

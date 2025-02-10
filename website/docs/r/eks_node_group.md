@@ -124,6 +124,8 @@ The following arguments are mutually exclusive.
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - EKS node group ID.
@@ -139,17 +141,13 @@ In addition to all arguments above, the following attributes are exported:
 * `status` - Status of the EKS node group. One of `CREATING`, `ACTIVE`, `PENDING`, `UPDATING`, `DELETING`, `CREATE_FAILED`, `DELETE_FAILED`, `DEGRADED`.
 * `version` – Kubernetes version.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `ami_type` - Type of image associated with the EKS node group. Always `""`.
-* `force_update_version` - Force version update if existing pods are unable to be drained due to a pod disruption budget issue. Always empty.
-* `node_role_arn` – The ARN of the IAM Role that provides permissions for the EKS node group. Always `""`.
-* `release_version` – Image version of the EKS node group. Always `""`.
-* `remote_access` - Configuration block with remote access settings.
-    * `source_security_group_ids` - Set of EC2 security group IDs to allow SSH access (port 22) from on the worker nodes. Always empty.
-* `resources` - List of objects containing information about underlying resources.
-    * `remote_access_security_group_id` - ID of the remote access EC2 security group. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`ami_type`, `force_update_version`, `node_role_arn`, `release_version`, `remote_access.source_security_group_ids`, `resources.remote_access_security_group_id`.
 
 ## Timeouts
 

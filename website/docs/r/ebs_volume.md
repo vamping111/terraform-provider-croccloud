@@ -38,6 +38,8 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - Amazon Resource Name (ARN) of the volume.
@@ -45,13 +47,13 @@ In addition to all arguments above, the following attributes are exported:
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 * `throughput` - The throughput that the volume supports, in MiB/s.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `encrypted` - Whether the disk is encrypted. Always `false`.
-* `kms_key_id` - The ARN for the KMS encryption key. Always `""`.
-* `multi_attach_enabled` - Whether EBS Multi-Attach is enabled. Always `false`.
-* `outpost_arn` - The Amazon Resource Name (ARN) of the Outpost. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`encrypted`, `kms_key_id`, `multi_attach_enabled`, `outpost_arn`.
 
 ## Timeouts
 

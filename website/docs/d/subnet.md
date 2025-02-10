@@ -75,25 +75,18 @@ For more information about filtering, see the [EC2 API documentation][describe-s
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to the arguments above, the following attributes are exported:
 
 * `map_public_ip_on_launch` - Indicates whether public IP addresses will be associated with instances created in this subnet. Addresses are associated only if there are available allocated Elastic IP addresses.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `arn` - ARN of the subnet. Always `""`.
-* `assign_ipv6_address_on_creation` - Whether an IPv6 address is assigned on creation. Always `false`.
-* `availability_zone_id` - AZ ID of the subnet. Always `""`.
-* `customer_owned_ipv4_pool` - Identifier of customer owned IPv4 address pool. Always `""`.
-* `enable_dns64` - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet return synthetic IPv6 addresses for IPv4-only destinations. Always `false`.
-* `enable_resource_name_dns_aaaa_record_on_launch` - Indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records. Always `false`.
-* `enable_resource_name_dns_a_record_on_launch` - Indicates whether to respond to DNS queries for instance hostnames with DNS A records. Always `false`.
-* `ipv6_cidr_block_association_id` - Association ID of the IPv6 CIDR block. Always `""`.
-* `ipv6_native` - Indicates whether this is an IPv6-only subnet. Always `false`.
-* `map_customer_owned_ip_on_launch` - Whether customer owned IP addresses are assigned on network interface creation. Always `false`.
-* `outpost_arn` - ARN of the Outpost. Always `""`.
-* `owner_id` - The ID of the project that owns the subnet. Always `""`.
-* `private_dns_hostname_type_on_launch` - The type of hostnames assigned to instances in the subnet at launch. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`arn`, `assign_ipv6_address_on_creation`, `availability_zone_id`, `customer_owned_ipv4_pool`, `enable_dns64`, `enable_resource_name_dns_aaaa_record_on_launch`, `enable_resource_name_dns_a_record_on_launch`, `ipv6_cidr_block_association_id`, `ipv6_native`, `map_customer_owned_ip_on_launch`, `outpost_arn`, `owner_id`, `private_dns_hostname_type_on_launch`.
 
 [describe-subnets]: https://docs.cloud.croc.ru/en/api/ec2/subnets/DescribeSubnets.html

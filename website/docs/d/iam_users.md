@@ -36,11 +36,14 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 * `arns` - List of ARNs of the users.
 * `id` - The region (e.g., `region-1`).
 * `names` - List of user names.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `path_prefix` - The path prefix to filter results. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `path_prefix`.

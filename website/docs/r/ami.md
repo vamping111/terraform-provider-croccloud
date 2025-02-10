@@ -82,7 +82,9 @@ The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/d
 
 ## Attributes Reference
 
-In addition to all arguments above, the following attributes are exported:
+### Supported attributes
+
+In addition to the [arguments above](#Argument-Reference), the following attributes are exported:
 
 * `arn` - The ARN of the image.
 * `id` - The ID of the created image.
@@ -94,24 +96,13 @@ In addition to all arguments above, the following attributes are exported:
 * `public` - Indicates whether the image has public launch permissions.
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `boot_mode` - The boot mode of the image. Always `""`.
-* `deprecation_time` - The date and time to deprecate the image. Always `""`.
-* `ena_support` - Specifies whether enhanced networking with ENA is enabled. Always `false`.
-* `ebs_block_device`:
-    * `encrypted` - Whether the disk is encrypted. Always `false`.
-    * `kms_key_id` - The ARN for the KMS encryption key. Always `""`.
-    * `outpost_arn` - The ARN of the Outpost. Always `""`.
-    * `throughput` - The throughput that the volume supports, in MiB/s. Always `0`.
-* `hypervisor` - The hypervisor type of the image. Always `""`.
-* `image_location` - Path to an S3 object containing an image manifest. Always `""`.
-* `kernel_id` - The id of the kernel image (AKI) that is used as the paravirtual kernel in created instances. Always `""`.
-* `platform_details` - The platform details associated with the billing code of the image. Always `""`.
-* `ramdisk_id` - (Optional) The id of an initrd image (ARI) that is used when booting the created instances. Always `""`.
-* `sriov_net_support` - When set to `simple`, enables enhanced networking for created instances. Always `""`.
-* `usage_operation` - The operation of the Amazon EC2 instance and the billing code that is associated with the image. Always `""`.
+~> **Note** These attributes may be present in the ``terraform.tfstate`` file but their values are preset and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`boot_mode`, `deprecation_time`, `ena_support`, `ebs_block_device.encrypted`, `ebs_block_device.kms_key_id`, `ebs_block_device.outpost_arn`, `ebs_block_device.throughput`, `hypervisor`, `image_location`, `kernel_id`, `platform_details`, `ramdisk_id`, `sriov_net_support`, `usage_operation`.
 
 ## Import
 

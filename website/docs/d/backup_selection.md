@@ -32,12 +32,15 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `name` - The selection name.
 * `resources` - The list of Amazon Resource Names (ARNs) of the resources included into the backup plan.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `iam_role_arn` - The Amazon Resource Name (ARN) of the role used for authentication when the resource is backed up. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `iam_role_arn`.

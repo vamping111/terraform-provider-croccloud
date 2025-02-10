@@ -26,6 +26,8 @@ data "aws_iam_user" "selected" {
 
 ## Attribute Reference
 
+### Supported attributes
+
 * `arn` - The Amazon Resource Name (ARN) of the user.
 * `display_name` - The displayed name of the user.
 * `email` - The email of the user.
@@ -38,9 +40,10 @@ data "aws_iam_user" "selected" {
 * `update_date` - The time in [RFC3339 format] when the user was last updated.
 * `user_id` - The ID of the user.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `path` - The path to the user. Always `""`.
-* `permissions_boundary` - The ARN of the policy that is used to limit permissions for the user. Always `""`.
-* `tags` - Map of tags assigned to the user. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`path`, `permissions_boundary`, `tags`.

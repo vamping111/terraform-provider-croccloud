@@ -16,6 +16,7 @@ description: |-
 Manages an IAM group. For details about IAM groups, see the [user documentation][iam-policies-and-groups].
 
 ~> **User management in groups**
+
 Manually managing user/group membership via the cloud console alongside using
 the [`aws_iam_group_membership`][tf-group-membership] or
 [`aws_iam_user_group_membership`][tf-user-group-membership] resources may result in configuration drift or conflicts.
@@ -41,6 +42,8 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The Amazon Resource Name (ARN) of the group.
@@ -49,10 +52,11 @@ In addition to all arguments above, the following attributes are exported:
 * `id` - The ARN of the group.
 * `owner` - The owner of the group.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `path` - The path to the group. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `path`.
 
 ## Import
 

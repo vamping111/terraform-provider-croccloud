@@ -48,16 +48,19 @@ The device name will be generated during attaching and can be changed.
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `generated_device_name` - The device name generated during attaching. Value can be changed.
 * `instance_id` - ID of the instance.
 * `volume_id` - ID of the volume.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `force_detach` - Whether force volume detaching is enabled. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `force_detach`.
 
 ## Import
 

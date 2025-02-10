@@ -49,6 +49,8 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - Amazon Resource Name (ARN) of the EBS snapshot.
@@ -58,16 +60,13 @@ In addition to all arguments above, the following attributes are exported:
 * `volume_size` - The size of the drive in GiB.
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `data_encryption_key_id` - The data encryption key identifier for the snapshot. Always `""`.
-* `encrypted` - Whether the snapshot is encrypted. Always `false`.
-* `kms_key_id` - The ARN for the KMS encryption key. Always `""`.
-* `outpost_arn` - The ARN of the Outpost on which the snapshot is stored. Always `""`.
-* `permanent_restore` - Indicates whether to permanently restore an archived snapshot. Always empty.
-* `storage_tier` - The storage tier in which the snapshot is stored. Always `""`.
-* `temporary_restore_days` - The number of days for which to temporarily restore an archived snapshot. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`data_encryption_key_id`, `encrypted`, `kms_key_id`, `outpost_arn`, `permanent_restore`, `storage_tier`, `temporary_restore_days`.
 
 ## Import
 

@@ -30,17 +30,18 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The name of the bucket.
 * `arn` - The ARN of the bucket. Will be of format `arn:aws:s3:::bucketname`.
 * `region` - The region this bucket resides in.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `bucket_domain_name` - The bucket domain name. Contains domain name of format `bucketname.s3.amazonaws.com`.
-* `bucket_regional_domain_name` - The bucket region-specific domain name. Contains domain name based on AWS region.
-* `hosted_zone_id` - The [Route 53 Hosted Zone ID](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_website_region_endpoints) for this bucket's region. Contains Zone ID based on AWS region.
-* `website_domain` - The domain of the website endpoint. Contains domain based on AWS region if the bucket is configured with a website or `""`.
-* `website_endpoint` - The website endpoint. Contains endpoint based on AWS region if the bucket is configured with a website or `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`bucket_domain_name`, `bucket_regional_domain_name`, `hosted_zone_id`, `website_domain`, `website_endpoint`.

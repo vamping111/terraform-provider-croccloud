@@ -34,7 +34,7 @@ data "aws_ebs_snapshot" "ebs_snapshot" {
 The following arguments are supported:
 
 * `most_recent` - (Optional) If more than one result is returned, use the most recent snapshot.
-* `owners` - (Optional) List of the snapshot owners. Valid items are the project ID (`project@customer`) or `self`.  
+* `owners` - (Optional) List of the snapshot owners. Valid items are the project ID (`project@customer`) or `self`.
 * `snapshot_ids` - (Optional) Returns information on a specific snapshot ID.
 * `restorable_by_user_ids` - (Optional) List of the project IDs (`project@customer`).
   that can create volumes from the snapshot.
@@ -43,6 +43,8 @@ The following arguments are supported:
 For more information about filtering, see the [EC2 API documentation][describe-snapshots].
 
 ## Attributes Reference
+
+### Supported attributes
 
 In addition to all arguments above, the following attributes are exported:
 
@@ -57,13 +59,12 @@ In addition to all arguments above, the following attributes are exported:
 * `state` - The snapshot state.
 * `tags` - A map of tags for the resource.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `data_encryption_key_id` - The data encryption key identifier for the snapshot. Always `""`.
-* `encrypted` - Whether the snapshot is encrypted. Always `false`.
-* `kms_key_id` - The ARN for the KMS encryption key. Always `""`.
-* `outpost_arn` - The ARN of the Outpost on which the snapshot is stored. Always `""`.
-* `storage_tier` - The storage tier in which the snapshot is stored. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`data_encryption_key_id`, `encrypted`, `kms_key_id`, `outpost_arn`, `storage_tier`.
 
 [describe-snapshots]: https://docs.cloud.croc.ru/en/api/ec2/snapshots/DescribeSnapshots.html

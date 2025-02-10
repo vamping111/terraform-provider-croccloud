@@ -52,6 +52,8 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `amazon_side_asn` - The ASN for the cloud side of the connection.
@@ -60,12 +62,13 @@ In addition to all arguments above, the following attributes are exported:
 * `id` - The ID of the virtual interface.
 * `tags_all` - Tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `jumbo_frame_capable` - Indicates whether jumbo frames (8500 MTU) are supported. Always `false`.
-* `mtu` - The maximum transmission unit (MTU) is the size, in bytes, of the largest permissible packet that can be passed over the connection. Always `0`.
-* `sitelink_enabled` - Indicates whether to enable or disable SiteLink.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`jumbo_frame_capable`, `mtu`, `sitelink_enabled`.
 
 ## Timeouts
 

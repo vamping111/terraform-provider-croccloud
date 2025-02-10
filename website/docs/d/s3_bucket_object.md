@@ -37,6 +37,8 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `body` - Object data (see **limitations above** to understand cases in which this field is actually available)
@@ -57,16 +59,10 @@ In addition to all arguments above, the following attributes are exported:
 
 -> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `bucket_key_enabled` - Whether to use [Amazon S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html) for SSE-KMS. Always `false`.
-* `expires` - The date and time at which the object is no longer cacheable. Always `""`.
-* `force_destroy` - Whether to allow the object to be deleted by removing any legal hold on any object version. This value should be set to `true` only if the bucket has S3 object lock enabled. Always `false`.
-* `kms_key_id` - The ARN for the KMS encryption key. Always empty.
-* `object_lock_legal_hold_status` - [Legal hold](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html#object-lock-legal-holds) status that you want to apply to the specified object. Always `""`.
-* `object_lock_mode` - Object lock [retention mode](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html#object-lock-retention-modes) that you want to apply to this object. Always `""`.
-* `object_lock_retain_until_date` - Date and time, in [RFC3339 format](https://tools.ietf.org/html/rfc3339#section-5.8), when this object's object lock will [expire](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html#object-lock-retention-periods). Always `""`.
-* `server_side_encryption` - Server-side encryption of the object in S3. Always `""`.
-* `sse_kms_key_id` - If present, specifies the ID of the Key Management Service (KMS) master encryption key that was used for the object. Always `""`.
-* `storage_class` - [Storage Class](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html#AmazonS3-PutObject-request-header-StorageClass) for the object. Always `STANDARD`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`bucket_key_enabled`, `expires`, `force_destroy`, `kms_key_id`, `object_lock_legal_hold_status`, `object_lock_mode`, `object_lock_retain_until_date`, `server_side_encryption`, `sse_kms_key_id`, `storage_class`.

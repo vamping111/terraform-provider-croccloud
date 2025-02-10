@@ -42,6 +42,8 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `association_default_route_table_id` - The ID of the default association route table.
@@ -50,16 +52,13 @@ In addition to all arguments above, the following attributes are exported:
 * `propagation_default_route_table_id` - The ID of the default propagation route table.
 * `tags_all` - Map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `amazon_side_asn` - Private Autonomous System Number (ASN) for the Amazon side of a BGP session. Always `0`.
-* `arn` - The ARN of the transit gateway. Always `""`.
-* `auto_accept_shared_attachments` - Whether resource attachment requests are automatically accepted. Always `""`.
-* `dns_support` - Whether DNS support is enabled. Always `""`.
-* `multicast_support` - Whether Multicast support is enabled. Always `""`.
-* `transit_gateway_cidr_blocks` - One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Always empty.
-* `vpn_ecmp_support` - Whether VPN Equal Cost Multipath Protocol support is enabled. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`amazon_side_asn`, `arn`, `auto_accept_shared_attachments`, `dns_support`, `multicast_support`, `transit_gateway_cidr_blocks`, `vpn_ecmp_support`.
 
 ## Timeouts
 

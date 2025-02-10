@@ -190,6 +190,8 @@ The `launch_template` block supports the following:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The ARN of the instance.
@@ -214,46 +216,13 @@ For `root_block_device`, in addition to the arguments above, the following attri
 * `volume_id` - ID of the volume. For example, the ID can be accessed like this, `aws_instance.web.root_block_device.0.volume_id`.
 * `device_name` - Device name, e.g., `disk1`.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `capacity_reservation_specification` - Describes an instance's Capacity Reservation targeting option. Always empty.
-    * `capacity_reservation_preference` - Indicates the instance's Capacity Reservation preferences.
-    * `capacity_reservation_target` - Information about the target Capacity Reservation.
-        * `capacity_reservation_id` - The ID of the Capacity Reservation in which to run the instance.
-        * `capacity_reservation_resource_group_arn` - The ARN of the Capacity Reservation resource group in which to run the instance.
-* `cpu_core_count` - Sets the number of CPU cores for an instance. Always empty.
-* `cpu_threads_per_core` - If set to `1`, hyperthreading is disabled on the launched instance. Always empty.
-* `credit_specification` - Configuration block for customizing the credit specification of the instance. Always empty.
-    * `cpu_credits` - The credit option for CPU usage.
-* `ebs_block_device`:
-    * `encrypted` - Whether to enable volume encryption. Always `false`.
-    * `kms_key_id` - The ARN of the KMS Key to use when encrypting the volume. Always `""`.
-    * `throughput` - Throughput to provision for a volume in mebibytes per second (MiB/s). Always `0`.
-* `ebs_optimized` - If true, the launched EC2 instance will be EBS-optimized. Always `false`.
-* `enclave_options` - Enable Nitro Enclaves on launched instances. Always empty.
-    * `enabled` - Whether Nitro Enclaves will be enabled on the instance.
-* `get_password_data` - If true, wait for password data to become available and retrieve it. Always `false`.
-* `hibernation` - If true, the launched EC2 instance will support hibernation. Always empty.
-* `iam_instance_profile` - IAM Instance Profile to launch the instance with. Always `""`.
-* `ipv6_address_count`- A number of IPv6 addresses to associate with the primary network interface. Always `0`.
-* `ipv6_addresses` - Specify one or more IPv6 addresses from the range of the subnet to associate with the primary network interface. Always empty.
-* `maintenance_options` - The maintenance and recovery options for the instance. Always empty.
-    * `auto_recovery` - The automatic recovery behavior of the Instance.
-* `metadata_options` - Customize the metadata options of the instance. Always empty.
-    * `http_endpoint` - Whether the metadata service is available.
-    * `http_tokens` - Whether the metadata service requires session tokens, also referred to as _Instance Metadata Service Version 2 (IMDSv2)_.
-    * `http_put_response_hop_limit` - Desired HTTP PUT response hop limit for instance metadata requests.
-    * `instance_metadata_tags` - Enables or disables access to instance tags from the instance metadata service.
-* `network_interface`:
-    * `network_card_index` - Integer index of the network card. Limited by instance type. Always `0`.
-* `outpost_arn` - The ARN of the Outpost the instance is assigned to. Always `""`.
-* `password_data` - Base-64 encoded encrypted password data for the instance. Always `""`.
-* `placement_partition_number` - The number of the partition the instance is in. Always empty.
-* `root_block_device`:
-    * `encrypted` - Whether to enable volume encryption. Always `false`.
-    * `kms_key_id` - The ARN of the KMS Key to use when encrypting the volume. Always `""`.
-    * `throughput` - Throughput to provision for a volume in mebibytes per second (MiB/s). Always `0`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`capacity_reservation_specification`, `cpu_core_count`, `cpu_threads_per_core`, `credit_specification`, `ebs_block_device.encrypted`, `ebs_block_device.kms_key_id`, `ebs_block_device.throughput`, `ebs_optimized`, `enclave_options`, `get_password_data`, `hibernation`, `iam_instance_profile`, `ipv6_address_count`, `ipv6_addresses`, `maintenance_options`, `metadata_options`, `network_interface.network_card_index`, `outpost_arn`, `password_data`, `placement_partition_number`, `root_block_device.encrypted`, `root_block_device.kms_key_id`, `root_block_device.throughput`.
 
 ### Timeouts
 

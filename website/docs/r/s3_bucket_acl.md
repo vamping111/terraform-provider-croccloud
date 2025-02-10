@@ -115,14 +115,17 @@ The `grantee` configuration block supports the following arguments:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The `bucket` and `acl` (if configured) separated by commas (`,`).
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `expected_bucket_owner` - The account ID of the expected bucket owner. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `expected_bucket_owner`.
 
 ## Import
 
