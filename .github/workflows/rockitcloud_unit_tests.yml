@@ -1,12 +1,12 @@
-name: Run tests
+name: Run tests and linters
 
 on:
     pull_request:
-      types: [opened]
-      branches: [develop]
+      types: [ labeled, unlabeled, opened, synchronize ]
 
 jobs:
-    unit-tests:
+    tests:
+        if: contains(github.event.pull_request.labels.*.name, 'check-code')
         runs-on: ubuntu-22.04
         steps:
         - name: Setup Go
@@ -15,6 +15,8 @@ jobs:
             go-version: 1.21.x
 
         - uses: actions/checkout@v3
+          with:
+            ref: ${{ github.event.pull_request.head.sha }}
 
         - name: Install tools
           run: |
@@ -22,9 +24,31 @@ jobs:
         - name: Install Docker
           uses: crazy-max/ghaction-setup-docker@v3
 
-        - name: Run Unit tests
+        - name: Run Unit tests and linters
           run: |
             make lint
+            make test
+
+    doc-linters:
+        if: contains(github.event.pull_request.labels.*.name, 'check-doc')
+        runs-on: ubuntu-22.04
+        steps:
+        - name: Setup Go
+          uses: actions/setup-go@v2
+          with:
+            go-version: 1.21.x
+
+        - uses: actions/checkout@v3
+          with:
+            ref: ${{ github.event.pull_request.head.sha }}
+
+        - name: Install tools
+          run: |
+            make tools
+        - name: Install Docker
+          uses: crazy-max/ghaction-setup-docker@v3
+            
+        - name: Run documentation's linters
+          run: |
             make docs-lint
             make website-lint
-            make test
