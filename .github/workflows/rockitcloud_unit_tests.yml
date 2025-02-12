@@ -1,9 +1,8 @@
-name: Run tests
+name: Run tests and linters
 
 on:
     pull_request:
-      types: [opened]
-      branches: [develop]
+      types: [ labeled, unlabeled, opened, synchronize ]
 
 jobs:
     unit-tests:
@@ -15,6 +14,8 @@ jobs:
             go-version: 1.21.x
 
         - uses: actions/checkout@v3
+          with:
+            ref: ${{ github.event.pull_request.head.sha }}
 
         - name: Install tools
           run: |
@@ -22,9 +23,14 @@ jobs:
         - name: Install Docker
           uses: crazy-max/ghaction-setup-docker@v3
 
-        - name: Run Unit tests
+        - name: Run Unit tests and linters
+          if: "!contains(github.event.pull_request.labels.*.name, 'need_unit')"
           run: |
             make lint
+            make test
+            
+        - name: Run documentation's linters
+          if: "!contains(github.event.pull_request.labels.*.name, 'doc_linters')"
+          run: |
             make docs-lint
             make website-lint
-            make test
