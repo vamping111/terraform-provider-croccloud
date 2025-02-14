@@ -26,6 +26,8 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The ARN of the LAG.
@@ -36,7 +38,8 @@ In addition to all arguments above, the following attributes are exported:
 * `owner_account_id` - The ID of the project that owns the LAG.
 * `tags` - Tags assigned to the LAG.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `provider_name` - The name of the service provider associated with the LAG. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `provider_name`.

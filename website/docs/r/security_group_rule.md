@@ -66,14 +66,17 @@ The following arguments are optional:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - ID of the security group rule.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `prefix_list_ids` - List of prefix list IDs (for allowing access to VPC endpoints). Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `prefix_list_ids`.
 
 ## Import
 

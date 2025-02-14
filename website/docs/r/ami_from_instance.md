@@ -52,15 +52,18 @@ The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/d
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The ARN of the image.
 * `id` - The ID of the created image.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `snapshot_without_reboot` - Whether the behavior of stopping the instance before snapshotting is overrided. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `snapshot_without_reboot`.
 
 This resource also exports a full set of attributes corresponding to the arguments of the
 [`aws_ami`][tf-ami] resource, allowing the properties of the created image to be used elsewhere in the

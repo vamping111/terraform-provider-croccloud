@@ -55,30 +55,21 @@ For more information about filtering, see the [EC2 API documentation][describe-r
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to the arguments above, the following attributes are exported:
 
 * `arn` - ARN of the route table.
 * `associations` - List of associations with attributes detailed below.
 * `routes` - List of routes with attributes detailed below.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
-
-* `owner_id` - The ID of the project that owns the route table. Always `""`.
-
-### routes
+#### routes
 
 When relevant, routes are also exported with the following attributes:
 
 For destinations:
 
 * `cidr_block` - CIDR block of the route.
-
-->  **Unsupported attributes**
-These attributes are currently unsupported:
-
-* `destination_prefix_list_id` - ID of a managed prefix list destination of the route. Always `""`.
-* `ipv6_cidr_block` - The IPv6 CIDR block of the route. Always `""`.
 
 For targets:
 
@@ -87,18 +78,7 @@ For targets:
 * `network_interface_id` - ID of the EC2 network interface.
 * `transit_gateway_id` - The ID of the transit gateway.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
-
-* `carrier_gateway_id` - ID of the Carrier Gateway. Always `""`.
-* `core_network_arn` - ARN of the core network. Always `""`.
-* `egress_only_gateway_id` - ID of the Egress Only Internet Gateway. Always `""`.
-* `local_gateway_id` - Local Gateway ID. Always `""`.
-* `nat_gateway_id` - NAT Gateway ID. Always `""`.
-* `vpc_endpoint_id` - VPC Endpoint ID. Always `""`.
-* `vpc_peering_connection_id` - VPC Peering ID. Always `""`.
-
-### associations
+#### associations
 
 Associations are also exported with the following attributes:
 
@@ -107,5 +87,13 @@ Associations are also exported with the following attributes:
 * `route_table_association_id` - Association ID.
 * `route_table_id` - Route Table ID.
 * `subnet_id` - Subnet ID. Only set when associated with a subnet.
+
+### Unsupported attributes
+
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`owner_id`, `routes.carrier_gateway_id`, `routes.core_network_arn`, `routes.destination_prefix_list_id`, `routes.egress_only_gateway_id`, `routes.ipv6_cidr_block`, `routes.local_gateway_id`, `routes.nat_gateway_id`, `routes.vpc_endpoint_id`, `routes.vpc_peering_connection_id`.
 
 [describe-route-tables]: https://docs.cloud.croc.ru/en/api/ec2/routes/DescribeRouteTables.html

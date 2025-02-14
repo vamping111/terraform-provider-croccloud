@@ -37,12 +37,15 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The region (e.g., `region-1`).
 * `ids` - List of transit gateway route table IDs.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `tags` - A mapping of tags, each pair of which must exactly match a pair on the desired transit gateway route table. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `tags`.

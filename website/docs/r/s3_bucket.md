@@ -332,6 +332,8 @@ The `website` configuration block supports the following arguments:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The name of the bucket.
@@ -339,57 +341,13 @@ In addition to all arguments above, the following attributes are exported:
 * `region` - The region this bucket resides in.
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `acceleration_status` - Sets the accelerate configuration of an existing bucket. Always `""`.
-* `bucket_domain_name` - The bucket domain name. Contains domain name of format `bucketname.s3.amazonaws.com`.
-* `bucket_regional_domain_name` - The bucket region-specific domain name. Contains domain name based on AWS region.
-* `hosted_zone_id` - The [Route 53 Hosted Zone ID](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_website_region_endpoints) for this bucket's region. Contains Zone ID based on AWS region.
-* `lifecycle_rule`:
-    * `abort_incomplete_multipart_upload_days` - Specifies the number of days after initiating a multipart upload when the multipart upload must be completed. Always `0`.
-    * `prefix` - Prefix identifying one or more objects to which the rule applies. Always `""`.
-    * `noncurrent_version_transition` - Set of configuration blocks that specify the transition rule for the lifecycle rule that describes when noncurrent objects transition to a specific storage class. Always empty.
-        * `newer_noncurrent_versions` - The number of noncurrent versions Amazon S3 will retain.
-        * `noncurrent_days` - The number of days an object is noncurrent before Amazon S3 can perform the associated action.
-        * `storage_class` - The class of storage used to store the object.
-    * `transition` - Set of configuration blocks that specify when an Amazon S3 object transitions to a specified storage class. Always empty.
-        * `date` - The date objects are transitioned to the specified storage class.
-        * `days` - The number of days after creation when objects are transitioned to the specified storage class.
-        * `storage_class` - The class of storage used to store the object.
-* `logging` - A configuration of [S3 bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/UG/ManagingBucketLogging.html) parameters. Always empty.
-    * `target_bucket` - The name of the bucket that will receive the log objects.
-    * `target_prefix` - To specify a key prefix for log objects.
-* `object_lock_configuration` - A configuration of [S3 object locking](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html). Always empty.
-    * `object_lock_enabled` - Indicates whether this bucket has an Object Lock configuration enabled.
-    * `rule` - The Object Lock rule in place for this bucket.
-        * `default_retention` - The default retention period that you want to apply to new objects placed in this bucket.
-            * `mode` - The default Object Lock retention mode you want to apply to new objects placed in this bucket.
-            * `days` - The number of days that you want to specify for the default retention period.
-            * `years` - The number of years that you want to specify for the default retention period.
-* `object_lock_enabled` - Indicates whether this bucket has an Object Lock configuration enabled. Always `false`.
-* `replication_configuration` - A configuration of [replication configuration](http://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html).
-    * `role` - The ARN of the IAM role for Amazon S3 to assume when replicating the objects. Always `""`.
-    * `rules` - Specifies the rules managing the replication. Always empty.
-        * `delete_marker_replication_status` - Whether delete markers are replicated.
-        * `destination` - Specifies the destination for the rule.
-        * `filter` - Filter that identifies subset of objects to which the replication rule applies.
-        * `id` - Unique identifier for the rule. Must be less than or equal to 255 characters in length.
-        * `prefix` - Object keyname prefix identifying one or more objects to which the rule applies.
-        * `priority` - The priority associated with the rule.
-        * `source_selection_criteria` - Specifies special object selection criteria .
-        * `status` - The status of the rule.
-* `request_payer` - Specifies who should bear the cost of Amazon S3 data transfer. Always `BucketOwner`.
-* `server_side_encryption_configuration` - A configuration of [server-side encryption configuration](http://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html).
-    * `rule` - A single object for server-side encryption by default configuration. Always empty.
-        * `apply_server_side_encryption_by_default` - A single object for setting server-side encryption by default. (documented below)
-            * `sse_algorithm` - The server-side encryption algorithm to use. Valid values are `AES256` and `aws:kms`
-            * `kms_master_key_id` - The AWS KMS master key ID used for the SSE-KMS encryption.
-        * `bucket_key_enabled` - Whether to use [Amazon S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html) for SSE-KMS.
-* `versioning` - Specifies who should bear the cost of Amazon S3 data transfer.
-    * `mfa_delete` - Enable MFA delete for either `Change the versioning state of your bucket` or `Permanently delete an object version`. Always false.
-* `website_domain` - The domain of the website endpoint. Contains domain based on AWS region if the bucket is configured with a website or `""`.
-* `website_endpoint` - The website endpoint. Contains endpoint based on AWS region if the bucket is configured with a website or `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`acceleration_status`, `bucket_domain_name`, `bucket_regional_domain_name`, `hosted_zone_id`, `lifecycle_rule.abort_incomplete_multipart_upload_days`, `lifecycle_rule.prefix`, `lifecycle_rule.noncurrent_version_transition`, `lifecycle_rule.transition`, `logging`, `object_lock_configuration`, `object_lock_enabled`, `replication_configuration`, `request_payer`, `server_side_encryption_configuration`, `versioning.mfa_delete`, `website_domain`, `website_endpoint`.
 
 ## Import
 

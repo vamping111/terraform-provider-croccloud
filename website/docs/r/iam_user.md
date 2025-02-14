@@ -59,6 +59,8 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The Amazon Resource Name (ARN) of the user.
@@ -72,13 +74,13 @@ In addition to all arguments above, the following attributes are exported:
 
 ~> **Note** `password` and `secret_key` are exported only once when the user is created and will not be updated afterwards.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `force_destroy` - The user will be destroyed even if its IAM access keys, login profile or MFA devices
-  are not managed by Terraform. Always `false`.
-* `path` - The path to the user. Always `""`.
-* `permissions_boundary` - The ARN of the policy that is used to limit permissions for the user. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`force_destroy`, `path`, `permissions_boundary`.
 
 ## Import
 

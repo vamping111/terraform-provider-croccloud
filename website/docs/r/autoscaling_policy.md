@@ -37,6 +37,8 @@ resource "aws_autoscaling_policy" "example" {
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - Amazon Resource Name (ARN) of the scaling policy.
@@ -46,14 +48,13 @@ In addition to all arguments above, the following attributes are exported:
 * `adjustment_type` - The scaling policy's adjustment type.
 * `policy_type` - The scaling policy's type.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `estimated_instance_warmup` - The estimated time, in seconds, until a newly launched instance will contribute CloudWatch metrics. Always `0`.
-* `metric_aggregation_type` - The aggregation type for the policy's metrics. Always `""`.
-* `predictive_scaling_configuration` - The predictive scaling policy configuration. Always empty.
-* `step_adjustment` - A set of adjustments that manage group scaling. Always empty.
-* `target_tracking_configuration` - The target tracking policy configuration. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`estimated_instance_warmup`, `metric_aggregation_type`, `predictive_scaling_configuration`, `step_adjustment`, `target_tracking_configuration`.
 
 ## Import
 

@@ -32,7 +32,7 @@ For more information about VPN connections, see [user documentation][vpn-connect
 resource "aws_vpc" "example" {
    cidr_block         = "172.16.8.0/24"
    enable_dns_support = true
-   
+
    tags = {
      Name = "tf-vpc"
    }
@@ -42,7 +42,7 @@ resource "aws_customer_gateway" "example" {
   bgp_asn    = 65000
   ip_address = "172.0.0.1"
   type       = "ipsec.1"
-  
+
   tags = {
     Name = "tf-customer-gateway"
   }
@@ -52,7 +52,7 @@ resource "aws_vpn_connection" "example" {
   vpn_gateway_id      = replace(aws_vpc.example.id, "/vpc/", "vgw")
   customer_gateway_id = aws_customer_gateway.example.id
   type                = aws_customer_gateway.example.type
-  
+
   tags = {
     Name = "tf-vpn-connection"
   }
@@ -103,6 +103,8 @@ Other arguments:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The ARN of the VPN connection.
@@ -125,7 +127,7 @@ In addition to all arguments above, the following attributes are exported:
 * `vgw_telemetry` - Telemetry for the VPN tunnels. Detailed below.
 * `vpn_gateway_id` - The ID of the virtual private gateway to which the connection is attached.
 
-### vgw_telemetry
+#### vgw_telemetry
 
 * `accepted_route_count` - The number of accepted routes.
 * `last_status_change` - The date and time of the last change in status.
@@ -133,36 +135,13 @@ In addition to all arguments above, the following attributes are exported:
 * `status` - The status of the VPN tunnel.
 * `status_message` - If an error occurs, a description of the error.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `core_network_arn` - The ARN of the core network. Always `""`.
-* `core_network_attachment_arn` - The ARN of the core network attachment. Always `""`.
-* `enable_acceleration` - Indicate whether to enable acceleration for the VPN connection. Always `false`.
-* `local_ipv6_network_cidr` - The IPv6 CIDR on the customer gateway (on-premises) side of the VPN connection. Always `""`.
-* `remote_ipv6_network_cidr` - The IPv6 CIDR on the customer gateway (on-premises) side of the VPN connection. Always `""`.
-* `routes` - The static routes associated with the VPN connection. Always empty.
-    * `destination_cidr_block` - The CIDR block associated with the local subnet of the customer data center.
-    * `source` - Indicates how the routes were provided.
-    * `state` - The current state of the static route.
-* `static_routes_only` - Whether the VPN connection uses static routes exclusively. Static routes must be used for devices that don't support BGP. Always `false`.
-* `transit_gateway_attachment_id` - When associated with an EC2 transit gateway (`transit_gateway_id` argument), the attachment ID. Always `""`.
-* `transit_gateway_id` - The ID of the EC2 transit gateway. Always `""`.
-* `tunnel_inside_ip_version` - Indicate whether the VPN tunnels process IPv4 or IPv6 traffic. Always `""`.
-* `tunnel1_dpd_timeout_action` - The action to take after DPD timeout occurs for the first VPN tunnel. Always empty.
-* `tunnel2_dpd_timeout_action` - The action to take after DPD timeout occurs for the second VPN tunnel. Always empty.
-* `tunnel1_dpd_timeout_seconds` - The number of seconds after which a DPD timeout occurs for the first VPN tunnel. Always empty.
-* `tunnel2_dpd_timeout_seconds` - The number of seconds after which a DPD timeout occurs for the second VPN tunnel. Always empty.
-* `tunnel1_inside_ipv6_cidr` - The range of inside IPv6 addresses for the first VPN tunnel. Always empty.
-* `tunnel2_inside_ipv6_cidr` - The range of inside IPv6 addresses for the second VPN tunnel. Always empty.
-* `tunnel1_rekey_fuzz_percentage` - The percentage of the rekey window for the first VPN tunnel (determined by `tunnel1_rekey_margin_time_seconds`) during which the rekey time is randomly selected. Always empty.
-* `tunnel2_rekey_fuzz_percentage` - The percentage of the rekey window for the second VPN tunnel (determined by `tunnel2_rekey_margin_time_seconds`) during which the rekey time is randomly selected. Always empty.
-* `tunnel1_rekey_margin_time_seconds` - The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the first VPN connection performs an IKE rekey. Always empty.
-* `tunnel2_rekey_margin_time_seconds` - The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the second VPN connection performs an IKE rekey. Always empty.
-* `tunnel1_startup_action` - The action to take when the establishing the tunnel for the first VPN connection. By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel. Always empty.
-* `tunnel2_startup_action` - The action to take when the establishing the tunnel for the second VPN connection. By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel. Always empty.
-* `vgw_telemetry`:
-    * `certificate_arn` - The ARN of the VPN tunnel endpoint certificate. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`core_network_arn`, `core_network_attachment_arn`, `enable_acceleration`, `local_ipv6_network_cidr`, `remote_ipv6_network_cidr`, `routes`, `static_routes_only`, `transit_gateway_attachment_id`, `transit_gateway_id`, `tunnel_inside_ip_version`, `tunnel1_dpd_timeout_action`, `tunnel2_dpd_timeout_action`, `tunnel1_dpd_timeout_seconds`, `tunnel2_dpd_timeout_seconds`, `tunnel1_inside_ipv6_cidr`, `tunnel2_inside_ipv6_cidr`, `tunnel1_rekey_fuzz_percentage`, `tunnel2_rekey_fuzz_percentage`, `tunnel1_rekey_margin_time_seconds`, `tunnel2_rekey_margin_time_seconds`, `tunnel1_startup_action`, `tunnel2_startup_action`, `vgw_telemetry.certificate_arn`.
 
 ## Import
 

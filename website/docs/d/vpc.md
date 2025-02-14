@@ -60,30 +60,31 @@ For more information about filtering, see the [EC2 API documentation][describe-v
 
 ## Attributes Reference
 
+### Supported attributes
+
 All argument attributes except `filter` blocks are also exported as
 result attributes. This data source will complete the data by populating
 any fields that are not included in the configuration with the data for
 the selected VPC.
 
-The following attribute is additionally exported:
+The following attributes are additionally exported:
 
 * `arn` - Amazon Resource Name (ARN) of VPC.
 * `enable_dns_support` - Whether the VPC has DNS support.
 * `main_route_table_id` - ID of the main route table associated with this VPC.
-
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
-
-* `enable_dns_hostnames` - Whether the VPC has DNS hostname support. Always `true`.
-* `instance_tenancy` - The allowed tenancy of instances launched into the selected VPC. Always `default`.
-* `ipv6_association_id` - The association ID for the IPv6 CIDR block. Always `""`.
-* `ipv6_cidr_block` - The IPv6 CIDR block. Always `""`.
-* `owner_id` - The ID of the project that owns the VPC. Always `""`.
 
 `cidr_block_associations` is also exported with the following attributes:
 
 * `association_id` - The association ID for the IPv4 CIDR block.
 * `cidr_block` - The CIDR block for the association.
 * `state` - The State of the association.
+
+### Unsupported attributes
+
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`enable_dns_hostnames`, `instance_tenancy`, `ipv6_association_id`, `ipv6_cidr_block`, `owner_id`.
 
 [describe-vpcs]: https://docs.cloud.croc.ru/en/api/ec2/vpcs/DescribeVpcs.html

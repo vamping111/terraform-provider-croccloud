@@ -84,6 +84,8 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The Amazon Resource Name (ARN) of the policy.
@@ -93,10 +95,11 @@ In addition to all arguments above, the following attributes are exported:
 * `policy_id` - The ID of the policy.
 * `update_date` - The time in [RFC3339 format] when the policy was last updated.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `path` - The path to the policy. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `path`.
 
 ## Import
 

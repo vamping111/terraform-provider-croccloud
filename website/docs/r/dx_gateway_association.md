@@ -44,19 +44,20 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `dx_gateway_owner_account_id` - The ID of the project that owns the Direct Connect gateway.
 * `id` - The ID of the Direct Connect gateway association.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `associated_gateway_type` - The type of the associated gateway. Always `"transitGateway"`.
-* `associated_gateway_owner_account_id` - The ID of the account that owns the VGW or transit gateway with which to associate the Direct Connect gateway.
-Used for cross-account Direct Connect gateway associations. Always `""`.
-* `proposal_id` - The ID of the Direct Connect gateway association proposal.
-Used for cross-account Direct Connect gateway associations. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`associated_gateway_type`, `associated_gateway_owner_account_id`, `proposal_id`.
 
 ## Timeouts
 

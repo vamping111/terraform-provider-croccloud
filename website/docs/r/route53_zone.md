@@ -78,6 +78,8 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The Amazon Resource Name (ARN) of the Hosted Zone.
@@ -86,12 +88,13 @@ In addition to all arguments above, the following attributes are exported:
   Find more about delegation sets in [AWS docs](https://docs.aws.amazon.com/Route53/latest/APIReference/actions-on-reusable-delegation-sets.html).
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](/docs/providers/aws/index.html#default_tags-configuration-block).
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `vpc`
-    * `vpc_region` - Region of the VPC to associate. Defaults to AWS provider region. Always `""`.
-* `delegation_set_id` - The ID of the reusable delegation set whose NS records you want to assign to the hosted zone. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`delegation_set_id`, `vpc.vpc_region`.
 
 ## Import
 

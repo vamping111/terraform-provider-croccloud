@@ -75,17 +75,19 @@ The following arguments are supported:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The ID of the resource selection.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `condition` - A list of conditions that you define to assign resources to your backup plans using tags. Always empty.
-* `iam_role_arn` -  The Amazon Resource Name (ARN) of the role used for authentication when the resource is backed up. Always `""`.
-* `not_resources` - An array of strings that contains either Amazon Resource Names (ARNs) or match patterns of resources to be excluded from a backup plan. Always empty.
-* `selection_tag` - Tag-based conditions used to specify a set of resources to assign to a backup plan. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`condition`, `iam_role_arn`, `not_resources`, `selection_tag`.
 
 ## Import
 

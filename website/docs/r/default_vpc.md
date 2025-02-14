@@ -38,15 +38,18 @@ The arguments of an `aws_default_vpc` differ slightly from those of [`aws_vpc`][
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `cidr_block` - The primary IPv4 CIDR block for the VPC
 * `instance_tenancy` - The allowed tenancy of instances launched into the VPC
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `force_destroy` - Whether destroying the resource deletes the default VPC. Always: `false`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported: `force_destroy`.
 
 ## Import
 

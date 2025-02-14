@@ -30,7 +30,6 @@ resource "aws_ebs_snapshot_import" "example" {
 
 ## Argument Reference
 
-
 The following arguments are supported:
 
 * `description` - (Optional) The description string for the import snapshot task.
@@ -58,6 +57,8 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - Amazon Resource Name (ARN) of the EBS snapshot.
@@ -67,17 +68,10 @@ In addition to all arguments above, the following attributes are exported:
 * `volume_size` - The size of the drive in GiB.
 * `tags_all` - A map of tags assigned to the resource.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `client_data` - The client-specific data. Always empty.
-* `data_encryption_key_id` - The data encryption key identifier for the snapshot. Always `""`.
-* `disk_container`
-    * `url` - The URL to the Amazon S3-based disk image being imported. Always `""`.
-* `encrypted` - Whether the snapshot is encrypted. Always `false`.
-* `kms_key_id` - The ARN for the KMS encryption key. Always `""`.
-* `outpost_arn` - The ARN of the Outpost on which the snapshot is stored. Always `""`.
-* `permanent_restore` - Indicates whether to permanently restore an archived snapshot. Always empty.
-* `role_name` - The name of the IAM Role the VM Import/Export service will assume. Always `vmimport`.
-* `storage_tier` - The storage tier in which the snapshot is stored. Always `""`.
-* `temporary_restore_days` - The number of days for which to temporarily restore an archived snapshot. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`client_data`, `data_encryption_key_id`, `disk_container.url`, `encrypted`, `kms_key_id`, `outpost_arn`, `permanent_restore`, `role_name`, `storage_tier`, `temporary_restore_days`.

@@ -59,29 +59,19 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - The name of the alarm.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `arn` - The ARN of the CloudWatch metric alarm. Always `""`.
-* `evaluate_low_sample_count_percentiles` - Indicates whether the alarm state should change during periods with too few data points to be statistically significant. Always `""`.
-* `extended_statistic` - The percentile statistic for the metric associated with the alarm. Always `""`.
-* `metric_query` Enables you to create an alarm based on a metric math expression. Always empty.
-    * `account_id` - The ID of the account where the metrics are located, if this is a cross-account alarm.
-    * `expression` - The math expression to be performed on the returned data, if this object is performing a math expression.
-    * `label` - A human-readable label for this metric or expression.
-    * `metric` - The name for this metric.
-        * `dimensions` - The dimensions for this metric.
-        * `metric_name` - The name for this metric.
-        * `namespace` - The namespace for this metric.
-        * `period` - The period in seconds over which the specified `stat` is applied.
-        * `stat` - The statistic to apply to this metric.
-        * `unit` - The unit for this metric.
-    * `return_data` - Specify exactly one `metric_query` to be `true` to use that `metric_query` result as the alarm.
-* `threshold_metric_id` - The threshold metric ID. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`arn`, `evaluate_low_sample_count_percentiles`, `extended_statistic`, `metric_query`, `threshold_metric_id`.
 
 ## Import
 

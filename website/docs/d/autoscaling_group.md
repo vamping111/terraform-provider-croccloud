@@ -24,6 +24,8 @@ data "aws_autoscaling_group" "example" {
 
 ## Attributes Reference
 
+### Supported attributes
+
 ~> **Note** Some values are not always set and may not be available for interpolation.
 
 * `arn` - The Amazon Resource Name (ARN) of the Auto Scaling Group.
@@ -39,14 +41,10 @@ data "aws_autoscaling_group" "example" {
 * `status` -  The status of the Auto Scaling Group when it is deleted.
 * `vpc_zone_identifier` - The IDs of the subnets in which instances are created.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `enabled_metrics` - The list of metrics enabled for collection. Always empty.
-* `health_check_type` - The service to use for the health checks. Always `""`.
-* `launch_configuration` - The name of the associated launch configuration. Always `""`.
-* `load_balancers` - One or more load balancers associated with the group. Always empty.
-* `placement_group` - The name of the placement group into which to launch your instances, if any. Always `""`.
-* `service_linked_role_arn` - The ARN of the service-linked role that the Auto Scaling Group uses to call other services on your behalf. Always `""`.
-* `target_group_arns` - The ARN of the target groups for your load balancer. Always empty.
-* `termination_policies` - The termination policies for the group. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`enabled_metrics`, `health_check_type`, `launch_configuration`, `load_balancers`, `placement_group`, `service_linked_role_arn`, `target_group_arns`, `termination_policies`.

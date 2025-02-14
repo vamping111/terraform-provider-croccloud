@@ -66,7 +66,7 @@ The `rule` block has the following structure:
 * `start_window` - (Optional) Time in minutes during which a backup job should start running. Otherwise the job will be cancelled. Defaults to `60`.
 * `target_vault_name` - (Required) The name of the backup vault. The value must be `2` to `50` characters long and must contain only alphanumeric characters, hyphens, or underscores.
 
-### Lifecycle
+#### Lifecycle
 
 The `lifecycle` block has the following structure:
 
@@ -74,22 +74,20 @@ The `lifecycle` block has the following structure:
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `arn` - The Amazon Resource Name (ARN) of the backup plan.
 * `id` - The ID of the backup plan.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `advanced_backup_setting` - Specifies backup options for each resource type. Always empty.
-* `rule` - Specifies a separate periodic task.
-    * `copy_action` - Configuration block(s) with copy operation settings.
-    * `enable_continuous_backup` - Enables continuous backups for supported resources. Defaults to `false`.
-    * `lifecycle` - Defines when a recovery point is transferred to cold storage and when it expires.
-        * `cold_storage_after` - Specifies the number of days after creation of the recovery point after which it is moved to cold storage.
-    * `recovery_point_tags` - Metadata that you can assign to help organize the resources that you create.
-* `version` - Unique, randomly generated, Unicode, UTF-8 encoded string used as the version ID of the backup plan. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`advanced_backup_setting`, `rule.copy_action`, `rule.enable_continuous_backup`, `rule.lifecycle.cold_storage_after`, `rule.recovery_point_tags`, `version`.
 
 ## Import
 

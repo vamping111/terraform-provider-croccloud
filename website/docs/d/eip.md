@@ -65,6 +65,8 @@ For more information about filtering, see the [EC2 API documentation][describe-a
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `association_id` - The ID representing the association of the address with an instance in a VPC.
@@ -78,13 +80,12 @@ In addition to all arguments above, the following attributes are exported:
 * `public_ipv4_pool` - The ID of an address pool.
 * `tags` - Key-value map of tags associated with Elastic IP.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `carrier_ip` - Carrier IP address. Always `""`.
-* `customer_owned_ip` - Customer owned IP. Always `""`.
-* `customer_owned_ipv4_pool` - (Optional) ID  of a customer-owned address pool. Always `""`.
-* `private_dns` - The Private DNS associated with the Elastic IP address (if in VPC). Computed by provider.
-* `public_dns` - Public DNS associated with the Elastic IP address. Computed by provider.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`carrier_ip`, `customer_owned_ip`, `customer_owned_ipv4_pool`, `private_dns`, `public_dns`.
 
 ~> **Note** The data source computes the `public_dns` and `private_dns` attributes according to the [AWS VPC DNS Guide](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-hostnames) as they are not available with the EC2 API.

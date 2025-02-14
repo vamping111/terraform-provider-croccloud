@@ -90,6 +90,8 @@ One of the following target arguments must be supplied:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `id` - ID of the route table.
@@ -97,18 +99,13 @@ In addition to all arguments above, the following attributes are exported:
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 * `vpc_id` - ID of the VPC.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `destination_prefix_list_id` - ID of a managed prefix list destination of the route. Always `""`.
-* `ipv6_cidr_block` - The Ipv6 CIDR block of the route. Always `""`.
-* `owner_id` - The ID of the project that owns the Default Network ACL. Always `""`.
-* `route`
-    * `core_network_arn` - The ARN of a core network. Always `""`.
-    * `egress_only_gateway_id` - ID of a VPC Egress Only Internet Gateway. Always `""`.
-    * `nat_gateway_id` - ID of a VPC NAT gateway. Always `""`.
-    * `vpc_endpoint_id` - ID of a VPC Endpoint. Always `""`.
-    * `vpc_peering_connection_id` - ID of a VPC peering connection. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`destination_prefix_list_id`, `ipv6_cidr_block`, `owner_id`, `route.core_network_arn`, `route.egress_only_gateway_id`, `route.nat_gateway_id`, `route.vpc_endpoint_id`, `route.vpc_peering_connection_id`.
 
 ## Timeouts
 

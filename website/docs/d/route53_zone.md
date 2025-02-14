@@ -47,6 +47,8 @@ Hosted Zone. If you use `name` field for private Hosted Zone, you need to add `p
 
 ## Attributes Reference
 
+### Supported attributes
+
 All of the argument attributes are also exported as
 result attributes. This data source will complete the data by populating
 any fields that are not included in the configuration with the data for
@@ -60,8 +62,10 @@ The following attribute is additionally exported:
 * `name_servers` - The list of DNS name servers for the Hosted Zone.
 * `resource_record_set_count` - The number of Record Set in the Hosted Zone.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `linked_service_principal` - The service that created the Hosted Zone (e.g., `servicediscovery.amazonaws.com`). Always `""`.
-* `linked_service_description` - The description provided by the service that created the Hosted Zone (e.g., `arn:aws:servicediscovery:us-east-1:1234567890:namespace/ns-xxxxxxxxxxxxxxxx`). Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`linked_service_principal`, `linked_service_description`.

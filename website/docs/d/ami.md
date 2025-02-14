@@ -52,6 +52,8 @@ you want to match multiple images, use the [`aws_ami_ids`](ami_ids.md) data sour
 
 ## Attributes Reference
 
+### Supported attributes
+
 `id` is set to the ID of the found image.
 
 In addition, the following attributes are exported:
@@ -88,30 +90,10 @@ interpolation.
 * `tags` - Any tags assigned to the image.
 * `virtualization_type` - The type of virtualization of the image (ie: `hvm`).
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `boot_mode` - The boot mode of the image. Always `""`.
-* `creation_date` - The date and time the image was created. Always `""`.
-* `deprecation_time` - The date and time to deprecate the image. Always `""`.
-* `ena_support` - Specifies whether enhanced networking with ENA is enabled. Always `false`.
-* `ebs_block_device`:
-    * `ebs`
-        * `encrypted` - Whether the disk is encrypted. Always `false`.
-        * `kms_key_id` - The ARN for the KMS encryption key. Always `""`.
-        * `outpost_arn` - The ARN of the Outpost. Always `""`.
-        * `throughput` - The throughput that the volume supports, in MiB/s. Always `0`.
-    * `no_device` - Suppresses the specified device included in the block device mapping of the image. Always `""`
-* `hypervisor` - The hypervisor type of the image. Always `""`.
-* `image_location` - Path to an S3 object containing an image manifest. Always `""`.
-* `kernel_id` - The id of the kernel image (AKI) that is used as the paravirtual kernel in created instances. Always `""`.
-* `platform_details` - The platform details associated with the billing code of the image. Always `""`.
-* `product_codes` - Any product codes associated with the image. Always empty.
-    * `product_codes.#.product_code_id` - The product code.
-    * `product_codes.#.product_code_type` - The type of product code.
-* `ramdisk_id` - The id of an initrd image (ARI) that is used when booting the created instances. Always `""`.
-* `state_reason` - Describes a state change. Fields are `UNSET` if not available.
-    * `state_reason.code` - The reason code for the state change.
-    * `state_reason.message` - The message for the state change.
-* `sriov_net_support` - When set to `simple`, enables enhanced networking for created instances. Always `""`.
-* `usage_operation` - The operation of the Amazon EC2 instance and the billing code that is associated with the image. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`boot_mode`, `creation_date`, `deprecation_time`, `ena_support`, `hypervisor`, `image_location`, `kernel_id`, `platform_details`, `product_codes`, `ramdisk_id`, `state_reason`, `sriov_net_support`, `usage_operation`.

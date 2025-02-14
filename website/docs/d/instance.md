@@ -54,6 +54,8 @@ a single instance ID only.
 
 ## Attributes Reference
 
+### Supported attributes
+
 `id` is set to the ID of the found instance. In addition, the following attributes
 are exported:
 
@@ -103,32 +105,10 @@ interpolation.
 * `tenancy` - The placement type.
 * `vpc_security_group_ids` - The associated security groups in a non-default VPC.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `credit_specification` - Configuration block for customizing the credit specification of the instance. Always empty.
-* `ebs_block_device`:
-    * `encrypted` - Whether to enable volume encryption. Always `false`.
-    * `kms_key_id` - The ARN of the KMS Key to use when encrypting the volume. Always `""`.
-    * `throughput` - Throughput to provision for a volume in mebibytes per second (MiB/s). Always `0`.
-* `ebs_optimized` - If true, the launched EC2 instance will be EBS-optimized. Always `false`.
-* `enclave_options` - Enable Nitro Enclaves on launched instances. Always empty.
-* `get_password_data` - (Optional) If true, wait for password data to become available and retrieve it. Useful for getting the administrator password for instances running Microsoft Windows. The password data is exported to the `password_data` attribute. See [GetPasswordData](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetPasswordData.html) for more information.
-* `iam_instance_profile` - IAM Instance Profile to launch the instance with. Always `""`.
-* `ipv6_addresses` - Specify one or more IPv6 addresses from the range of the subnet to associate with the primary network interface. Always empty.
-* `maintenance_options` - The maintenance and recovery options for the instance. Always empty.
-    * `auto_recovery` - The automatic recovery behavior of the Instance.
-* `metadata_options` - Customize the metadata options of the instance. Always empty.
-    * `http_endpoint` - Whether the metadata service is available.
-    * `http_tokens` - Whether the metadata service requires session tokens, also referred to as _Instance Metadata Service Version 2 (IMDSv2)_.
-    * `http_put_response_hop_limit` - Desired HTTP PUT response hop limit for instance metadata requests.
-    * `instance_metadata_tags` - Enables or disables access to instance tags from the instance metadata service.
-* `network_interface`:
-    * `network_card_index` - Integer index of the network card. Limited by instance type. Always `0`.
-* `outpost_arn` - The ARN of the Outpost the instance is assigned to. Always `""`.
-* `password_data` - Base-64 encoded encrypted password data for the instance. Always `""`.
-* `placement_partition_number` - The number of the partition the instance is in. Always empty.
-* `root_block_device`:
-    * `encrypted` - Whether to enable volume encryption. Always `false`.
-    * `kms_key_id` - The ARN of the KMS Key to use when encrypting the volume. Always `""`.
-    * `throughput` - Throughput to provision for a volume in mebibytes per second (MiB/s). Always `0`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`credit_specification`, `ebs_block_device.encrypted`, `ebs_block_device.kms_key_id`, `ebs_block_device.throughput`, `ebs_optimized`, `enclave_options`, `get_password_data`, `iam_instance_profile`, `ipv6_addresses`, `maintenance_options`, `metadata_options`, `outpost_arn`, `password_data`, `placement_partition_number`, `root_block_device.encrypted`, `root_block_device.kms_key_id`, `root_block_device.throughput`.

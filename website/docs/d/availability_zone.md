@@ -50,20 +50,17 @@ For more information about filtering, see the [EC2 API documentation][describe-a
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `region` - The region where the selected availability zone resides.
 * `state` - A specific availability zone state to require. Possible values: `"available"`, `"information"`, `"impaired"`, `"unavailable"`.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `all_availability_zones` - Whether all availability zones and local zones are included regardless of your opt in status. Always empty.
-* `group_name` - Group name. Always `""`.
-* `name_suffix` - The part of the AZ name that appears after the region name, uniquely identifying the AZ within its region. Always `""`.
-* `network_border_group` - The name of the location from which the address is advertised. Always `""`.
-* `opt_in_status` - For Availability Zones, this always has the value of `opt-in-not-required`. Always `""`.
-* `parent_zone_id` - The ID of the zone that handles some Local Zone or Wavelength Zone control plane operations, such as API calls. Always `""`.
-* `parent_zone_name` - The name of the zone that handles some Local Zone or Wavelength Zone control plane operations, such as API calls.  Always `""`.
-* `zone_id` - The zone ID of the availability zone to select.  Always `""`.
-* `zone_type` - The type of zone. Values are `availability-zone`, `local-zone`, and `wavelength-zone`. Always `""`.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`all_availability_zones`, `group_name`, `name_suffix`, `network_border_group`, `opt_in_status`, `parent_zone_id`, `parent_zone_name`, `zone_id`, `zone_type`.

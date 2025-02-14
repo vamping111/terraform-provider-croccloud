@@ -68,9 +68,11 @@ The following arguments are supported:
   should propagate routes to the transit gateway default propagation route table. Defaults to `true`.
 
 ~> **Note** `transit_gateway_default_route_table_association` and `transit_gateway_default_route_table_propagation`
-cannot be configured for shared transit gateways.  
+cannot be configured for shared transit gateways.
 
 ## Attribute Reference
+
+### Supported attributes
 
 In addition to all arguments above, the following attributes are exported:
 
@@ -78,12 +80,13 @@ In addition to all arguments above, the following attributes are exported:
 * `tags_all` - Map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 * `vpc_owner_id` - The ID of the project that owns the VPC.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `appliance_mode_support` - Whether Appliance Mode support is enabled. Always empty.
-* `dns_support` - Whether DNS support is enabled. Always empty.
-* `ipv6_support` - Whether IPv6 support is enabled. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`appliance_mode_support`, `dns_support`, `ipv6_support`.
 
 ## Import
 

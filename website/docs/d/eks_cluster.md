@@ -24,6 +24,8 @@ data "aws_eks_cluster" "example" {
 
 ## Attribute Reference
 
+### Supported attributes
+
 * `arn` - Cluster ID.
 * `certificate_authority` - Nested attribute containing `certificate-authority-data` for your cluster.
     * `data` - The base64 encoded certificate data required to communicate with your cluster. Add this to the `certificate-authority-data` section of the `kubeconfig` file for your cluster.
@@ -50,15 +52,10 @@ data "aws_eks_cluster" "example" {
     * `vpc_id` – The VPC associated with your cluster.
 * `tags` - Key-value map of resource tags.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `enabled_cluster_log_types` - The enabled control plane logs. Always empty.
-* `encryption_config` - Configuration block with encryption configuration for the cluster. Always empty.
-* `endpoint` - The endpoint for your Kubernetes API server. Always `""`.
-* `identity` - Nested attribute containing identity provider information for your cluster. Always empty.
-* `role_arn` - The ARN of the IAM role that provides permissions for the Kubernetes control plane to make calls to API operations on your behalf. Always `""`.
-* `vpc_config` - Nested list containing VPC configuration for the cluster.
-    * `endpoint_private_access` - Indicates whether or not the EKS private API server endpoint is enabled. Always `false`.
-    * `endpoint_public_access` - Indicates whether or not the EKS public API server endpoint is enabled. Always `false`.
-    * `public_access_cidrs` - List of CIDR blocks. Indicates which CIDR blocks can access the EKS public API server endpoint. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`enabled_cluster_log_types`, `encryption_config`, `endpoint`, `identity`, `role_arn`, `vpc_config.endpoint_private_access`, `vpc_config.endpoint_public_access`, `vpc_config.public_access_cidrs`.

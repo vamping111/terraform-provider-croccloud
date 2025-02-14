@@ -40,6 +40,8 @@ data "aws_iam_policy" "selected" {
 
 ## Attribute Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `create_date` - The time in [RFC3339 format] when the policy was created.
@@ -51,9 +53,10 @@ In addition to all arguments above, the following attributes are exported:
 * `type` - The type of the policy.
 * `update_date` - The time in [RFC3339 format] when the policy was last updated.
 
-->  **Unsupported attributes**
-These attributes are currently unsupported:
+### Unsupported attributes
 
-* `path` - The path to the policy. Always `""`.
-* `path_prefix` - The prefix of the path to the IAM policy. Always empty.
-* `tags` - Key-value mapping of tags for the IAM policy. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`path`, `path_prefix`, `tags`.

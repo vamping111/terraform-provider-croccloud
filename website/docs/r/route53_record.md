@@ -60,22 +60,20 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `name` - The name of the record.
 * `fqdn` - [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) built using the zone domain and `name`.
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `set_identifier` - Unique identifier to differentiate records with routing policies from one another. Always empty.
-* `health_check_id` - The health check the record should be associated with. Always empty.
-* `alias` - An alias block. Always empty.
-* `failover_routing_policy` - A block indicating the routing behavior when associated health check fails. Always empty.
-* `geolocation_routing_policy` - A block indicating a routing policy based on the geolocation of the requestor. Always empty.
-* `latency_routing_policy` - A block indicating a routing policy based on the latency between the requestor and an AWS region. Always empty.
-* `weighted_routing_policy` - A block indicating a weighted routing policy. Always empty.
-* `multivalue_answer_routing_policy` - Set to `true` to indicate a multivalue answer routing policy. Always empty.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`alias`, `failover_routing_policy`, `geolocation_routing_policy`, `health_check_id`, `latency_routing_policy`, `multivalue_answer_routing_policy`, `set_identifier`, `weighted_routing_policy`.
 
 ## Import
 

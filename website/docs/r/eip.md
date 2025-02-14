@@ -83,6 +83,8 @@ case both options are defined as the api only requires one or the other.
 
 ## Attributes Reference
 
+### Supported attributes
+
 In addition to all arguments above, the following attributes are exported:
 
 * `allocation_id` - ID that the cloud assigns to represent the allocation of the elastic IP address for use with instances in a VPC.
@@ -93,15 +95,13 @@ In addition to all arguments above, the following attributes are exported:
 * `public_ip` - Contains the public IP address.
 * `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block][default-tags].
 
-->  **Unsupported attributes**
-These exported attributes are currently unsupported:
+### Unsupported attributes
 
-* `carrier_ip` - Carrier IP address. Always `""`.
-* `customer_owned_ip` - Customer owned IP. Always `""`.
-* `customer_owned_ipv4_pool` - (Optional) ID  of a customer-owned address pool. Always `""`.
-* `network_border_group` - (Optional) Location from which the IP address is advertised. Always `""`.
-* `private_dns` - The Private DNS associated with the Elastic IP address (if in VPC). Computed by provider.
-* `public_dns` - Public DNS associated with the Elastic IP address. Computed by provider.
+~> **Note** These attributes may be present in the `terraform.tfstate` file but they have preset values and cannot be specified in configuration files.
+
+The following attributes are not currently supported:
+
+`carrier_ip`, `customer_owned_ip`, `customer_owned_ipv4_pool`, `network_border_group`, `private_dns`, `public_dns`.
 
 ~> **Note** The data source computes the `public_dns` and `private_dns` attributes according to the [AWS VPC DNS Guide](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-hostnames) as they are not available with the EC2 API.
 
