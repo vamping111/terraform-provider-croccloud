@@ -65,9 +65,7 @@ func TestAccPaaSServiceElasticSearch_basic(t *testing.T) {
 						"kibana":       "false",
 						"logging.#":    "0",
 						"monitoring.#": "0",
-						"options.%":    "0",
-						"password":     "",
-						"version":      "8.2.2",
+						"version":      "8.12",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "endpoints.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "error_code", ""),
@@ -200,7 +198,7 @@ resource "aws_paas_service" "test" {
   ssh_key_name = aws_key_pair.test.key_name
 
   elasticsearch {
-    version = "8.2.2"
+    version = "8.12"
   }
 }
 `, keyName, publicKey, serviceName)
