@@ -3,6 +3,7 @@
 
 # Path of the directory with the documentation
 SOURCE_DIR="./site/"
+WEBSITE_PROCCESS_DIR="website_proccess/docs"
 WEBSITE_DOCS_DIR="website/docs"
 
 # Function to show help menu
@@ -23,11 +24,11 @@ tools () {
 # Function to build internal documentation
 mkdocs_build () {
     # Copying of configuration for the documentatiion to the website folder
-    cp -r mkdocs/assets mkdocs/images website/docs/
-    cp mkdocs/mkdocs.yml website/
+    cp -r mkdocs/assets mkdocs/images website_proccess/docs
+    cp mkdocs/mkdocs.yml website_proccess/
 
     # Generation of the documentation
-    cd website
+    cd website_proccess
     echo "Generation of the documentation"
     mkdocs build -q --clean
 }
@@ -89,7 +90,7 @@ process_files() {
 
     if [[ -n "$subcategory" ]]; then
       # Creating of the target folder if it doesn't exist
-      dest_dir="$WEBSITE_DOCS_DIR/$subcategory/$dest_dir_name"
+      dest_dir="$WEBSITE_PROCCESS_DIR/$subcategory/$dest_dir_name"
       mkdir -p "$dest_dir"
 
       # Removing of the type of the page
@@ -107,23 +108,25 @@ process_files() {
 
 #Function to make a backup of the r and d directories
 backup () {
-  echo "Backup of the $WEBSITE_DOCS_DIR/r and $WEBSITE_DOCS_DIR/d directories..."
+  echo "Backup of the $WEBSITE_PROCCESS_DIR/r and $WEBSITE_PROCCESS_DIR/d directories..."
   mkdir -p backup
-  cp -r $WEBSITE_DOCS_DIR/r backup/
-  cp -r $WEBSITE_DOCS_DIR/d backup/
+  cp -r $WEBSITE_PROCCESS_DIR/r backup/
+  cp -r $WEBSITE_PROCCESS_DIR/d backup/
 }
 
+echo "Creating of the working area..."
+cp -r website website_proccess
 if [[ "$1" == "--push" ]]; then
     if [[ -n $S3_DOCS_BUCKET_NAME ]]; then
         backup
         # Copying of the files from the r folder to the Resources folder
-        echo "Copying of the .md files from $WEBSITE_DOCS_DIR/r to appropriate folders..."
-        process_files "$WEBSITE_DOCS_DIR/r" "Resources"
+        echo "Copying of the .md files from $WEBSITE_PROCCESS_DIR/r to appropriate folders..."
+        process_files "$WEBSITE_PROCCESS_DIR/r" "Resources"
         # Copying of the files from the d folder to the Data Sources folder
-        echo "Copying of the .md files from $WEBSITE_DOCS_DIR/d to appropriate folders..."
-        process_files "$WEBSITE_DOCS_DIR/d" "Data Sources"
-        rm -fr $WEBSITE_DOCS_DIR/r
-        rm -fr $WEBSITE_DOCS_DIR/d
+        echo "Copying of the .md files from $WEBSITE_PROCCESS_DIR/d to appropriate folders..."
+        process_files "$WEBSITE_PROCCESS_DIR/d" "Data Sources"
+        rm -fr $WEBSITE_PROCCESS_DIR/r
+        rm -fr $WEBSITE_PROCCESS_DIR/d
         mkdocs_build
         upload_other_files
         modify_content_type css text/css
@@ -137,17 +140,16 @@ if [[ "$1" == "--push" ]]; then
 elif [[ "$1" == "--local" ]]; then
     backup
     # Moving of the files from the r folder to the Resources folder
-    echo "Moving of the .md files from $WEBSITE_DOCS_DIR/r to appropriate folders..."
-    process_files "$WEBSITE_DOCS_DIR/r" "Resources"
+    echo "Moving of the .md files from $WEBSITE_PROCCESS_DIR/r to appropriate folders..."
+    process_files "$WEBSITE_PROCCESS_DIR/r" "Resources"
     # Moving of the files from the d folder to the Data Sources folder
-    echo "Moving of the .md files from $WEBSITE_DOCS_DIR/d to appropriate folders..."
-    process_files "$WEBSITE_DOCS_DIR/d" "Data Sources"
-    rm -fr $WEBSITE_DOCS_DIR/r
-    rm -fr $WEBSITE_DOCS_DIR/d
+    echo "Moving of the .md files from $WEBSITE_PROCCESS_DIR/d to appropriate folders..."
+    process_files "$WEBSITE_PROCCESS_DIR/d" "Data Sources"
+    rm -fr $WEBSITE_PROCCESS_DIR/r
+    rm -fr $WEBSITE_PROCCESS_DIR/d
     mkdocs_build
     mkdocs_run_locally
     restore_docs_source_cod
-    remove_temp_files
 elif [[ "$1" == "--clean" ]]; then
     remove_temp_files
 elif [[ "$1" == "--tools" ]]; then
