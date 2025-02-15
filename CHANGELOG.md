@@ -1,3 +1,38 @@
+## 25.0.0
+
+NOTES:
+
+* Add GitHub workflows to run linters and unit tests, and to publish the release to the public registry
+
+FEATURES:
+
+* resource/aws_paas_service, data-source/aws_paas_service: support paas_v4_0 environment
+    * `elasticsearch`:
+        * introduce new arguments: `allow_anonymous`, `anonymous_role`
+        * add a link to the list of supported Elasticsearch versions in the documentation
+        * remove `password` length restrictions
+    * `mongodb`:
+        * add a link to the list of supported MongoDB versions in the documentation
+    * `mysql`:
+        * add a link to the list of supported MySQL versions in the documentation
+        update valid values for `innodb_buffer_pool_size`, `innodb_log_file_size`, `max_connections`, `max_heap_table_size`, `tmp_table_size`
+    * `pgsql`:
+        * add a link to the list of supported PostgreSQL versions in the documentation
+        * update valid values for `effective_cache_size`, `shared_buffers`
+        * update the list of supported PostgreSQL versions for `wal_keep_segments`
+        * mark `max_wal_size`, `min_wal_size` as deprecated: they are not supported for PostgreSQL services starting with the paas_v4_0 environment version
+    * `rabbitmq`:
+        * add a link to the list of supported RabbitMQ versions in the documentation
+        * change a default value for `persistence_rdb` to true
+        * change max `password` length to 32
+    * `redis`:
+        * add a link to the list of supported Redis versions in the documentation
+        * remove `password` length restrictions
+
+ENHANCEMENTS:
+
+* Ignore `cloud:` system tag key prefix as well as `aws:`
+
 ## 24.3.0
 
 NOTES:
