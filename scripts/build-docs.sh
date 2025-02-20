@@ -19,20 +19,20 @@ mkdocs build --clean
 
 # Funtion to upload the documentation files to the bucket
 upload_other_files () {
-    s3cmd sync "$SOURCE_DIR" "$S3_DOCS_BUCKET_NAME" --acl-public
+    s3cmd sync "$SOURCE_DIR" "s3://$S3_DOCS_BUCKET_NAME" --acl-public
 }
 
 # Funtion to upload .css files to the bucket with specified Content-Type
 upload_css_files () {
     find "$SOURCE_DIR" -type f -name "*.css" | while read -r file; do
-    s3cmd modify "s3://$S3_DOCS_BUCKET_NAME${file#$SOURCE_DIR}" --add-header='Content-Type:text/css'
+    s3cmd modify "s3://$S3_DOCS_BUCKET_NAME/${file#$SOURCE_DIR}" --add-header='Content-Type:text/css'
 done
 }
 
 # Funtion to upload .js files to the bucket with specified Content-Type
 upload_js_files () {
     find "$SOURCE_DIR" -type f -name "*.js" | while read -r file; do
-    s3cmd modify "s3://$S3_DOCS_BUCKET_NAME${file#$SOURCE_DIR}" --add-header='Content-Type:application/javascript'
+    s3cmd modify "s3://$S3_DOCS_BUCKET_NAME/${file#$SOURCE_DIR}" --add-header='Content-Type:application/javascript'
 done
 }
 
