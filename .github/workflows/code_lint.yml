@@ -1,12 +1,12 @@
 name: Run linters for the code
 
 on:
-  pull_request_target:
+  pull_request:
     branches: 'develop'
     paths: 'internal/**'
 
 jobs:
-    code-linter:
+    Code-linter:
         runs-on: ubuntu-22.04
         steps:
         - name: Setup Go
