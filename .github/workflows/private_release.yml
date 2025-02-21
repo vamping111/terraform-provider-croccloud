@@ -3,7 +3,7 @@ name: Release of the provider to private registry
 on: workflow_dispatch
     
 jobs:
-    release:
+    Private_release:
         runs-on: ubuntu-22.04-large
         steps:
         - uses: actions/checkout@v3

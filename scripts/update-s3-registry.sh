@@ -15,7 +15,7 @@ TMP_DIR="/tmp/"
 
 TF_VERSIONS_FILE="${TMP_DIR}/tf-versions.json"
 S3_VERSIONS_FILE="${TMP_DIR}/s3-versions.json"
-S3_CMD_CFG_LOCATION=${S3_CMD_CFG_LOCATION:-"~/.s3cfg"}
+S3_CMD_CFG_LOCATION=${S3_CMD_CFG_LOCATION:-"$HOME/.s3cfg"}
 
 function trim_slashes() {
   # $1 - url part

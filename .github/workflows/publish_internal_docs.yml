@@ -3,7 +3,7 @@ name: Publishing of the internal documentation
 on: workflow_dispatch
     
 jobs:
-    release:
+    Internal_doc_release:
         runs-on: ubuntu-22.04
         steps:
         - uses: actions/checkout@v3
@@ -19,6 +19,4 @@ jobs:
           run: echo "${{ secrets.s3_config }}" > ./.s3cfg
 
         - name: Run script
-          env:
-              S3_DOCS_BUCKET_NAME: "docs.tf.k2.cloud"
           run: ./scripts/build-docs.sh
