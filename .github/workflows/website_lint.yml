@@ -6,7 +6,7 @@ on:
     paths: 'website/**'
 
 jobs:
-    code-linter:
+    website-linter:
         runs-on: ubuntu-22.04
         steps:
         - name: Setup Go

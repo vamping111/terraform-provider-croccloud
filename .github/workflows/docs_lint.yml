@@ -6,7 +6,7 @@ on:
     paths: 'docs/**'
 
 jobs:
-    code-linter:
+    doc-linter:
         runs-on: ubuntu-22.04
         steps:
         - name: Setup Go

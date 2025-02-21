@@ -19,6 +19,4 @@ jobs:
           run: echo "${{ secrets.s3_config }}" > ./.s3cfg
 
         - name: Run script
-          env:
-              S3_DOCS_BUCKET_NAME: "docs.tf.k2.cloud"
           run: ./scripts/build-docs.sh
