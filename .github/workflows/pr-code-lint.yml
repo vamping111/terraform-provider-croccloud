@@ -4,7 +4,6 @@ on:
   pull_request:
     branches: 'develop'
     paths: 'internal/**'
-    types: [ labeled, unlabeled, opened, synchronize ]
 
 jobs:
     code-linter:
