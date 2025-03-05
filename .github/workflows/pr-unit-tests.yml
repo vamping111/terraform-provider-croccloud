@@ -3,6 +3,7 @@ name: Run unit tests for the code
 on:
   pull_request:
     branches: 'develop'
+    types: [ labeled, unlabeled, opened, synchronize ]
 
 jobs:
     unit-test:
@@ -22,6 +23,10 @@ jobs:
 
         - name: Install Docker
           uses: crazy-max/ghaction-setup-docker@v3
+
+        - name: Bump aws-sdk-go version if it's changed
+          if: contains(github.event.pull_request.labels.*.name, 'NeedSDK')
+          run: go mod tidy
 
         - name: Run unit tests for the code
           run: make test
