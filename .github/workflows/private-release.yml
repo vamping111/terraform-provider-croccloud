@@ -3,7 +3,7 @@ name: Release of the provider to private registry
 on: workflow_dispatch
     
 jobs:
-    Private_release:
+    private-release:
         runs-on: ubuntu-22.04-large
         steps:
         - uses: actions/checkout@v3
@@ -13,7 +13,7 @@ jobs:
             python-version: 'pypy3.10'
 
         - name: Install s3cmd
-          run: sudo pip install s3cmd
+          run: sudo pip install s3cmd==2.4.0
 
         - name: Create S3 config
           run: echo "${{ secrets.s3_config }}" > ./.s3cfg
@@ -22,7 +22,7 @@ jobs:
           id: run-script
           env:
             S3_CMD_CFG_LOCATION: "./.s3cfg"
-          run: ./scripts/gha-update-s3-registry.sh
+          run: ./scripts/update-s3-registry.sh
 
         - name: Upload S3 backup to artifacts
           if: ${{ failure() && steps.run-script.conclusion == 'failure' }}

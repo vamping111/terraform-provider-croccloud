@@ -1,4 +1,4 @@
-# Terraform Rockit Cloud Providerrrr
+# Terraform Rockit Cloud Provider
 
 Адаптация [Terraform AWS Provider](https://github.com/hashicorp/terraform-provider-aws) от **HashiCorp**
 под **Rockit Cloud**.

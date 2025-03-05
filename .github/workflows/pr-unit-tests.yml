@@ -3,10 +3,9 @@ name: Run unit tests for the code
 on:
   pull_request:
     branches: 'develop'
-    paths: 'internal/**'
 
 jobs:
-    Unit-test:
+    unit-test:
         runs-on: ubuntu-22.04
         steps:
         - name: Setup Go
