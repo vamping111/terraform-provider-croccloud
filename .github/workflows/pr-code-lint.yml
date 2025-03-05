@@ -1,12 +1,12 @@
-name: Run linters for the website
+name: Run linters for the code
 
 on:
   pull_request:
     branches: 'develop'
-    paths: 'website/**'
+    paths: 'internal/**'
 
 jobs:
-    Website-linter:
+    code-linter:
         runs-on: ubuntu-22.04
         steps:
         - name: Setup Go
@@ -24,5 +24,5 @@ jobs:
         - name: Install Docker
           uses: crazy-max/ghaction-setup-docker@v3
 
-        - name: Run linters for the website
-          run: make website-lint
+        - name: Run linters for the code
+          run: make lint
